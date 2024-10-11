@@ -70,3 +70,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Archivos de VSCode
+.vscode/
+
+# Archivos de la carpeta de Visual Studio Code
+.vscode/
+
+# Archivos específicos de MacOS
+*.lock
