@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     private const int NUM_LEVELS = 2;
 
-    private Ball ball;
     private Paddle paddle;
     private Brick[] bricks;
 
@@ -36,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     private void FindSceneReferences()
     {
-        ball = FindObjectOfType<Ball>();
         paddle = FindObjectOfType<Paddle>();
         bricks = FindObjectsOfType<Brick>();
     }
@@ -77,7 +75,6 @@ public class GameManager : MonoBehaviour
     private void ResetLevel()
     {
         paddle.ResetPaddle();
-        ball.ResetBall();
     }
 
     private void GameOver()

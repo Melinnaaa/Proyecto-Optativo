@@ -3,6 +3,7 @@
 public class Bullet : MonoBehaviour
 {
     public float speed = 100f; // Aumenta la velocidad aquí para probar
+    public string correctAnswer; // Respuesta que debe ser correcta
 
     private Rigidbody2D rb;
 
@@ -33,5 +34,10 @@ public class Bullet : MonoBehaviour
                 brick.Hit();
             }
         }
+    }
+
+     public bool IsCorrectAnswer(string answer)
+    {
+        return answer == correctAnswer;
     }
 }
