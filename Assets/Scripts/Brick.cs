@@ -30,6 +30,12 @@ public class Brick : MonoBehaviour
         ResetBrick();
     }
 
+    // Método para resetear el color del bloque
+    public void ResetColor()
+    {
+        spriteRenderer.color = Color.white; // Cambia esto al color original del bloque
+    }
+
     public void SetAnswer(string answer, bool esCorrecto)
     {
         this.answer = answer;
@@ -53,20 +59,10 @@ public class Brick : MonoBehaviour
 
     public void Hit()
     {
-        if (unbreakable) return;
-
-        health--;
-        if (health <= 0)
+        // Solo llamar a MoveToStack si la escena actual es "Level2"
+        if (SceneManager.GetActiveScene().name == "Level2")
         {
-            // Solo llamar a MoveToStack si la escena actual es "Level2"
-            if (SceneManager.GetActiveScene().name == "Level2")
-            {
-                MoveToStack();
-            }
-        }
-        else
-        {
-            spriteRenderer.sprite = states[health - 1];
+            MoveToStack();
         }
 
         GameManager.Instance.OnBrickHit(this);
@@ -80,7 +76,6 @@ public class Brick : MonoBehaviour
             if (bullet != null)
             {
                 // Verificar si la respuesta del bloque es correcta
-                Debug.Log("Disparado a un bloque con respuesta: " + answer + " esCorrecto: " + esCorrecto);
                 HighlightBlock(esCorrecto); // Cambia el color en función de si es correcto
             }
 
@@ -89,20 +84,17 @@ public class Brick : MonoBehaviour
     }
 
 
-
-
-   public void HighlightBlock(bool isCorrect)
+    public void HighlightBlock(bool isCorrect)
     {
         if (isCorrect)
         {
             spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
-            Debug.Log("Color verde asignado correctamente");
+            GameManager.Instance.OnPreguntaCorrecta(); // Llamar para cargar una nueva pregunta
         }
         else
         {
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
-            Debug.Log("Color rojo asignado correctamente");
-
+            GameManager.Instance.RegistrarError(); // Registrar el error
         }
     }
 
