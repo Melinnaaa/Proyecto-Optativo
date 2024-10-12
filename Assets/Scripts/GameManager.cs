@@ -11,20 +11,23 @@ public class GameManager : MonoBehaviour
     private Paddle paddle;
     private Brick[] bricks;
 
-    private int errores = 0;
-
     public int level { get; private set; } = 1;
     public int score { get; private set; } = 0;
-    public int lives { get; private set; } = 3;
+    public int errores { get; private set; } = 0;
+
+    private int preguntasCorrectas = 0; 
+    private const int totalPreguntasNivel1 = 6;
 
     private void Awake()
     {
-        if (Instance != null) {
+        if (Instance != null)
+        {
             DestroyImmediate(gameObject);
-        } else {
+        }
+        else
+        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-            FindSceneReferences();
+            FindSceneReferences();  // Ya no necesitas DontDestroyOnLoad()
         }
     }
 
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
         // Reinicializar preguntas al cargar el nivel
         if (scene.name == "Level1" && ModifyText.Instance != null)
         {
+            preguntasCorrectas = 0;
             ModifyText.Instance.ReiniciarPreguntas();
             ModifyText.Instance.CargarPreguntaAleatoria();
         }
@@ -85,7 +89,6 @@ public class GameManager : MonoBehaviour
     private void NewGame()
     {
         score = 0;
-        lives = 3;
         errores = 0;
 
         // Reinicializar el ModifyText para que cargue todas las preguntas
@@ -118,7 +121,17 @@ public class GameManager : MonoBehaviour
 
     public void OnPreguntaCorrecta()
     {
-        ModifyText.Instance.CargarPreguntaAleatoria(); // Cargar una nueva pregunta aleatoria que no haya sido vista
+        preguntasCorrectas++;
+
+        if (SceneManager.GetActiveScene().name == "Level1" && preguntasCorrectas >= totalPreguntasNivel1)
+        {
+            // El jugador ha respondido correctamente todas las preguntas del Nivel 1
+            SceneManager.LoadScene("EndLevel1");
+        }
+        else
+        {
+            ModifyText.Instance.CargarPreguntaAleatoria(); // Cargar una nueva pregunta
+        }
     }
 
     public void RegistrarError()
