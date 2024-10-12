@@ -43,12 +43,22 @@ public class ModifyText : MonoBehaviour
         // Asignar la pregunta
         preguntaTexto.text = preguntas[preguntaIndex];
 
-        // Asignar las alternativas
+        // Asignar las alternativas y respuestas a los bloques
         for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
         {
             alternativasTextos[i].text = alternativas[preguntaIndex][i];
+
+            // Asignar respuesta correcta o incorrecta al bloque
+            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>(); // Asegúrate de que los bloques tengan este script
+            if (brick != null)
+            {
+                // Comparar el índice de la alternativa con la respuesta correcta (restar 'a' para convertir de letra a índice)
+                bool esCorrecto = (i == (respuestasCorrectas[preguntaIndex] - 'a'));
+                brick.SetAnswer(alternativas[preguntaIndex][i], esCorrecto);
+            }
         }
     }
+
 
     // Método para verificar si la respuesta seleccionada es correcta
     public void VerificarRespuesta(int indiceSeleccionado)

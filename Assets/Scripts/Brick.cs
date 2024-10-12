@@ -33,7 +33,8 @@ public class Brick : MonoBehaviour
     public void SetAnswer(string answer, bool esCorrecto)
     {
         this.answer = answer;
-        this.esCorrecto = esCorrecto; // Asigna si este bloque contiene la respuesta correcta
+        this.esCorrecto = esCorrecto;
+        Debug.Log("Respuesta asignada: " + answer + " - EsCorrecto: " + esCorrecto);
     }
 
     public void ResetBrick()
@@ -72,15 +73,15 @@ public class Brick : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {      
+    {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             if (bullet != null)
             {
-                // Verificar si la respuesta es correcta
-                bool isCorrect = bullet.IsCorrectAnswer(answer); // Comparar la respuesta del bloque con la respuesta de la bala
-                HighlightBlock(isCorrect); // Aquí cambia el color basado en la respuesta
+                // Verificar si la respuesta del bloque es correcta
+                Debug.Log("Disparado a un bloque con respuesta: " + answer + " esCorrecto: " + esCorrecto);
+                HighlightBlock(esCorrecto); // Cambia el color en función de si es correcto
             }
 
             Destroy(collision.gameObject); // Destruir la bala después de la colisión
@@ -88,17 +89,20 @@ public class Brick : MonoBehaviour
     }
 
 
+
+
    public void HighlightBlock(bool isCorrect)
     {
         if (isCorrect)
         {
-            Debug.Log("Color verde para respuesta correcta"); // Depuración para ver si está entrando en la condición correcta
             spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
+            Debug.Log("Color verde asignado correctamente");
         }
         else
         {
-            Debug.Log("Color rojo para respuesta incorrecta"); // Depuración para ver si está entrando en la condición incorrecta
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
+            Debug.Log("Color rojo asignado correctamente");
+
         }
     }
 
