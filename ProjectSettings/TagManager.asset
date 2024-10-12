@@ -8,6 +8,7 @@ TagManager:
   - Paddle
   - Wall
   - Brick
+  - Bullet
   layers:
   - Default
   - TransparentFX
