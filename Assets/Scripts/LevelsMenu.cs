@@ -1,27 +1,32 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelsMenu : MonoBehaviour
-{  
+{
     public void JugarNivel1()
     {
-        SceneManager.LoadScene("Level1");
+        StartCoroutine(WaitAndLoadScene("Level1"));
     }
 
     public void JugarNivel2()
     {
-        SceneManager.LoadScene("Level2");
+        StartCoroutine(WaitAndLoadScene("Level2"));
     }
 
     public void JugarNivel3()
     {
-        SceneManager.LoadScene("Level3");
+        StartCoroutine(WaitAndLoadScene("Level3"));
     }
 
     public void Volver()
     {
-        SceneManager.LoadScene("MainMenu");
+        StartCoroutine(WaitAndLoadScene("MainMenu"));
+    }
+
+    private IEnumerator WaitAndLoadScene(string sceneName)
+    {
+        yield return new WaitForSeconds(0.5f); // Espera 0.5 segundos
+        SceneManager.LoadScene(sceneName); // Cargar la escena
     }
 }
