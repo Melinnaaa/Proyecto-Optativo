@@ -5,6 +5,7 @@ public class Paddle : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 direction;
+    public ParticleSystem motorParticulas; // Asigna el Particle System en el Inspector
 
     public float speed = 30f;
     public float maxBounceAngle = 75f;
@@ -23,6 +24,7 @@ public class Paddle : MonoBehaviour
     private void Start()
     {
         ResetPaddle();
+        motorParticulas.Stop(); // Las partículas deben estar desactivadas al inicio
     }
 
     public void ResetPaddle()
@@ -34,38 +36,46 @@ public class Paddle : MonoBehaviour
     private void Update()
     {
         // Movimiento de la plataforma
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        float moveInput = Input.GetAxis("Horizontal"); // Usa Input.GetAxis para detección de movimiento continuo
+        direction = new Vector2(moveInput, 0);
+
+        // Control de las partículas
+        if (moveInput != 0)
         {
-            direction = Vector2.left;
-        }
-        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            direction = Vector2.right;
+            if (!motorParticulas.isEmitting)
+            {
+                motorParticulas.Play(); // Iniciar las partículas cuando se mueva
+            }
         }
         else
         {
-            direction = Vector2.zero;
+            if (motorParticulas.isEmitting)
+            {
+                motorParticulas.Stop(); // Detener las partículas cuando no se mueva
+            }
         }
 
         // Disparar con la barra espaciadora
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFireTime)
         {
-            if (bulletPrefab == null || bulletSpawnPoint == null)
+            if (bulletPrefab != null && bulletSpawnPoint != null)
+            {
+                Shoot(); // Dispara una bala
+                nextFireTime = Time.time + fireRate;
+            }
+            else
             {
                 Debug.LogError("bulletPrefab o bulletSpawnPoint no están asignados. Asegúrate de asignar ambos en el Inspector.");
-                return;
             }
-
-            Shoot();
-            nextFireTime = Time.time + fireRate;
         }
     }
+
 
     private void FixedUpdate()
     {
         if (direction != Vector2.zero)
         {
-            rb.AddForce(direction * speed);
+            rb.velocity = direction * speed; // Ajustar la velocidad de la nave
         }
     }
 
