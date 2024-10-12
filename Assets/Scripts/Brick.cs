@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Brick : MonoBehaviour
@@ -7,6 +8,7 @@ public class Brick : MonoBehaviour
     public int points = 100;
     public bool unbreakable;
     public TextMesh textMesh; // TextMesh asignado desde el Inspector
+    public bool esCorrecto; // Indica si este bloque tiene la respuesta correcta
 
     private SpriteRenderer spriteRenderer;
     private int health;
@@ -28,9 +30,10 @@ public class Brick : MonoBehaviour
         ResetBrick();
     }
 
-    public void SetAnswer(string answer)
+    public void SetAnswer(string answer, bool esCorrecto)
     {
         this.answer = answer;
+        this.esCorrecto = esCorrecto; // Asigna si este bloque contiene la respuesta correcta
     }
 
     public void ResetBrick()
@@ -49,17 +52,16 @@ public class Brick : MonoBehaviour
 
     public void Hit()
     {
-        // Si es un bloque irrompible no se hace nada
-        if (unbreakable)
-        {
-            return;
-        }
+        if (unbreakable) return;
 
         health--;
-
         if (health <= 0)
         {
-            MoveToStack(); // Mover el bloque a la esquina antes de desactivarlo
+            // Solo llamar a MoveToStack si la escena actual es "Level2"
+            if (SceneManager.GetActiveScene().name == "Level2")
+            {
+                MoveToStack();
+            }
         }
         else
         {
@@ -70,7 +72,7 @@ public class Brick : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {
+    {      
         if (collision.gameObject.CompareTag("Bullet"))
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
@@ -78,38 +80,32 @@ public class Brick : MonoBehaviour
             {
                 // Verificar si la respuesta es correcta
                 bool isCorrect = bullet.IsCorrectAnswer(answer); // Comparar la respuesta del bloque con la respuesta de la bala
-                HighlightBlock(isCorrect);
+                HighlightBlock(isCorrect); // Aquí cambia el color basado en la respuesta
             }
 
             Destroy(collision.gameObject); // Destruir la bala después de la colisión
         }
-        else if (collision.gameObject.name == "Ball")
-        {
-            Hit();
-        }
     }
 
-    public void HighlightBlock(bool isCorrect)
+
+   public void HighlightBlock(bool isCorrect)
     {
         if (isCorrect)
         {
+            Debug.Log("Color verde para respuesta correcta"); // Depuración para ver si está entrando en la condición correcta
             spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
         }
         else
         {
+            Debug.Log("Color rojo para respuesta incorrecta"); // Depuración para ver si está entrando en la condición incorrecta
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
         }
     }
 
     private void MoveToStack()
     {
-        // Mover el bloque a la posición de la pila
         transform.position = stackPosition;
-
-        // Deshabilitar el collider para que no sea hiteado de nuevo
-        boxCollider.enabled = false;
-
-        // Actualizar la posición para el próximo bloque (hacia arriba)
+        boxCollider.enabled = false; // Deshabilitar el collider para evitar nuevas colisiones
         stackPosition.y += stackOffsetY;
     }
 }

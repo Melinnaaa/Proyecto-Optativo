@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         paddle.ResetPaddle();
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         // Start a new game immediately
         // You can also load a "GameOver" scene instead
