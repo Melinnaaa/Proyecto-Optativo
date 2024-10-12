@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     public void ActualizarUI()
     {
-        lifesText.text = "Vidas: " + lifes.ToString();
+        lifesText.text = lifes.ToString();
         scoreText.text = "Puntaje: " + score.ToString();
     }
 
