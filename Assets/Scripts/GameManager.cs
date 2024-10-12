@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour
     private Brick[] bricks;
 
     public int level { get; private set; } = 1;
-    public int score { get; private set; } = 0;
-    public int errores { get; private set; } = 0;
+    public int score { get; private set; } = 600;
+    public int lifes { get; private set; } = 2;
+
+    public TextMesh lifesText; // Referencia al TextMesh de las lifesText
+    public TextMesh scoreText; // Referencia al TextMesh del puntaje
 
     private int preguntasCorrectas = 0; 
     private const int totalPreguntasNivel1 = 6;
@@ -27,8 +30,9 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            FindSceneReferences();  // Ya no necesitas DontDestroyOnLoad()
+            FindSceneReferences();
         }
+        ActualizarUI();
     }
 
     private void OnDestroy()
@@ -36,6 +40,12 @@ public class GameManager : MonoBehaviour
         if (Instance == this) {
             Instance = null;
         }
+    }
+
+    public void ActualizarUI()
+    {
+        lifesText.text = lifes.ToString();
+        scoreText.text = "Puntaje: " + score.ToString();
     }
 
     private void FindSceneReferences()
@@ -47,12 +57,13 @@ public class GameManager : MonoBehaviour
     private void LoadLevel(int level)
     {
         this.level = level;
-        errores = 0;
+        lifes = 2;
         if (level > NUM_LEVELS)
         {
             // Start over again at level 1 once you have beaten all the levels
             // You can also load a "Win" scene instead
             SceneManager.LoadScene("Level1");
+            ActualizarUI();
             return;
         }
 
@@ -63,7 +74,8 @@ public class GameManager : MonoBehaviour
     private void OnLevelLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnLevelLoaded;
-        errores = 0;
+        lifes = 2;
+        score = 600;
         FindSceneReferences();
 
         // Reinicializar preguntas al cargar el nivel
@@ -72,12 +84,14 @@ public class GameManager : MonoBehaviour
             preguntasCorrectas = 0;
             ModifyText.Instance.ReiniciarPreguntas();
             ModifyText.Instance.CargarPreguntaAleatoria();
+            ActualizarUI();
         }
     }
 
     private void ResetLevel()
     {
-        errores = 0;
+        lifes = 2;
+        ActualizarUI();
         paddle.ResetPaddle();
     }
 
@@ -88,9 +102,9 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
-        score = 0;
-        errores = 0;
-
+        score = 600;
+        lifes = 2;
+        
         // Reinicializar el ModifyText para que cargue todas las preguntas
         if (ModifyText.Instance != null)
         {
@@ -98,24 +112,7 @@ public class GameManager : MonoBehaviour
         }
 
         SceneManager.LoadScene("Level1");
-    }
-
-    public void OnBrickHit(Brick brick)
-    {
-        score += brick.points;
-
-    }
-
-    private bool Cleared()
-    {
-        for (int i = 0; i < bricks.Length; i++)
-        {
-            if (bricks[i] != null && bricks[i].gameObject.activeInHierarchy && !bricks[i].unbreakable)
-            {
-                return false;
-            }
-        }
-        return true;
+        ActualizarUI();
     }
 
 
@@ -136,11 +133,12 @@ public class GameManager : MonoBehaviour
 
     public void RegistrarError()
     {
-        errores++;
-
-        if (errores >= 2)
+        lifes--;
+        score = score - 100;
+        ActualizarUI();
+        if (lifes <= 0)
         {
-            GameOver(); // Terminar el juego si se llega a dos errores
+            GameOver(); // Terminar el juego si se llega a dos lifesText
         }
     }
 

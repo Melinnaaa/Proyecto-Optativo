@@ -25,11 +25,6 @@ public class Brick : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>(); // Obtener el BoxCollider2D
     }
 
-    private void Start()
-    {
-        ResetBrick();
-    }
-
     // Método para resetear el color del bloque
     public void ResetColor()
     {
@@ -65,7 +60,6 @@ public class Brick : MonoBehaviour
             MoveToStack();
         }
 
-        GameManager.Instance.OnBrickHit(this);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

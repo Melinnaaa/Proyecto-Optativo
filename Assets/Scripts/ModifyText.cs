@@ -9,25 +9,25 @@ public class ModifyText : MonoBehaviour
     private List<int> indicesDisponibles; // Lista de índices de preguntas disponibles
     private string[] preguntas = new string[]
     {
-        "1. ¿Cuál es el caso base de la función factorial?",
-        "2. ¿Cuál es el caso base de la función potencia?",
-        "3. ¿Cuál es el caso base de la función sumaNaturales?",
-        "4. ¿Qué estructura de datos se utiliza en la recursión para almacenar el estado de cada llamada?",
-        "5. ¿Cómo se llama el proceso de resolver las llamadas recursivas desde la última a la primera?",
-        "6. ¿Cómo se llama la parte de una función recursiva que detiene la recursión?"
+        "¿Cuál es el caso base de la función factorial?",
+        "¿Cuál es el caso base de la función potencia?",
+        "¿Cuál es el caso base de la función sumaNaturales?",
+        "¿Qué estructura de datos se utiliza en la recursión para almacenar el estado de cada llamada?",
+        "¿Cómo se llama el proceso de resolver las llamadas recursivas desde la última a la primera?",
+        "¿Cómo se llama la parte de una función recursiva que detiene la recursión?"
     };
 
     private string[][] alternativas = new string[][]
     {
-        new string[] { "n = 0", "n = 1", "n<=1", "n=2", "n<0", "no tiene caso base" },
+        new string[] { "n = 0", "n<0", "n<=1", "n=2", "n=1", "no tiene caso base" },
         new string[] { "exp = 1", "exp = 2", "exp<=0", "exp = 0", "base = 0", "base = 1" },
-        new string[] { "n = 1", "n = 0", "n<0", "n>1", "n = 2", "no tiene caso base" },
-        new string[] { "Lista", "Pila (Stack)", "Cola", "Árbol", "Conjunto", "Grafo" },
+        new string[] { "n = 0", "n = 1", "n<0", "n>1", "n = 2", "no tiene caso base" },
+        new string[] { "Lista", "Cola", "Pila (Stack)", "Árbol", "Conjunto", "Grafo" },
         new string[] { "Desapilamiento", "Apilamiento", "Búsqueda", "Inserción", "Ordenamiento", "Recorrido" },
         new string[] { "Llamada recursiva", "Caso base", "Bucle infinito", "Subrutina", "Punto de control", "Retorno" }
     };
 
-    private char[] respuestasCorrectas = new char[] { 'b', 'd', 'b', 'b', 'b', 'b' };
+    private char[] respuestasCorrectas = new char[] { 'e', 'd', 'a', 'c', 'b', 'b' };
 
     private int preguntaIndex;
 
