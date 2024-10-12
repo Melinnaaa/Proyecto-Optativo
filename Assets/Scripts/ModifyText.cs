@@ -9,12 +9,12 @@ public class ModifyText : MonoBehaviour
     private List<int> indicesDisponibles; // Lista de índices de preguntas disponibles
     private string[] preguntas = new string[]
     {
-        "1. ¿Cuál es el caso base de la función factorial?",
-        "2. ¿Cuál es el caso base de la función potencia?",
-        "3. ¿Cuál es el caso base de la función sumaNaturales?",
-        "4. ¿Qué estructura de datos se utiliza en la recursión para almacenar el estado de cada llamada?",
-        "5. ¿Cómo se llama el proceso de resolver las llamadas recursivas desde la última a la primera?",
-        "6. ¿Cómo se llama la parte de una función recursiva que detiene la recursión?"
+        "¿Cuál es el caso base de la función factorial?",
+        "¿Cuál es el caso base de la función potencia?",
+        "¿Cuál es el caso base de la función sumaNaturales?",
+        "¿Qué estructura de datos se utiliza en la recursión para almacenar el estado de cada llamada?",
+        "¿Cómo se llama el proceso de resolver las llamadas recursivas desde la última a la primera?",
+        "¿Cómo se llama la parte de una función recursiva que detiene la recursión?"
     };
 
     private string[][] alternativas = new string[][]
