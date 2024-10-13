@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("EndLevel1");
     }
 
     private void NewGame()
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Level1" && preguntasCorrectas >= totalPreguntasNivel1)
         {
-            SceneManager.LoadScene("EndLevel1");
+            SceneManager.LoadScene("WinLevel1");
         }
         else
         {
