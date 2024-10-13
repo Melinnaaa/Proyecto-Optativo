@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic; // Para usar listas
 
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
@@ -15,8 +16,9 @@ public class GameManager : MonoBehaviour
     public int score { get; private set; } = 600;
     public int lifes { get; private set; } = 2;
 
-    public TextMesh lifesText; // Referencia al TextMesh de las lifesText
+    public TextMesh lifesText; // Referencia al TextMesh de las vidas
     public TextMesh scoreText; // Referencia al TextMesh del puntaje
+    public List<GameObject> corazones; // Lista de GameObjects con SpriteRenderer
 
     private int preguntasCorrectas = 0; 
     private const int totalPreguntasNivel1 = 6;
@@ -37,15 +39,23 @@ public class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (Instance == this) {
+        if (Instance == this)
+        {
             Instance = null;
         }
     }
 
     public void ActualizarUI()
     {
-        lifesText.text = lifes.ToString();
+        // Actualizar el texto de las vidas y el puntaje
+        //lifesText.text = lifes.ToString();
         scoreText.text = "Puntaje: " + score.ToString();
+
+        // Actualizar los corazones en función de las vidas
+        for (int i = 0; i < corazones.Count; i++)
+        {
+            corazones[i].SetActive(i < lifes); // Desactivar los corazones según el número de vidas
+        }
     }
 
     private void FindSceneReferences()
@@ -60,8 +70,6 @@ public class GameManager : MonoBehaviour
         lifes = 2;
         if (level > NUM_LEVELS)
         {
-            // Start over again at level 1 once you have beaten all the levels
-            // You can also load a "Win" scene instead
             SceneManager.LoadScene("Level1");
             ActualizarUI();
             return;
@@ -97,7 +105,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        SceneManager.LoadScene("MainMenu"); // Cargar la escena del menú principal
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void NewGame()
@@ -105,7 +113,6 @@ public class GameManager : MonoBehaviour
         score = 600;
         lifes = 2;
         
-        // Reinicializar el ModifyText para que cargue todas las preguntas
         if (ModifyText.Instance != null)
         {
             ModifyText.Instance.ReiniciarPreguntas();
@@ -115,32 +122,28 @@ public class GameManager : MonoBehaviour
         ActualizarUI();
     }
 
-
     public void OnPreguntaCorrecta()
     {
         preguntasCorrectas++;
 
         if (SceneManager.GetActiveScene().name == "Level1" && preguntasCorrectas >= totalPreguntasNivel1)
         {
-            // El jugador ha respondido correctamente todas las preguntas del Nivel 1
             SceneManager.LoadScene("EndLevel1");
         }
         else
         {
-            ModifyText.Instance.CargarPreguntaAleatoria(); // Cargar una nueva pregunta
+            ModifyText.Instance.CargarPreguntaAleatoria();
         }
     }
 
     public void RegistrarError()
     {
         lifes--;
-        score = score - 100;
+        score -= 100;
         ActualizarUI();
         if (lifes <= 0)
         {
-            GameOver(); // Terminar el juego si se llega a dos lifesText
+            GameOver();
         }
     }
-
 }
-
