@@ -27,7 +27,7 @@ public class ModifyText : MonoBehaviour
         new string[] { "Llamada recursiva", "Caso base", "Bucle infinito", "Subrutina", "Punto de control", "Retorno" }
     };
 
-    private char[] respuestasCorrectas = new char[] { 'e', 'd', 'a', 'c', 'b', 'b' };
+    private char[] respuestasCorrectas = new char[] { 'e', 'd', 'a', 'c', 'a', 'b' };
 
     private int preguntaIndex;
 
