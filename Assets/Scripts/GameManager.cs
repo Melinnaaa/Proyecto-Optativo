@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            
         }
         ActualizarUI();
     }
@@ -37,6 +36,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetGameManager()
+    {
+        score = 600; // Valor inicial del puntaje
+        lifes = 2; // Reinicia las vidas
+        ActualizarUI(); // Actualiza la interfaz con los valores iniciales
+    }
+    
     public void RegistrarError()
     {
         lifes--;
@@ -50,6 +56,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        GameData.finalScore = score;  
+        Debug.Log("Puntaje almacenado en GameData: " + GameData.finalScore);
         if (SceneManager.GetActiveScene().name == "Level1")
         {
             SceneManager.LoadScene("EndLevel1");
@@ -66,8 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        score= 600;
-        int lifes = 2;
+        ResetGameManager();
         SceneManager.LoadScene($"Level{level}");
     }
 
@@ -100,6 +107,7 @@ public class GameManager : MonoBehaviour
         {
             if (manager.OnPreguntaCorrecta())
             {
+                GameData.finalScore = score;
                 SceneManager.LoadScene("WinLevel1");
             }
         }

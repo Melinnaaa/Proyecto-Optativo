@@ -3,11 +3,17 @@ using UnityEngine.UI;
 
 public class ShowScore : MonoBehaviour
 {
-    public Text scoreText;
+    public TextMesh finalScoreText;
 
     void Start()
     {
-        int finalScore = ScoreManager.Instance.GetFinalScore(); // Recuperar el puntaje
-        scoreText.text = "Puntaje Final: " + finalScore.ToString();
+        if (GameData.finalScore != null)
+        {
+            finalScoreText.text = GameData.finalScore.ToString();
+        }
+        else
+        {
+            finalScoreText.text = "Puntaje no disponible";
+        }
     }
 }
