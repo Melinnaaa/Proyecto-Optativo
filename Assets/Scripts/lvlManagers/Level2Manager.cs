@@ -27,12 +27,18 @@ public class Level2Manager : MonoBehaviour, ILevelManager
 
     public bool OnPreguntaCorrecta()
     {
-        preguntasCorrectas++;
-        GameManager.Instance.AddScore(100); // Añadir puntaje por respuesta correcta
-
-        if (preguntasCorrectas >= totalPreguntasNivel2)
+        bool esCorrecta = ModifyTextLvl2.Instance.VerificarOrdenRespuesta(respuestaSeleccionada);
+        if (!esCorrecta)
         {
-            return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
+            preguntasCorrectas++;
+            if (preguntasCorrectas >= totalPreguntasNivel2)
+            {
+                return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {

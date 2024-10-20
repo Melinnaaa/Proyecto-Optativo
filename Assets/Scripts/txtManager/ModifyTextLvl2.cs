@@ -1,48 +1,37 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 {
     public TextMesh preguntaTexto; // TextMesh para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
+    private Dictionary<string, int> respuestaPosicionCorrecta = new Dictionary<string, int>(); // Mapa respuesta -> posición
+    private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
+    private int preguntaIndex; // Índice de la pregunta actual
+    private List<int> indicesDisponibles;
+    private int indiceActual = 0;
 
-    private List<int> indicesDisponibles; // Lista de índices de preguntas disponibles
+    // Diccionario con las alternativas (respuestas por pregunta) y sus posiciones correctas
+    private Dictionary<string, int> alternativasCorrectas = new Dictionary<string, int>
+    {
+        { "fibonacci(4)", 0 }, { "fibonacci(3)", 1 }, { "fibonacci(2)", 2 }, { "fibonacci(1)", 3 }, { "fibonacci(0)", 4 },
+        { "productoLista(arr, 4)", 0 }, { "productoLista(arr, 3)", 1 }, { "productoLista(arr, 2)", 2 }, { "productoLista(arr, 1)", 3 }, { "productoLista(arr, 0)", 4 },
+        { "mcd(48, 18)", 0 }, { "mcd(18, 12)", 1 }, { "mcd(12, 6)", 2 }, { "mcd(6, 0)", 3 },
+        { "potencia(3, 4)", 0 }, { "potencia(3, 3)", 1 }, { "potencia(3, 2)", 2 }, { "potencia(3, 1)", 3 }, { "potencia(3, 0)", 4 },
+        { "buscar(arr, 5, 4)", 0 }, { "buscar(arr, 4, 4)", 1 }, { "buscar(arr, 3, 4)", 2 },
+        { "sumaDigitos(4321)", 0 }, { "sumaDigitos(432)", 1 }, { "sumaDigitos(43)", 2 }, { "sumaDigitos(4)", 3 }, { "sumaDigitos(0)", 4 }
+    };
 
-    // Preguntas del nivel 2
     private string[] preguntas = new string[]
     {
         "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibonacci(4)?",
-        "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular el producto de los elementos del arreglo {2, 3, 4, 5}?",
+        "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5}?",
         "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular mcd(48, 18)?",
         "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular potencia(3, 4)?",
-        "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para buscar el número 4 en el arreglo {1, 2, 3, 4, 5}?",
-        "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular la suma de los dígitos de 4321?"
+        "¿Cuál es el orden en que se apilan las llamadas recursivas para buscar el número 4 en el arreglo {1, 2, 3, 4, 5}?",
+        "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular la suma de los dígitos de 4321?"
     };
-
-    // Alternativas del nivel 2 (con 5 respuestas por pregunta)
-    private string[][] alternativas = new string[][]
-    {
-        new string[] { "fibonacci(4)", "fibonacci(3)", "fibonacci(2)", "fibonacci(1)", "fibonacci(0)" },
-        new string[] { "productoLista(arr, 4)", "productoLista(arr, 3)", "productoLista(arr, 2)", "productoLista(arr, 1)", "productoLista(arr, 0)" },
-        new string[] { "mcd(48, 18)", "mcd(18, 12)", "mcd(12, 6)", "mcd(6, 0)", "Llamada adicional" }, // Respuesta agregada
-        new string[] { "potencia(3, 4)", "potencia(3, 3)", "potencia(3, 2)", "potencia(3, 1)", "potencia(3, 0)" },
-        new string[] { "buscar(arr, 5, 4)", "buscar(arr, 4, 4)", "buscar(arr, 3, 4)", "Buscar adicional", "Llamada extra" }, // Respuesta agregada
-        new string[] { "sumaDigitos(4321)", "sumaDigitos(432)", "sumaDigitos(43)", "sumaDigitos(4)", "sumaDigitos(0)" }
-    };
-
-    // Orden correcto de las respuestas, mapeado según las preguntas
-    private int[][] ordenCorrecto = new int[][]
-    {
-        new int[] { 0, 1, 2, 3, 4 }, // Fibonacci
-        new int[] { 0, 1, 2, 3, 4 }, // ProductoLista
-        new int[] { 0, 1, 2, 3 }, // MCD
-        new int[] { 0, 1, 2, 3, 4 }, // Potencia
-        new int[] { 0, 1, 2 }, // Buscar
-        new int[] { 0, 1, 2, 3, 4 } // SumaDigitos
-    };
-
-    private int indiceActual = 0; // Para verificar el orden correcto
-    private int preguntaIndex; // Índice de la pregunta actual
 
     public static ModifyTextLvl2 Instance { get; private set; }
 
@@ -60,15 +49,92 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 
     void Start()
     {
-        // Inicializar la lista de índices disponibles
         indicesDisponibles = new List<int>();
         for (int i = 0; i < preguntas.Length; i++)
         {
             indicesDisponibles.Add(i);
         }
-
         CargarPreguntaAleatoria();
     }
+
+    public void CargarPreguntaAleatoria()
+    {
+        preguntaIndex = Random.Range(0, preguntas.Length);
+        preguntaTexto.text = preguntas[preguntaIndex];
+
+        // Limpiar la lista de respuestas del jugador
+        respuestasJugador.Clear();
+
+        // Asignar alternativas y resetear los bloques
+        for (int i = 0; i < alternativasTextos.Length; i++)
+        {
+            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
+            if (brick != null)
+            {
+                string respuesta = alternativasCorrectas.Keys.ToList()[i]; // Convertir las claves a una lista
+                alternativasTextos[i].text = respuesta;
+                brick.SetAnswer(respuesta, true);
+                brick.ResetColor();
+            }
+        }
+    }
+
+    public bool VerificarOrdenRespuesta(string respuestaSeleccionada)
+    {
+        // Verifica si la respuesta existe en el mapa
+        if (alternativasCorrectas.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
+        {
+            // Verificar que el índice actual coincida con la posición correcta
+            if (indiceActual == posicionCorrecta)
+            {
+                Debug.Log("Orden correcto!");
+                indiceActual++;
+                respuestasJugador.Add(respuestaSeleccionada);
+                return true;
+            }
+            else
+            {
+                Debug.Log("Orden incorrecto!");
+                return false; // Orden incorrecto
+            }
+        }
+        return false;
+    }
+
+   public void VerificarRespuesta(string respuestaSeleccionada)
+    {
+        // Verifica si la respuesta existe en el diccionario de respuestas correctas
+        if (alternativasCorrectas.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
+        {
+            // Si la posición actual del jugador coincide con la posición correcta
+            if (indiceActual == posicionCorrecta)
+            {
+                Debug.Log("¡Orden correcto!");
+                respuestasJugador.Add(respuestaSeleccionada);
+                indiceActual++;
+
+                // Verifica si el jugador ha completado todas las respuestas en el orden correcto
+                if (indiceActual >= alternativasCorrectas.Count)
+                {
+                    Debug.Log("¡Secuencia completa!");
+                    CargarPreguntaAleatoria(); // Cargar nueva pregunta
+                    respuestasJugador.Clear(); // Reiniciar las respuestas del jugador
+                    indiceActual = 0; // Reiniciar el índice
+                }
+            }
+            else
+            {
+                // Orden incorrecto, marcar como error
+                Debug.Log("Orden incorrecto. Restando una vida...");
+                GameManager.Instance.RegistrarError(); // Restar una vida
+            }
+        }
+        else
+        {
+            Debug.Log("Respuesta no válida.");
+        }
+    }
+
 
     public void ReiniciarPreguntas()
     {
@@ -76,65 +142,6 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         for (int i = 0; i < preguntas.Length; i++)
         {
             indicesDisponibles.Add(i);
-        }
-    }
-
-    public void CargarPreguntaAleatoria()
-    {
-        if (indicesDisponibles.Count == 0)
-        {
-            Debug.Log("¡Todas las preguntas han sido respondidas!");
-            return;
-        }
-
-        // Reiniciar el color de los bloques
-        for (int i = 0; i < alternativasTextos.Length; i++)
-        {
-            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            if (brick != null)
-            {
-                brick.ResetColor();
-            }
-        }
-
-        int randomIndex = Random.Range(0, indicesDisponibles.Count);
-        preguntaIndex = indicesDisponibles[randomIndex];
-        indicesDisponibles.RemoveAt(randomIndex);
-
-        preguntaTexto.text = preguntas[preguntaIndex];
-
-        for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
-        {
-            alternativasTextos[i].text = alternativas[preguntaIndex][i];
-
-            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            if (brick != null)
-            {
-                brick.SetAnswer(alternativas[preguntaIndex][i], true); // Todas son correctas
-            }
-        }
-
-        indiceActual = 0; // Reiniciar el índice para verificar el orden
-    }
-
-    // Método para verificar si se sigue el orden correcto
-    public void VerificarRespuesta(int indiceSeleccionado)
-    {
-        if (indiceSeleccionado == ordenCorrecto[preguntaIndex][indiceActual])
-        {
-            Debug.Log("Respuesta en el orden correcto!");
-            indiceActual++;
-
-            if (indiceActual >= ordenCorrecto[preguntaIndex].Length)
-            {
-                Debug.Log("¡Secuencia completa correctamente!");
-                CargarPreguntaAleatoria(); // Cargar una nueva pregunta cuando la secuencia es correcta
-            }
-        }
-        else
-        {
-            Debug.Log("Orden incorrecto!");
-            // Aquí puedes dar alguna penalización o feedback negativo
         }
     }
 }
