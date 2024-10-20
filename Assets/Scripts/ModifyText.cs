@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ModifyText : MonoBehaviour
+public class ModifyText : MonoBehaviour, IModifyText
 {
     public TextMesh preguntaTexto; // TextMesh para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
@@ -72,7 +72,6 @@ public class ModifyText : MonoBehaviour
         // Verificar que aún queden preguntas disponibles
         if (indicesDisponibles.Count == 0)
         {
-            Debug.Log("¡Todas las preguntas han sido respondidas!");
             return;
         }
 
@@ -120,13 +119,7 @@ public class ModifyText : MonoBehaviour
 
         if (seleccion == respuestasCorrectas[preguntaIndex])
         {
-            Debug.Log("Respuesta Correcta!");
             CargarPreguntaAleatoria(); // Cargar una nueva pregunta si es correcta
-        }
-        else
-        {
-            Debug.Log("Respuesta Incorrecta!");
-            // Aquí puedes hacer que el bloque cambie a rojo o dar feedback de error
         }
     }
 }

@@ -35,7 +35,6 @@ public class Brick : MonoBehaviour
     {
         this.answer = answer;
         this.esCorrecto = esCorrecto;
-        Debug.Log("Respuesta asignada: " + answer + " - EsCorrecto: " + esCorrecto);
     }
 
     public void ResetBrick()

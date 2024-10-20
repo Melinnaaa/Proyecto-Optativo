@@ -6,7 +6,7 @@ public class LevelsMenu : MonoBehaviour
 {
     public void JugarNivel1()
     {
-        StartCoroutine(WaitAndLoadScene("Puntaje"));
+        StartCoroutine(WaitAndLoadScene("ObjetivoLvl1"));
     }
 
     public void JugarNivel2()

@@ -774,6 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 517987530}
   - component: {fileID: 517987531}
+  - component: {fileID: 517987532}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -807,11 +808,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa6b1e99d01df174b8560f6cc2417735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifesText: {fileID: 694264321}
   scoreText: {fileID: 1716617908}
   corazones:
   - {fileID: 334081176}
   - {fileID: 496395786}
+--- !u!114 &517987532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 517987529}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d05bb8ac50808c48b82f8313fb8a2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
