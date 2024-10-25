@@ -84,39 +84,50 @@ public class GameManager : MonoBehaviour
         ActualizarUI();
     }
 
-    public void OnPreguntaCorrecta()
+    public bool OnHitBlock(string answer)
     {
         // Determina qué LevelManager está activo según el nivel
         if (SceneManager.GetActiveScene().name == "Level1")
         {
-            checkAnswer(Level1Manager.Instance, ModifyText.Instance, 2);
+            if (checkAnswer(Level1Manager.Instance, ModifyText.Instance, 1, answer))
+            {
+                return true;
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Level2")
         {
-            checkAnswer(Level2Manager.Instance, ModifyTextLvl2.Instance, 3);
+            if (checkAnswer(Level2Manager.Instance, ModifyTextLvl2.Instance, 2, answer))
+            {
+                return true;
+            }
         }
         else if (SceneManager.GetActiveScene().name == "Level3")
         {
-            checkAnswer(Level2Manager.Instance, ModifyTextLvl3.Instance, 2);
-        }
-    }
-
-    public void checkAnswer(object lvlManager, object text, int lvl)
-    {
-        if (lvlManager is ILevelManager manager)
-        {
-            if (manager.OnPreguntaCorrecta())
+            if (checkAnswer(Level2Manager.Instance, ModifyTextLvl3.Instance, 2, answer))
             {
-                GameData.finalScore = score;
-                SceneManager.LoadScene("WinLevel1");
+                return true;
             }
         }
+        return false;
+    }
 
-        // Mueve esta verificación fuera del bloque anterior para que se ejecute siempre
-        if (text is ModifyText modifyText)
-        {
-            modifyText.CargarPreguntaAleatoria();
+    public bool checkAnswer(object lvlManager, object text, int lvl, string answer)
+    {
+        bool state = false;
+        if (lvlManager is ILevelManager manager)
+        {   
+            Debug.Log("answer: " + answer);
+            if (manager.checkCorrectAnswer(answer) == true)
+            {
+                if (manager.isLvlFinished() == true)
+                {
+                    GameData.finalScore = score;
+                    SceneManager.LoadScene("WinLevel" + lvl);
+                }
+                state = true;
+            }
         }
+        return state;
     }
 
 }

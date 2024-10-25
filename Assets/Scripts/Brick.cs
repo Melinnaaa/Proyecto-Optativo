@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -9,7 +9,6 @@ public class Brick : MonoBehaviour
     public bool unbreakable;
     public TextMesh textMesh; // TextMesh asignado desde el Inspector
     public bool esCorrecto; // Indica si este bloque tiene la respuesta correcta
-
     private SpriteRenderer spriteRenderer;
     private int health;
     private BoxCollider2D boxCollider;
@@ -31,35 +30,28 @@ public class Brick : MonoBehaviour
         spriteRenderer.color = Color.white; // Cambia esto al color original del bloque
     }
 
-    public void SetAnswer(string answer, bool esCorrecto)
+    public void SetAnswer(string respuesta, bool correcto)
     {
-        this.answer = answer;
-        this.esCorrecto = esCorrecto;
+        answer = respuesta;
+        esCorrecto = correcto;
     }
 
     public void ResetBrick()
     {
-        gameObject.SetActive(true);
-        stackPosition = new Vector3(-19, -8, 0);
+        gameObject.SetActive(true);  // Asegurarse de que el bloque esté activo
 
+        // Si el bloque no es inquebrantable, restaurar sus propiedades de salud, sprite, etc.
         if (!unbreakable)
         {
             health = states.Length;
             spriteRenderer.sprite = states[health - 1];
-            boxCollider.enabled = true; // Asegurarse de que el collider esté habilitado al resetear
-            spriteRenderer.color = Color.white; // Reiniciar el color al blanco
+            boxCollider.enabled = true;  // Habilitar el colisionador
+            spriteRenderer.color = Color.white;  // Reiniciar el color al blanco
         }
     }
 
     public void Hit()
-    {
-        // Solo llamar a MoveToStack si la escena actual es "Level2"
-        if (SceneManager.GetActiveScene().name == "Level2")
-        {
-            MoveToStack();
-        }
-
-    }
+    {}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -69,20 +61,22 @@ public class Brick : MonoBehaviour
             if (bullet != null)
             {
                 // Verificar si la respuesta del bloque es correcta
-                HighlightBlock(esCorrecto); // Cambia el color en función de si es correcto
+                HighlightBlock(); // Cambia el color en función de si es correcto
             }
-
             Destroy(collision.gameObject); // Destruir la bala después de la colisión
         }
     }
 
 
-    public void HighlightBlock(bool isCorrect)
+    public void HighlightBlock()
     {
-        if (isCorrect)
+        if (GameManager.Instance.OnHitBlock(answer) == true)
         {
             spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
-            GameManager.Instance.OnPreguntaCorrecta(); // Llamar para cargar una nueva pregunta
+            if(SceneManager.GetActiveScene().name == "Level2")
+            {
+                MoveToStack();
+            }
         }
         else
         {

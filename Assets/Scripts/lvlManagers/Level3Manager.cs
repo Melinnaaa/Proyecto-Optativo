@@ -25,6 +25,11 @@ public class Level3Manager : MonoBehaviour
         ModifyTextLvl3.Instance.CargarPreguntaAleatoria(); // Cargar pregunta para el nivel 3
     }
 
+    public bool checkCorrectAnswer(string answer)
+    {
+        return true;
+    }
+
     public bool OnPreguntaCorrecta()
     {
         preguntasCorrectas++;

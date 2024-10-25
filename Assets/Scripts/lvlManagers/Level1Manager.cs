@@ -25,10 +25,14 @@ public class Level1Manager : MonoBehaviour, ILevelManager
         ModifyText.Instance.CargarPreguntaAleatoria(); // Cargar pregunta para el nivel 1
     }
 
-    public bool OnPreguntaCorrecta()
+    public bool checkCorrectAnswer(string answer)
+    {
+        return ModifyText.Instance.VerificarRespuesta(answer);
+    }
+
+    public bool isLvlFinished()
     {
         preguntasCorrectas++;
-        Debug.Log($"Preguntas correctas: {preguntasCorrectas} / {totalPreguntasNivel1}");
 
         if (preguntasCorrectas >= totalPreguntasNivel1)
         {

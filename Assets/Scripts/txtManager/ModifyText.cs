@@ -27,7 +27,15 @@ public class ModifyText : MonoBehaviour, IModifyText
         new string[] { "Llamada recursiva", "Caso base", "Bucle infinito", "Subrutina", "Punto de control", "Retorno" }
     };
 
-    private char[] respuestasCorrectas = new char[] { 'e', 'd', 'a', 'c', 'a', 'b' };
+    private string[] respuestasCorrectas = new string[]
+    {
+        "n=1",
+        "exp = 0",
+        "n = 0",
+        "Pila (Stack)",
+        "Desapilamiento",
+        "Caso base"
+    };
 
     private int preguntaIndex;
 
@@ -81,7 +89,7 @@ public class ModifyText : MonoBehaviour, IModifyText
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                brick.ResetColor(); // Llama al método que restablece el color del bloque
+                brick.ResetColor(); // Restablece el color del bloque
             }
         }
 
@@ -98,28 +106,38 @@ public class ModifyText : MonoBehaviour, IModifyText
         // Asignar las alternativas y respuestas a los bloques
         for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
         {
-            alternativasTextos[i].text = alternativas[preguntaIndex][i];
+            string respuestaAlternativa = alternativas[preguntaIndex][i];
+            alternativasTextos[i].text = respuestaAlternativa;
 
             // Asignar respuesta correcta o incorrecta al bloque
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                bool esCorrecto = (i == (respuestasCorrectas[preguntaIndex] - 'a'));
-                brick.SetAnswer(alternativas[preguntaIndex][i], esCorrecto);
+                bool esCorrecto = (respuestaAlternativa == respuestasCorrectas[preguntaIndex]);
+                brick.SetAnswer(respuestaAlternativa, esCorrecto);
+                brick.ResetColor();
             }
         }
     }
 
-
-    // Método para verificar si la respuesta seleccionada es correcta
-    public void VerificarRespuesta(int indiceSeleccionado)
+    public bool VerificarRespuesta(string respuestaSeleccionada)
     {
-        // Convertir el índice a letra para compararlo con la respuesta correcta
-        char seleccion = (char)('a' + indiceSeleccionado);
+        Debug.Log("Respuesta seleccionada: '" + respuestaSeleccionada + "'");
+        // Verificar si la respuesta seleccionada coincide con la respuesta correcta
+        bool esCorrecta = respuestaSeleccionada == respuestasCorrectas[preguntaIndex];
 
-        if (seleccion == respuestasCorrectas[preguntaIndex])
+        // Manejar la lógica del juego
+        if (esCorrecta)
         {
-            CargarPreguntaAleatoria(); // Cargar una nueva pregunta si es correcta
+            // Iniciar coroutine para cargar nueva pregunta
+            CargarPreguntaAleatoria();
+            return true;
         }
+        else
+        {
+            // Registrar el error
+            return false;
+        }
+        return false;
     }
 }

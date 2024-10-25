@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class Level2Manager : MonoBehaviour, ILevelManager
 {
-    private int preguntasCorrectas = 0;
+    public int preguntasCorrectas = 0;
     private const int totalPreguntasNivel2 = 5;
-    public static Level2Manager Instance { get; private set; } 
+    public static Level2Manager Instance { get; private set; }
 
     private void Awake()
     {
@@ -25,24 +25,28 @@ public class Level2Manager : MonoBehaviour, ILevelManager
         ModifyTextLvl2.Instance.CargarPreguntaAleatoria(); // Cargar pregunta para el nivel 2
     }
 
-    public bool OnPreguntaCorrecta()
+    public bool checkCorrectAnswer(string answer)
     {
-        bool esCorrecta = ModifyTextLvl2.Instance.VerificarOrdenRespuesta(respuestaSeleccionada);
-        if (!esCorrecta)
+        Debug.Log("checkCorrectAnswer llamado con answer: " + answer);
+
+        if (ModifyTextLvl2.Instance.VerificarRespuesta(answer) == true)
         {
-            preguntasCorrectas++;
-            if (preguntasCorrectas >= totalPreguntasNivel2)
-            {
-                return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+        }
+        return false;
+    }
+
+    public bool isLvlFinished()
+    {
+        if (preguntasCorrectas >= totalPreguntasNivel2)
+        {
+            return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
         }
         else
         {
             return false;
         }
+
+        return false;
     }
 }
