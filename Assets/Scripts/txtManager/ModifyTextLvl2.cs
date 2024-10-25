@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Collections;
 
 public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 {
@@ -152,18 +153,17 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            if (brick != null && i < posicionesOriginales.Count)
+            if (brick != null)
             {
-                brick.transform.position = posicionesOriginales[i]; // Restaurar la posición original
-                brick.ResetColor(); // Opcional: restablece el color original si es necesario
+                brick.ResetBrick();
             }
         }
 
-        // Mezclar las alternativas y asignarlas a los bloques
+         // Mezclar las alternativas y asignarlas a los bloques
         List<string> alternativasDesordenadas = preguntaActual.AlternativasConPosicion.Keys.ToList();
         alternativasDesordenadas = alternativasDesordenadas.OrderBy(a => Random.value).ToList();
 
-        // Asegurarse de que cada bloque esté activo
+        // Asegurarse de que cada bloque esté activo y asignar las nuevas alternativas
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
@@ -203,7 +203,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
                     preguntasNivel2.RemoveAt(preguntaIndex); // Eliminar la pregunta completada
-                    CargarPreguntaAleatoria(); // Cargar nueva pregunta
+                    StartCoroutine(CargarPreguntaConRetraso());
                 }
 
                 return true;
@@ -217,6 +217,14 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         {
             return false;
         }
+    }
+
+    private IEnumerator CargarPreguntaConRetraso()
+    {
+        // Esperar 1 segundo antes de cargar la pregunta
+        yield return new WaitForSeconds(0.00001f);
+
+        CargarPreguntaAleatoria(); // Cargar la nueva pregunta
     }
 
     public void ReiniciarPreguntas()

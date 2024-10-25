@@ -46,7 +46,5 @@ public class Level2Manager : MonoBehaviour, ILevelManager
         {
             return false;
         }
-
-        return false;
     }
 }

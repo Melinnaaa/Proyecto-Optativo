@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ModifyText : MonoBehaviour, IModifyText
@@ -55,7 +56,6 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     void Start()
     {
-        // Inicializar la lista de índices disponibles
         indicesDisponibles = new List<int>();
         for (int i = 0; i < preguntas.Length; i++)
         {
@@ -67,7 +67,6 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     public void ReiniciarPreguntas()
     {
-        // Reinicializar la lista de índices disponibles
         indicesDisponibles.Clear();
         for (int i = 0; i < preguntas.Length; i++)
         {
@@ -77,13 +76,11 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     public void CargarPreguntaAleatoria()
     {
-        // Verificar que aún queden preguntas disponibles
         if (indicesDisponibles.Count == 0)
         {
             return;
         }
 
-        // Restablecer el color de los bloques antes de cargar nuevas preguntas
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
@@ -93,23 +90,17 @@ public class ModifyText : MonoBehaviour, IModifyText
             }
         }
 
-        // Seleccionar un índice aleatorio de las preguntas disponibles
         int randomIndex = Random.Range(0, indicesDisponibles.Count);
         preguntaIndex = indicesDisponibles[randomIndex];
-
-        // Eliminar la pregunta seleccionada de la lista de preguntas disponibles
         indicesDisponibles.RemoveAt(randomIndex);
 
-        // Asignar la pregunta
         preguntaTexto.text = preguntas[preguntaIndex];
 
-        // Asignar las alternativas y respuestas a los bloques
         for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
         {
             string respuestaAlternativa = alternativas[preguntaIndex][i];
             alternativasTextos[i].text = respuestaAlternativa;
 
-            // Asignar respuesta correcta o incorrecta al bloque
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
@@ -123,21 +114,22 @@ public class ModifyText : MonoBehaviour, IModifyText
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
         Debug.Log("Respuesta seleccionada: '" + respuestaSeleccionada + "'");
-        // Verificar si la respuesta seleccionada coincide con la respuesta correcta
         bool esCorrecta = respuestaSeleccionada == respuestasCorrectas[preguntaIndex];
 
-        // Manejar la lógica del juego
         if (esCorrecta)
         {
-            // Iniciar coroutine para cargar nueva pregunta
-            CargarPreguntaAleatoria();
+            StartCoroutine(CargarPreguntaConRetraso());
             return true;
         }
         else
         {
-            // Registrar el error
             return false;
         }
-        return false;
+    }
+
+    private IEnumerator CargarPreguntaConRetraso()
+    {
+        yield return new WaitForSeconds(0.00001f); // Esperar 1 segundo antes de cargar la nueva pregunta
+        CargarPreguntaAleatoria();
     }
 }

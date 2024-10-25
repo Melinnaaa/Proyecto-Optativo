@@ -4,9 +4,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Brick : MonoBehaviour
 {
-    public Sprite[] states = new Sprite[0];
     public int points = 100;
-    public bool unbreakable;
     public TextMesh textMesh; // TextMesh asignado desde el Inspector
     public bool esCorrecto; // Indica si este bloque tiene la respuesta correcta
     private SpriteRenderer spriteRenderer;
@@ -17,11 +15,13 @@ public class Brick : MonoBehaviour
     // Variables para el apilamiento
     public static Vector3 stackPosition = new Vector3(-19, -8, 0); // Posición inicial en la esquina inferior izquierda
     public static float stackOffsetY = 1f; // Desplazamiento en el eje Y para apilar hacia arriba
+    private Vector3 posicionOriginal; // Variable para almacenar la posición original del bloque
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>(); // Obtener el BoxCollider2D
+        posicionOriginal = transform.position; 
     }
 
     // Método para resetear el color del bloque
@@ -38,16 +38,12 @@ public class Brick : MonoBehaviour
 
     public void ResetBrick()
     {
-        gameObject.SetActive(true);  // Asegurarse de que el bloque esté activo
+        gameObject.SetActive(true);
 
-        // Si el bloque no es inquebrantable, restaurar sus propiedades de salud, sprite, etc.
-        if (!unbreakable)
-        {
-            health = states.Length;
-            spriteRenderer.sprite = states[health - 1];
-            boxCollider.enabled = true;  // Habilitar el colisionador
-            spriteRenderer.color = Color.white;  // Reiniciar el color al blanco
-        }
+        // Restaurar la posición original, no mover al stack aquí
+        transform.position = posicionOriginal;  // Restaurar la posición original
+        boxCollider.enabled = true; // Asegurarse de que el collider esté habilitado al resetear
+        spriteRenderer.color = Color.white; // Reiniciar el color al blanco
     }
 
     public void Hit()
@@ -72,11 +68,11 @@ public class Brick : MonoBehaviour
     {
         if (GameManager.Instance.OnHitBlock(answer) == true)
         {
-            spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
             if(SceneManager.GetActiveScene().name == "Level2")
             {
                 MoveToStack();
             }
+            spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
         }
         else
         {

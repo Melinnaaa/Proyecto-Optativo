@@ -116,7 +116,6 @@ public class GameManager : MonoBehaviour
         bool state = false;
         if (lvlManager is ILevelManager manager)
         {   
-            Debug.Log("answer: " + answer);
             if (manager.checkCorrectAnswer(answer) == true)
             {
                 if (manager.isLvlFinished() == true)
