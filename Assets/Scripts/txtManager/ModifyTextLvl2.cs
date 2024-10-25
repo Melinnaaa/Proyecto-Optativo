@@ -153,6 +153,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
+            Brick.stackPosition = new Vector3(-15, -8, 0);
             if (brick != null)
             {
                 brick.ResetBrick();
