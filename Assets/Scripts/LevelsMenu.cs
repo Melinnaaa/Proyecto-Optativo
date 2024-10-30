@@ -16,7 +16,7 @@ public class LevelsMenu : MonoBehaviour
 
     public void JugarNivel3()
     {
-        StartCoroutine(WaitAndLoadScene("Level3"));
+        StartCoroutine(WaitAndLoadScene("ObjetivoLvl3"));
     }
 
     public void Volver()

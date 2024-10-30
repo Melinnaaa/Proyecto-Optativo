@@ -29,4 +29,10 @@ public class BotonCambioEscena : MonoBehaviour
         
         SceneManager.LoadScene("Level2");
     }
+
+    public void ComenzarLvl3()
+    {
+        
+        SceneManager.LoadScene("Level3");
+    }
 }

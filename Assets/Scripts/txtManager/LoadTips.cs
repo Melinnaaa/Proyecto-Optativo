@@ -44,7 +44,16 @@ public class LoadTips : MonoBehaviour
 
     private string[] tipsNivel3 = new string[]
     {
-        "..."
+        "Recuerda que el desapilamiento en la recursión ocurre cuando se alcanzan los valores base y se resuelven las llamadas pendientes.",
+        "Para fibonacci(4), el desapilamiento sigue un orden específico al devolver los resultados acumulados.",
+        "En productoLista, cada llamada a productoLista(n) devuelve el valor del producto parcial hasta el índice 0.",
+        "El cálculo del máximo común divisor (mcd) también se resuelve durante el desapilamiento, devolviendo el valor final.",
+        "En potencia(3, 4), cada resultado parcial se multiplica con la base durante el desapilamiento hasta obtener el exponente deseado.",
+        "Para buscar un número en un arreglo, si se encuentra el elemento, las llamadas posteriores no se ejecutan.",
+        "En sumaDigitos(4321), cada llamada suma un dígito parcial hasta que el número se reduce al valor total.",
+        "Durante el desapilamiento, los valores se 'devuelven' a medida que se completan las llamadas recursivas de abajo hacia arriba.",
+        "Cada paso del desapilamiento utiliza el resultado de la llamada recursiva más profunda para resolver la anterior.",
+        "Recuerda que el desapilamiento permite resolver el problema en sentido inverso, acumulando el resultado de cada llamada."
     };
 
     public TextMeshProUGUI tipTexto; 

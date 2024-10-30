@@ -38,4 +38,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/WinLevel2.unity
     guid: 7c80c58ff3d7e3841879497ee3125cb8
+  - enabled: 1
+    path: Assets/Scenes/ObjetivoLvl3.unity
+    guid: 8fff768a8258ce044ba92ac1df09d15a
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: b109bf94d58aead4080cc4a3c115f53f
+  - enabled: 1
+    path: Assets/Scenes/EndLevel3.unity
+    guid: fd2c1aa1171edb642971aa2008faf38b
+  - enabled: 1
+    path: Assets/Scenes/WinLevel3.unity
+    guid: 99c342d0649b9fa468fcef7813e82e31
   m_configObjects: {}
