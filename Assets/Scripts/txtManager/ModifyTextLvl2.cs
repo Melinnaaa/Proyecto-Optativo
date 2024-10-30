@@ -123,15 +123,10 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 posicionesOriginales.Add(brick.transform.position); // Guardar la posición original
             }
         }
-
-        CargarPreguntaAleatoria();
     }
 
     public void CargarPreguntaAleatoria()
     {
-        // Incrementar el contador de preguntas correctas
-        Level2Manager.Instance.preguntasCorrectas++;
-        
         if (preguntasNivel2.Count == 0)
         {
             // No hay más preguntas disponibles
@@ -203,6 +198,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 // Verificar si se completó la secuencia
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
+                    Level2Manager.Instance.preguntasCorrectas++;
                     preguntasNivel2.RemoveAt(preguntaIndex); // Eliminar la pregunta completada
                     StartCoroutine(CargarPreguntaConRetraso());
                 }

@@ -27,8 +27,6 @@ public class Level2Manager : MonoBehaviour, ILevelManager
 
     public bool checkCorrectAnswer(string answer)
     {
-        Debug.Log("checkCorrectAnswer llamado con answer: " + answer);
-
         if (ModifyTextLvl2.Instance.VerificarRespuesta(answer) == true)
         {
             return true;
@@ -38,7 +36,8 @@ public class Level2Manager : MonoBehaviour, ILevelManager
 
     public bool isLvlFinished()
     {
-        if (preguntasCorrectas >= totalPreguntasNivel2)
+        Debug.Log("Preguntas correctas: " + preguntasCorrectas);
+        if (preguntasCorrectas > totalPreguntasNivel2)
         {
             return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
         }
