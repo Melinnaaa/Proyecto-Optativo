@@ -2,10 +2,11 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections;
+using TMPro;
 
 public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 {
-    public TextMesh preguntaTexto; // TextMesh para mostrar la pregunta
+    public TextMeshProUGUI preguntaTexto; // TextMesh para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
     private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
     private int preguntaIndex; // Índice de la pregunta actual
