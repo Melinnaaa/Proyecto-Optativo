@@ -13,12 +13,18 @@ public class BotonCambioEscena : MonoBehaviour
         
         SceneManager.LoadScene("MainMenu");
     }
-    public void Comenzar()
+    public void ComenzarLvl1()
     {
         
         SceneManager.LoadScene("Level1");
     }
     public void proxLevel()
+    {
+        
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void ComenzarLvl2()
     {
         
         SceneManager.LoadScene("Level2");
