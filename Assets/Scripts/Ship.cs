@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Paddle : MonoBehaviour
+public class Ship : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 direction;
