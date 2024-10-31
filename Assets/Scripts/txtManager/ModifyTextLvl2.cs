@@ -26,14 +26,14 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     {
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibonacci(4)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibonacci(3)?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "fibonacci(4)", 0 },
-                { "fibonacci(3)", 1 },
-                { "fibonacci(2)", 2 },
-                { "fibonacci(1)", 3 },
-                { "fibonacci(0)", 4 }
+                { "fibo(3)", 0 },
+                { "fibo(2)", 1 },
+                { "fibo(1)-1ra", 2 },
+                { "fibo(0)", 3 },
+                { "fibo(1)-2da", 4 }
             }
         },
         new Pregunta
@@ -41,23 +41,23 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5}?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "productoLista(arr, 4)", 0 },
-                { "productoLista(arr, 3)", 1 },
-                { "productoLista(arr, 2)", 2 },
-                { "productoLista(arr, 1)", 3 },
-                { "productoLista(arr, 0)", 4 }
+                { "prod(arr, 4)", 0 },
+                { "prod(arr, 3)", 1 },
+                { "prod(arr, 2)", 2 },
+                { "prod(arr, 1)", 3 },
+                { "prod(arr, 0)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular mcd(48, 18)?",
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular mcd(462, 1071)?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "mcd(48, 18)", 0 },
-                { "mcd(18, 12)", 1 },
-                { "mcd(12, 6)", 2 },
-                { "mcd(6, 0)", 3 },
-                { "Respuesta ficticia 1", 4 } // Respuesta ficticia para completar
+                { "mcd(462, 1071)", 0 },
+                { "mcd(1071, 462)", 1 },
+                { "mcd(462, 147)", 2 },
+                { "mcd(147, 21)", 3 },
+                { "mcd(21, 0)", 4 }
             }
         },
         new Pregunta
@@ -65,23 +65,23 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular potencia(3, 4)?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potencia(3, 4)", 0 },
-                { "potencia(3, 3)", 1 },
-                { "potencia(3, 2)", 2 },
-                { "potencia(3, 1)", 3 },
-                { "potencia(3, 0)", 4 }
+                { "pot(3, 4)", 0 },
+                { "pot(3, 3)", 1 },
+                { "pot(3, 2)", 2 },
+                { "pot(3, 1)", 3 },
+                { "pot(3, 0)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para buscar el número 4 en el arreglo {1, 2, 3, 4, 5}?",
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para buscar el número 5 en el arreglo {1, 2, 3, 4, 5, 6, 7, 8, 9}?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "buscar(arr, 5, 4)", 0 },
-                { "buscar(arr, 4, 4)", 1 },
-                { "buscar(arr, 3, 4)", 2 },
-                { "Respuesta ficticia 1", 3 }, // Respuesta ficticia para completar
-                { "Respuesta ficticia 2", 4 }  // Respuesta ficticia para completar
+                { "bus(arr, 9, 5)", 0 },
+                { "bus(arr, 8, 5)", 1 },
+                { "bus(arr, 7, 5)", 2 },
+                { "bus(arr, 6, 5)", 3 },
+                { "bus(arr, 5, 5)", 4 }
             }
         },
         new Pregunta
@@ -89,11 +89,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular la suma de los dígitos de 4321?",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumaDigitos(4321)", 0 },
-                { "sumaDigitos(432)", 1 },
-                { "sumaDigitos(43)", 2 },
-                { "sumaDigitos(4)", 3 },
-                { "sumaDigitos(0)", 4 }
+                { "sumDig(4321)", 0 },
+                { "sumDig(432)", 1 },
+                { "sumDig(43)", 2 },
+                { "sumDig(4)", 3 },
+                { "sumDig(0)", 4 }
             }
         }
     };

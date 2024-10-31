@@ -4,10 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class BotonCambioEscena : MonoBehaviour
 {
-
-
-
-
     public void CargarMenu()
     {
         
