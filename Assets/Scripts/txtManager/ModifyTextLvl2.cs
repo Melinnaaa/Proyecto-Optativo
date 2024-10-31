@@ -3,14 +3,18 @@ using UnityEngine;
 using System.Linq;
 using System.Collections;
 using TMPro;
+using UnityEngine.UI;
 
 public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 {
     public TextMeshProUGUI preguntaTexto; // TextMesh para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
     private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
+    public ParticleSystem explosionEffect; // Efecto de explosión asignado desde el Inspector
+
     private int preguntaIndex; // Índice de la pregunta actual
     private int indiceActual = 0;
+    public Image checkmarkImage;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
 
     public List<Vector2> posicionesPredefinidas = new List<Vector2>
@@ -130,22 +134,18 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     {
         if (preguntasNivel2.Count == 0)
         {
-            // No hay más preguntas disponibles
-            return;
+            return; // No hay más preguntas disponibles
         }
 
-        // Seleccionar una pregunta aleatoria
         preguntaIndex = Random.Range(0, preguntasNivel2.Count);
         Pregunta preguntaActual = preguntasNivel2[preguntaIndex];
 
-        // Mostrar el texto de la pregunta
         preguntaTexto.text = preguntaActual.TextoPregunta;
 
-        // Reiniciar variables
         respuestasJugador.Clear();
         indiceActual = 0;
 
-        // Restaurar las posiciones originales de los bloques antes de cualquier asignación de nuevas posiciones
+        // Restaurar las posiciones originales de los bloques
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
@@ -156,28 +156,25 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             }
         }
 
-         // Mezclar las alternativas y asignarlas a los bloques
+        // Mezclar las alternativas y asignarlas a los bloques
         List<string> alternativasDesordenadas = preguntaActual.AlternativasConPosicion.Keys.ToList();
         alternativasDesordenadas = alternativasDesordenadas.OrderBy(a => Random.value).ToList();
 
-        // Asegurarse de que cada bloque esté activo y asignar las nuevas alternativas
+        // Asignar alternativas y activar los bloques
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                // Asignar la alternativa y la respuesta correcta/incorrecta
                 string respuesta = alternativasDesordenadas[i];
                 alternativasTextos[i].text = respuesta;
                 brick.SetAnswer(respuesta, true);
 
-                // Asegurarse de que el collider esté habilitado
                 if (brick.GetComponent<Collider2D>() != null)
                 {
                     brick.GetComponent<Collider2D>().enabled = true;
                 }
 
-                // Mantener el bloque activo
                 brick.gameObject.SetActive(true);
             }
         }
@@ -187,21 +184,18 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     {
         Pregunta preguntaActual = preguntasNivel2[preguntaIndex];
 
-        // Verificar si la respuesta seleccionada existe en las alternativas de la pregunta actual
         if (preguntaActual.AlternativasConPosicion.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
         {
-            // Verificar si la posición correcta coincide con el índice actual
             if (indiceActual == posicionCorrecta)
             {
                 respuestasJugador.Add(respuestaSeleccionada);
                 indiceActual++;
 
-                // Verificar si se completó la secuencia
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
                     Level2Manager.Instance.preguntasCorrectas++;
-                    preguntasNivel2.RemoveAt(preguntaIndex); // Eliminar la pregunta completada
-                    StartCoroutine(CargarPreguntaConRetraso());
+                    preguntasNivel2.RemoveAt(preguntaIndex);
+                    EjecutarAnimacionDeExito();
                 }
 
                 return true;
@@ -217,12 +211,53 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         }
     }
 
-    private IEnumerator CargarPreguntaConRetraso()
+    public IEnumerator MostrarAnimacionDeExito()
     {
-        // Esperar 1 segundo antes de cargar la pregunta
+        float duracionTemblor = 1.0f; // Duración del temblor establecida en 1 segundo
+        float intensidadTemblor = 0.1f; // Intensidad del temblor
+        checkmarkImage.enabled = true;
+        // Aplicar el temblor a cada bloque
+        foreach (TextMesh texto in alternativasTextos)
+        {
+            Brick brick = texto.GetComponentInParent<Brick>();
+            if (brick != null)
+            {
+                StartCoroutine(MoverBloqueTemblor(brick.transform, duracionTemblor, intensidadTemblor));
+            }
+        }
+
+        // Espera adicional antes de cargar la siguiente pregunta
+        yield return new WaitForSeconds(1.3f);
+        checkmarkImage.enabled = false;
+        // Cargar la siguiente pregunta
+        CargarPreguntaAleatoria();
+    }
+
+    private IEnumerator MoverBloqueTemblor(Transform bloque, float duracion, float intensidad)
+    {
+        // Esperar 1 milisegundo antes de almacenar la posición inicial
         yield return new WaitForSeconds(0.00001f);
 
-        CargarPreguntaAleatoria(); // Cargar la nueva pregunta
+        Vector3 posicionInicial = bloque.position;
+        float tiempo = 0;
+
+        while (tiempo < duracion)
+        {
+            float desplazamientoX = Random.Range(-intensidad, intensidad);
+            bloque.position = new Vector3(posicionInicial.x + desplazamientoX, posicionInicial.y, posicionInicial.z);
+
+            yield return new WaitForSeconds(0.05f); // Espera breve entre cada movimiento
+            tiempo += 0.05f;
+        }
+
+        // Restaurar la posición inicial al final del temblor
+        bloque.position = posicionInicial;
+    }
+
+
+    public void EjecutarAnimacionDeExito()
+    {
+        StartCoroutine(MostrarAnimacionDeExito());
     }
 
     public void ReiniciarPreguntas()
