@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ModifyText : MonoBehaviour, IModifyText
 {
-    public TextMesh preguntaTexto; // TextMesh para mostrar la pregunta
-    public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
+    public TextMeshProUGUI preguntaTexto; // Cambiado a TextMeshProUGUI para mostrar la pregunta en UI
+    public TextMeshProUGUI[] alternativasTextos; // Cambiado a TextMeshProUGUI para mostrar las alternativas
 
     private List<int> indicesDisponibles; // Lista de índices de preguntas disponibles
     private string[] preguntas = new string[]
@@ -20,9 +21,9 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     private string[][] alternativas = new string[][]
     {
-        new string[] { "n = 0", "n<0", "n<=1", "n=2", "n=1", "no tiene caso base" },
+        new string[] { "n = 0", "n<0", "n<=1", "n=2", "n=1", "No tiene" },
         new string[] { "exp = 1", "exp = 2", "exp<=0", "exp = 0", "base = 0", "base = 1" },
-        new string[] { "n = 0", "n = 1", "n<0", "n>1", "n = 2", "no tiene caso base" },
+        new string[] { "n = 0", "n = 1", "n<0", "n>1", "n = 2", "No tiene" },
         new string[] { "Lista", "Cola", "Pila (Stack)", "Árbol", "Conjunto", "Grafo" },
         new string[] { "Desapilamiento", "Apilamiento", "Búsqueda", "Inserción", "Ordenamiento", "Recorrido" },
         new string[] { "Llamada recursiva", "Caso base", "Bucle infinito", "Subrutina", "Punto de control", "Retorno" }
@@ -129,7 +130,7 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     private IEnumerator CargarPreguntaConRetraso()
     {
-        yield return new WaitForSeconds(0.00001f); // Esperar 1 segundo antes de cargar la nueva pregunta
+        yield return new WaitForSeconds(0.00001f); // Esperar un momento antes de cargar la nueva pregunta
         CargarPreguntaAleatoria();
     }
 }

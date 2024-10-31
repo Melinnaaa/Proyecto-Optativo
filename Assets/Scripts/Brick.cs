@@ -48,7 +48,9 @@ public class Brick : MonoBehaviour
 
     public void Hit()
     {}
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))

@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - Brick
   - Bullet
+  - RightWall
+  - LeftWall
   layers:
   - Default
   - TransparentFX

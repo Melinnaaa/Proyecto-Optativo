@@ -1,30 +1,41 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Ship : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 direction;
-    public ParticleSystem motorParticulas; // Asigna el Particle System en el Inspector
+    public ParticleSystem motorParticulas;
 
-    public float speed = 30f;
-    public float maxBounceAngle = 75f;
+    public float speed = 10f;
 
     // Variables para disparar
-    public GameObject bulletPrefab; // Prefab de la bala
-    public Transform bulletSpawnPoint; // Punto desde donde se disparan las balas
-    public float fireRate = 0.5f; // Tiempo entre disparos
+    public GameObject bulletPrefab;
+    public Transform bulletSpawnPoint;
+    public float fireRate = 0.7f;
     private float nextFireTime = 0f;
+
+    // Límites para restringir el movimiento
+    public float leftBoundary = -20f; // Límite izquierdo por defecto
+    public float rightBoundary = 16f; // Límite derecho por defecto
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        // Detectar si estamos en el nivel 2 para ajustar los límites
+        if (SceneManager.GetActiveScene().name == "Level2")
+        {
+            leftBoundary = -9f;
+            rightBoundary = 17.5f;
+        }
     }
 
     private void Start()
     {
         ResetPaddle();
-        motorParticulas.Stop(); // Las partículas deben estar desactivadas al inicio
+        motorParticulas.Stop();
     }
 
     public void ResetPaddle()
@@ -36,7 +47,7 @@ public class Ship : MonoBehaviour
     private void Update()
     {
         // Movimiento de la plataforma
-        float moveInput = Input.GetAxis("Horizontal"); // Usa Input.GetAxis para detección de movimiento continuo
+        float moveInput = Input.GetAxis("Horizontal");
         direction = new Vector2(moveInput, 0);
 
         // Control de las partículas
@@ -44,14 +55,14 @@ public class Ship : MonoBehaviour
         {
             if (!motorParticulas.isEmitting)
             {
-                motorParticulas.Play(); // Iniciar las partículas cuando se mueva
+                motorParticulas.Play();
             }
         }
         else
         {
             if (motorParticulas.isEmitting)
             {
-                motorParticulas.Stop(); // Detener las partículas cuando no se mueva
+                motorParticulas.Stop();
             }
         }
 
@@ -60,50 +71,41 @@ public class Ship : MonoBehaviour
         {
             if (bulletPrefab != null && bulletSpawnPoint != null)
             {
-                Shoot(); // Dispara una bala
+                Shoot();
                 nextFireTime = Time.time + fireRate;
             }
             else
             {
-                Debug.LogError("bulletPrefab o bulletSpawnPoint no están asignados. Asegúrate de asignar ambos en el Inspector.");
+                Debug.LogError("bulletPrefab o bulletSpawnPoint no están asignados.");
             }
         }
     }
-
 
     private void FixedUpdate()
     {
         if (direction != Vector2.zero)
         {
-            rb.velocity = direction * speed; // Ajustar la velocidad de la nave
+            rb.velocity = direction * speed;
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!collision.gameObject.CompareTag("Ball"))
+        // Limitar la posición dentro de los límites
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, leftBoundary, rightBoundary);
+        transform.position = clampedPosition;
+
+        // Si alcanzamos un límite, detenemos el movimiento en esa dirección
+        if (clampedPosition.x <= leftBoundary && direction.x < 0)
         {
-            return;
+            rb.velocity = Vector2.zero;
         }
-
-        Rigidbody2D ball = collision.rigidbody;
-        Collider2D paddle = collision.otherCollider;
-
-        // Gather information about the collision
-        Vector2 ballDirection = ball.velocity.normalized;
-        Vector2 contactDistance = paddle.bounds.center - ball.transform.position;
-
-        // Rotate the direction of the ball based on the contact distance
-        float bounceAngle = (contactDistance.x / paddle.bounds.size.x) * maxBounceAngle;
-        ballDirection = Quaternion.AngleAxis(bounceAngle, Vector3.forward) * ballDirection;
-
-        // Re-apply the new direction to the ball
-        ball.velocity = ballDirection * ball.velocity.magnitude;
+        else if (clampedPosition.x >= rightBoundary && direction.x > 0)
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 
     private void Shoot()
     {
-        // Instanciar la bala en el punto de disparo
         Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
     }
 }
