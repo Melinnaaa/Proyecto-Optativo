@@ -9,6 +9,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 {
     public TextMeshProUGUI preguntaTexto; // TextMesh para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
+    public TextMeshProUGUI codigoTexto; // TextMesh para mostrar el código asociado
     private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
     public ParticleSystem explosionEffect; // Efecto de explosión asignado desde el Inspector
 
@@ -16,7 +17,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     private int indiceActual = 0;
     public Image checkmarkImage;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
-
+    private bool mostrandoPregunta = true; // Controla si se muestra la pregunta o el código
     public List<Vector2> posicionesPredefinidas = new List<Vector2>
     {
         new Vector2(9.39f, 3.16f),
@@ -30,7 +31,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     {
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibonacci(3)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibo(3)?",
+            CodigoTexto = "int fibo(int n) {\n" +
+                        "    if (n <= 1) return n;\n" +
+                        "    else return fibo(n - 1) + fibo(n - 2);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "fibo(3)", 0 },
@@ -43,6 +48,10 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         new Pregunta
         {
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5}?",
+            CodigoTexto = "int prod(int arr[], int n) {\n" +
+                        "    if (n == 0) return 1;\n" +
+                        "    else return arr[n - 1] * prod(arr, n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "prod(arr, 4)", 0 },
@@ -54,7 +63,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular mcd(462, 1071)?",
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular mcd(462, 1071)?",
+            CodigoTexto = "int mcd(int a, int b) {\n" +
+                        "    if (b == 0) return a;\n" +
+                        "    else return mcd(b, a % b);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "mcd(462, 1071)", 0 },
@@ -66,7 +79,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas en el stack para calcular potencia(3, 4)?",
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular pot(3, 4)?",
+            CodigoTexto = "int pot(int base, int exp) {\n" +
+                        "    if (exp == 0) return 1;\n" +
+                        "    else return base * pot(base, exp - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "pot(3, 4)", 0 },
@@ -79,6 +96,10 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         new Pregunta
         {
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para buscar el número 5 en el arreglo {1, 2, 3, 4, 5, 6, 7, 8, 9}?",
+            CodigoTexto = "int bus(int arr[], int n, int target) {\n" +
+                        "    if (arr[n] == target) return n;\n" +
+                        "    else return buscar(arr, n - 1, target);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "bus(arr, 9, 5)", 0 },
@@ -91,13 +112,17 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         new Pregunta
         {
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular la suma de los dígitos de 4321?",
+            CodigoTexto = "int sumaDigitos(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    else return (n % 10) + sumaDigitos(n / 10);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumDig(4321)", 0 },
-                { "sumDig(432)", 1 },
-                { "sumDig(43)", 2 },
-                { "sumDig(4)", 3 },
-                { "sumDig(0)", 4 }
+                { "sumaDig(4321)", 0 },
+                { "sumaDig(432)", 1 },
+                { "sumaDig(43)", 2 },
+                { "sumaDig(4)", 3 },
+                { "sumaDig(0)", 4 }
             }
         }
     };
@@ -130,6 +155,23 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         }
     }
 
+    private void Update()
+    {
+        // Detectar si se presiona Enter para alternar entre la pregunta y el código
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            CambiarVista();
+        }
+    }
+    private void CambiarVista()
+    {
+        mostrandoPregunta = !mostrandoPregunta;
+
+        // Alternar visibilidad entre pregunta y código
+        preguntaTexto.enabled = mostrandoPregunta;
+        codigoTexto.enabled = !mostrandoPregunta;
+    }
+
     public void CargarPreguntaAleatoria()
     {
         if (preguntasNivel2.Count == 0)
@@ -141,6 +183,10 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         Pregunta preguntaActual = preguntasNivel2[preguntaIndex];
 
         preguntaTexto.text = preguntaActual.TextoPregunta;
+        codigoTexto.text = preguntaActual.CodigoTexto;
+
+        preguntaTexto.enabled = true;
+        codigoTexto.enabled = false;
 
         respuestasJugador.Clear();
         indiceActual = 0;
