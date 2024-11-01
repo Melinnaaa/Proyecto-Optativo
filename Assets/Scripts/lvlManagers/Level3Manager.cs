@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Level3Manager : MonoBehaviour
 {
-    private int preguntasCorrectas = 0;
+    public int preguntasCorrectas = 0;
     private const int totalPreguntasNivel3 = 4;
     public static Level3Manager Instance { get; private set; } 
 
