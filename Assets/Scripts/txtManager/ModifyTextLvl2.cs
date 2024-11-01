@@ -271,6 +271,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 StartCoroutine(MoverBloqueTemblor(brick.transform, duracionTemblor, intensidadTemblor));
             }
         }
+        explosionEffect.Play();
 
         // Espera adicional antes de cargar la siguiente pregunta
         yield return new WaitForSeconds(1.3f);
