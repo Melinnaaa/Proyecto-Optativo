@@ -12,6 +12,13 @@ public class Brick : MonoBehaviour
     private BoxCollider2D boxCollider;
     private string answer; // Respuesta almacenada en este bloque
 
+    public float velocidadMovimiento; // Velocidad de movimiento en el eje x
+    private int direccionMovimiento = 1; // Direccion inicial
+    
+    // Rango de velocidad 
+    public float velocidadMinima = 10f;
+    public float velocidadMaxima = 20f;
+
     // Variables para el apilamiento
     public static Vector3 stackPosition = new Vector3(-19, -8, 0); // Posición inicial en la esquina inferior izquierda
     public static float stackOffsetY = 1f; // Desplazamiento en el eje Y para apilar hacia arriba
@@ -22,6 +29,18 @@ public class Brick : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>(); // Obtener el BoxCollider2D
         posicionOriginal = transform.position; 
+    }
+
+    private void Start()
+    {
+        // Asigna una velocidad aleatoria dentro del rango especificado
+        velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
+    }
+
+    public void Update()
+    {
+        // Movimiento constante en el eje x
+        transform.Translate(Vector2.right * velocidadMovimiento * direccionMovimiento * Time.deltaTime * 1.5f);
     }
 
     // Método para resetear el color del bloque
@@ -39,6 +58,7 @@ public class Brick : MonoBehaviour
     public void ResetBrick()
     {
         gameObject.SetActive(true);
+        velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
 
         // Restaurar la posición original, no mover al stack aquí
         transform.position = posicionOriginal;  // Restaurar la posición original
@@ -50,6 +70,17 @@ public class Brick : MonoBehaviour
     {}
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Detecta si colisiona con una pared
+        if (collision.gameObject.CompareTag("LeftWall"))
+        {
+            direccionMovimiento = 1; // Cambia de dirección hacia la derecha
+            velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
+        }
+        else if (collision.gameObject.CompareTag("RightWall"))
+        {
+            direccionMovimiento = -1; // Cambia de dirección hacia la izquierda
+            velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -88,5 +119,6 @@ public class Brick : MonoBehaviour
         transform.position = stackPosition;
         boxCollider.enabled = false; // Deshabilitar el collider para evitar nuevas colisiones
         stackPosition.y += stackOffsetY;
+        velocidadMovimiento = 0;
     }
 }

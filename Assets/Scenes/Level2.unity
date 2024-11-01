@@ -455,9 +455,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 638272479}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 562234898}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1092743149}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
       propertyPath: states.Array.size
@@ -15901,9 +15911,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 638272479}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 1473201506}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1092743149}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
       propertyPath: states.Array.size
@@ -16012,9 +16032,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 638272479}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 975293694}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1092743149}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
       propertyPath: states.Array.size
@@ -20978,9 +21008,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 638272479}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 473817266}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1092743149}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
       propertyPath: states.Array.size
@@ -31281,9 +31321,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
+      propertyPath: leftWall
+      value: 
+      objectReference: {fileID: 638272479}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 1065958731}
+    - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
+        type: 3}
+      propertyPath: rightWall
+      value: 
+      objectReference: {fileID: 1092743149}
     - target: {fileID: 534804146086615085, guid: cf757f52d920c7c409a6e190166c5d28,
         type: 3}
       propertyPath: states.Array.size
