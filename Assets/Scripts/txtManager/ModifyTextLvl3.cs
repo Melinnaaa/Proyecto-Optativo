@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Collections;
 using TMPro;
-using UnityEngine.UI;
 
 public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 {
-    public TextMeshProUGUI preguntaTexto; // TextMesh para mostrar la pregunta
+    public TextMeshProUGUI preguntaTexto; // TextMeshPro para mostrar la pregunta
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
+    public TextMesh[] pilaAdicionalBricks; // Array de TextMesh para la pila adicional de bricks
+
     private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
     private int preguntaIndex; // Índice de la pregunta actual
     private int indiceActual = 0;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
+
 
     public List<Vector3> posicionesPredefinidas = new List<Vector3>
     {
@@ -22,8 +23,6 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         new Vector3(1.2f, 9.2f),
         new Vector3(-6.32f, 7.21f)
     };
-   
-
 
     private List<Pregunta> preguntasNivel3 = new List<Pregunta>
     {
@@ -37,6 +36,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "6", 2 },
                 { "24", 3 },
                 { "120", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "productoLista(1)",
+                "productoLista(2)",
+                "productoLista(3)",
+                "productoLista(4)",
+                "productoLista(5)"
             }
         },
         new Pregunta
@@ -49,6 +56,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "6", 2 },
                 { "10", 3 },
                 { "15", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "sumaNaturales(1)",
+                "sumaNaturales(2)",
+                "sumaNaturales(3)",
+                "sumaNaturales(4)",
+                "sumaNaturales(5)"
             }
         },
         new Pregunta
@@ -61,6 +76,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "12", 2 },
                 { "20", 3 },
                 { "30", 4 } 
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "dobleSuma(1)",
+                "dobleSuma(2)",
+                "dobleSuma(3)",
+                "dobleSuma(4)",
+                "dobleSuma(5)"
             }
         },
         new Pregunta
@@ -73,6 +96,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "14", 2 },
                 { "30", 3 },
                 { "55", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "sumaCuadrado(1)",
+                "sumaCuadrado(2)",
+                "sumaCuadrado(3)",
+                "sumaCuadrado(4)",
+                "sumaCuadrado(5)"
             }
         },
         new Pregunta
@@ -83,10 +114,17 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "3", 0 },
                 { "9", 1 },
                 { "27", 2 },
-                { "81", 3 }, // Respuesta ficticia para completar
-                { "243", 4 }  // Respuesta ficticia para completar
+                { "81", 3 },
+                { "243", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "potenciaTres(1)",
+                "potenciaTres(2)",
+                "potenciaTres(3)",
+                "potenciaTres(4)",
+                "potenciaTres(5)"
             }
-            a
         },
         new Pregunta
         {
@@ -98,6 +136,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "18", 2 },
                 { "30", 3 },
                 { "45", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "sumaMultiplos(1)",
+                "sumaMultiplos(2)",
+                "sumaMultiplos(3)",
+                "sumaMultiplos(4)",
+                "sumaMultiplos(5)"
             }
         },
         new Pregunta
@@ -110,9 +156,17 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "36", 2 },
                 { "100", 3 },
                 { "225", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "sumaCubos(1)",
+                "sumaCubos(2)",
+                "sumaCubos(3)",
+                "sumaCubos(4)",
+                "sumaCubos(5)"
             }
         },
-         new Pregunta
+        new Pregunta
         {
             TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaMultiplosDecrecientes(5,5) usando la función sumaMultiplosDecrecientes?",
             AlternativasConPosicion = new Dictionary<string, int>
@@ -122,6 +176,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "30", 2 },
                 { "50", 3 },
                 { "75", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "sumaMultiplosDecrecientes(1)",
+                "sumaMultiplosDecrecientes(2)",
+                "sumaMultiplosDecrecientes(3)",
+                "sumaMultiplosDecrecientes(4)",
+                "sumaMultiplosDecrecientes(5)"
             }
         },
         new Pregunta
@@ -134,6 +196,14 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "14", 2 },
                 { "30", 3 },
                 { "62", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "potenciaBaseFija(1)",
+                "potenciaBaseFija(2)",
+                "potenciaBaseFija(3)",
+                "potenciaBaseFija(4)",
+                "potenciaBaseFija(5)"
             }
         },
         new Pregunta
@@ -146,10 +216,17 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 { "12", 2 },
                 { "24", 3 },
                 { "72", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "productoAlternante(1)",
+                "productoAlternante(2)",
+                "productoAlternante(3)",
+                "productoAlternante(4)",
+                "productoAlternante(5)"
             }
         }
     };
-
 
     public static ModifyTextLvl3 Instance { get; private set; }
 
@@ -177,82 +254,83 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             }
         }
 
+        CargarPreguntaAleatoria();
     }
 
     public void CargarPreguntaAleatoria()
     {
-        // Incrementar el contador de preguntas correctas
-        Level3Manager.Instance.preguntasCorrectas++;
-        
         if (preguntasNivel3.Count == 0)
         {
-            // No hay más preguntas disponibles
-            return;
+            return; // No hay más preguntas disponibles
         }
 
-        // Seleccionar una pregunta aleatoria
         preguntaIndex = Random.Range(0, preguntasNivel3.Count);
         Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
 
-        // Mostrar el texto de la pregunta
         preguntaTexto.text = preguntaActual.TextoPregunta;
-
-        // Reiniciar variables
         respuestasJugador.Clear();
         indiceActual = 0;
 
-        // Restaurar las posiciones originales de los bloques antes de cualquier asignación de nuevas posiciones
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            Brick.stackPosition = new Vector3(-15, -8, 0);
             if (brick != null)
             {
                 brick.ResetBrick();
+                brick.transform.position = posicionesOriginales[i];
             }
         }
 
-         // Mezclar las alternativas y asignarlas a los bloques
         List<string> alternativasDesordenadas = preguntaActual.AlternativasConPosicion.Keys.ToList();
         alternativasDesordenadas = alternativasDesordenadas.OrderBy(a => Random.value).ToList();
 
-        // Asegurarse de que cada bloque esté activo y asignar las nuevas alternativas
         for (int i = 0; i < alternativasTextos.Length; i++)
         {
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                // Asignar la alternativa y la respuesta correcta/incorrecta
                 string respuesta = alternativasDesordenadas[i];
                 alternativasTextos[i].text = respuesta;
                 brick.SetAnswer(respuesta, true);
-
-                // Asegurarse de que el collider esté habilitado
-                if (brick.GetComponent<Collider2D>() != null)
-                {
-                    brick.GetComponent<Collider2D>().enabled = true;
-                }
-
-                // Mantener el bloque activo
                 brick.gameObject.SetActive(true);
             }
         }
+
+        MostrarPilaAdicional();
     }
+
+    public void MostrarPilaAdicional()
+    {
+        Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
+
+        // Asignar el contenido de PilaAdicionalContenido a los bricks en pilaAdicionalBricks
+        for (int i = 0; i < pilaAdicionalBricks.Length; i++)
+        {
+            if (i < preguntaActual.PilaAdicionalContenido.Count)
+            {
+                // Asigna el texto correspondiente a cada brick en pilaAdicionalBricks
+                pilaAdicionalBricks[i].text = preguntaActual.PilaAdicionalContenido[i];
+            }
+            else
+            {
+                // Si hay menos contenido que bricks, limpia los textos sobrantes
+                pilaAdicionalBricks[i].text = ""; 
+            }
+        }
+    }
+   
 
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
         Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
 
-        // Verificar si la respuesta seleccionada existe en las alternativas de la pregunta actual
         if (preguntaActual.AlternativasConPosicion.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
         {
-            // Verificar si la posición correcta coincide con el índice actual
             if (indiceActual == posicionCorrecta)
             {
                 respuestasJugador.Add(respuestaSeleccionada);
                 indiceActual++;
 
-                // Verificar si se completó la secuencia
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
                     preguntasNivel3.RemoveAt(preguntaIndex); // Eliminar la pregunta completada
@@ -272,15 +350,16 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         }
     }
 
-    private IEnumerator CargarPreguntaConRetraso()
-    {
-        // Esperar 1 segundo antes de cargar la pregunta
-        yield return new WaitForSeconds(0.00001f);
+    private System.Collections.IEnumerator CargarPreguntaConRetraso()
+{
+    yield return new WaitForSeconds(1.0f);
+    CargarPreguntaAleatoria(); // Cargar la nueva pregunta
+}
 
-        CargarPreguntaAleatoria(); // Cargar la nueva pregunta
-    }
 
     public void ReiniciarPreguntas()
     {
+        // Método para reiniciar el banco de preguntas (si es necesario)
     }
+    
 }

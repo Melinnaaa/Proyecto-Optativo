@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement; // Esta es la línea correcta
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Brick : MonoBehaviour
@@ -12,12 +12,13 @@ public class Brick : MonoBehaviour
     private BoxCollider2D boxCollider;
     private string answer; // Respuesta almacenada en este bloque
 
+    public bool isMovable = true; // Indica si el brick debería moverse
     public float velocidadMovimiento; // Velocidad de movimiento en el eje x
     private int direccionMovimiento = 1; // Direccion inicial
     
     // Rango de velocidad 
-    public float velocidadMinima = 10f;
-    public float velocidadMaxima = 20f;
+    public float velocidadMinima = 3f;
+    public float velocidadMaxima = 9f;
 
     // Variables para el apilamiento
     public static Vector3 stackPosition = new Vector3(-19, -8, 0); // Posición inicial en la esquina inferior izquierda
@@ -39,8 +40,11 @@ public class Brick : MonoBehaviour
 
     public void Update()
     {
-        // Movimiento constante en el eje x
-        transform.Translate(Vector2.right * velocidadMovimiento * direccionMovimiento * Time.deltaTime * 1.5f);
+        // Solo mueve el brick si isMovable es verdadero
+        if (isMovable)
+        {
+            transform.Translate(Vector2.right * velocidadMovimiento * direccionMovimiento * Time.deltaTime);
+        }
     }
 
     // Método para resetear el color del bloque
@@ -60,14 +64,15 @@ public class Brick : MonoBehaviour
         gameObject.SetActive(true);
         velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
 
-        // Restaurar la posición original, no mover al stack aquí
-        transform.position = posicionOriginal;  // Restaurar la posición original
+        // Restaurar la posición original
+        transform.position = posicionOriginal;  
         boxCollider.enabled = true; // Asegurarse de que el collider esté habilitado al resetear
         spriteRenderer.color = Color.white; // Reiniciar el color al blanco
     }
 
     public void Hit()
     {}
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Detecta si colisiona con una pared
@@ -82,6 +87,7 @@ public class Brick : MonoBehaviour
             velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
         }
     }
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -89,13 +95,11 @@ public class Brick : MonoBehaviour
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             if (bullet != null)
             {
-                // Verificar si la respuesta del bloque es correcta
                 HighlightBlock(); // Cambia el color en función de si es correcto
             }
             Destroy(collision.gameObject); // Destruir la bala después de la colisión
         }
     }
-
 
     public void HighlightBlock()
     {
@@ -119,6 +123,6 @@ public class Brick : MonoBehaviour
         transform.position = stackPosition;
         boxCollider.enabled = false; // Deshabilitar el collider para evitar nuevas colisiones
         stackPosition.y += stackOffsetY;
-        velocidadMovimiento = 0;
+        velocidadMovimiento = 0; // Detener el movimiento en el stack
     }
 }
