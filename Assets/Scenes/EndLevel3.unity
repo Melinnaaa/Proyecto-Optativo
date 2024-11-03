@@ -352,7 +352,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 741563192}
-        m_MethodName: ComenzarLvl1
+        m_MethodName: ComenzarLvl3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

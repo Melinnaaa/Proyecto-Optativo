@@ -39,11 +39,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "productoLista(1)",
-                "productoLista(2)",
-                "productoLista(3)",
-                "productoLista(4)",
-                "productoLista(5)"
+                "prodLis(1)",
+                "prodLis(2)",
+                "prodLis(3)",
+                "prodLis(4)",
+                "prodLis(5)"
             }
         },
         new Pregunta
@@ -59,11 +59,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumaNaturales(1)",
-                "sumaNaturales(2)",
-                "sumaNaturales(3)",
-                "sumaNaturales(4)",
-                "sumaNaturales(5)"
+                "sumNat(1)",
+                "sumNat(2)",
+                "sumNat(3)",
+                "sumNat(4)",
+                "sumNat(5)"
             }
         },
         new Pregunta
@@ -79,11 +79,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "dobleSuma(1)",
-                "dobleSuma(2)",
-                "dobleSuma(3)",
-                "dobleSuma(4)",
-                "dobleSuma(5)"
+                "dobleSum(1)",
+                "dobleSum(2)",
+                "dobleSum(3)",
+                "dobleSum(4)",
+                "dobleSum(5)"
             }
         },
         new Pregunta
@@ -99,11 +99,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumaCuadrado(1)",
-                "sumaCuadrado(2)",
-                "sumaCuadrado(3)",
-                "sumaCuadrado(4)",
-                "sumaCuadrado(5)"
+                "sumCuad(1)",
+                "sumCuad(2)",
+                "sumCuad(3)",
+                "sumCuad(4)",
+                "sumCuad(5)"
             }
         },
         new Pregunta
@@ -119,11 +119,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "potenciaTres(1)",
-                "potenciaTres(2)",
-                "potenciaTres(3)",
-                "potenciaTres(4)",
-                "potenciaTres(5)"
+                "potTres(1)",
+                "potTres(2)",
+                "potTres(3)",
+                "potTres(4)",
+                "potTres(5)"
             }
         },
         new Pregunta
@@ -139,11 +139,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumaMultiplos(1)",
-                "sumaMultiplos(2)",
-                "sumaMultiplos(3)",
-                "sumaMultiplos(4)",
-                "sumaMultiplos(5)"
+                "sumMult(1)",
+                "sumMult(2)",
+                "sumMult(3)",
+                "sumMult(4)",
+                "sumMult(5)"
             }
         },
         new Pregunta
@@ -159,11 +159,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumaCubos(1)",
-                "sumaCubos(2)",
-                "sumaCubos(3)",
-                "sumaCubos(4)",
-                "sumaCubos(5)"
+                "sumCubos(1)",
+                "sumCubos(2)",
+                "sumCubos(3)",
+                "sumCubos(4)",
+                "sumCubos(5)"
             }
         },
         new Pregunta
@@ -179,11 +179,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumaMultiplosDecrecientes(1)",
-                "sumaMultiplosDecrecientes(2)",
-                "sumaMultiplosDecrecientes(3)",
-                "sumaMultiplosDecrecientes(4)",
-                "sumaMultiplosDecrecientes(5)"
+                "sumMultDec(1)",
+                "sumMultDec(2)",
+                "sumMultDec(3)",
+                "sumMultDec(4)",
+                "sumMultDec(5)"
             }
         },
         new Pregunta
@@ -199,11 +199,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "potenciaBaseFija(1)",
-                "potenciaBaseFija(2)",
-                "potenciaBaseFija(3)",
-                "potenciaBaseFija(4)",
-                "potenciaBaseFija(5)"
+                "potBaseF(1)",
+                "potBaseF(2)",
+                "potBaseF(3)",
+                "potBaseF(4)",
+                "potBaseF(5)"
             }
         },
         new Pregunta
@@ -219,11 +219,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "productoAlternante(1)",
-                "productoAlternante(2)",
-                "productoAlternante(3)",
-                "productoAlternante(4)",
-                "productoAlternante(5)"
+                "prodAlt(1)",
+                "prodAlt(2)",
+                "prodAlt(3)",
+                "prodAlt(4)",
+                "prodAlt(5)"
             }
         }
     };
