@@ -105,7 +105,7 @@ public class Brick : MonoBehaviour
     {
         if (GameManager.Instance.OnHitBlock(answer) == true)
         {
-            if(SceneManager.GetActiveScene().name == "Level2")
+            if (SceneManager.GetActiveScene().name == "Level2")
             {
                 MoveToStack();
             }
@@ -114,9 +114,11 @@ public class Brick : MonoBehaviour
         else
         {
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
-            GameManager.Instance.RegistrarError(); // Registrar el error
+
+            GameManager.Instance.RegistrarError();
         }
     }
+
 
     private void MoveToStack()
     {

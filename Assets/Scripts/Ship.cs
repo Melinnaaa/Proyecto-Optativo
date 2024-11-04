@@ -30,6 +30,11 @@ public class Ship : MonoBehaviour
             leftBoundary = -9f;
             rightBoundary = 17.5f;
         }
+        else if (SceneManager.GetActiveScene().name == "Level3")
+        {
+            leftBoundary = -9f;
+            rightBoundary = 17f;
+        }
     }
 
     private void Start()

@@ -1,18 +1,16 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 public class Level1Manager : MonoBehaviour, ILevelManager
 {
-    private int preguntasCorrectas = 0;
+    public int preguntasCorrectas = 0;
     private const int totalPreguntasNivel1 = 6;
-    public static Level1Manager Instance { get; private set; } 
+    public static Level1Manager Instance { get; private set; }
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
         else
         {
@@ -22,25 +20,20 @@ public class Level1Manager : MonoBehaviour, ILevelManager
 
     void Start()
     {
-        ModifyText.Instance.CargarPreguntaAleatoria(); // Cargar pregunta para el nivel 1
     }
 
     public bool checkCorrectAnswer(string answer)
     {
-        return ModifyText.Instance.VerificarRespuesta(answer);
+        bool resultado = ModifyText.Instance.VerificarRespuesta(answer);
+        if (resultado)
+        {
+            preguntasCorrectas++;
+        }
+        return resultado;
     }
 
     public bool isLvlFinished()
     {
-        preguntasCorrectas++;
-
-        if (preguntasCorrectas >= totalPreguntasNivel1)
-        {
-            return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
-        }
-        else
-        {
-            return false;
-        }
+        return preguntasCorrectas >= totalPreguntasNivel1;
     }
 }

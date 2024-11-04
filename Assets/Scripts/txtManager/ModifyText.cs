@@ -5,10 +5,10 @@ using TMPro;
 
 public class ModifyText : MonoBehaviour, IModifyText
 {
-    public TextMeshProUGUI preguntaTexto; // Cambiado a TextMeshProUGUI para mostrar la pregunta en UI
-    public TextMeshProUGUI[] alternativasTextos; // Cambiado a TextMeshProUGUI para mostrar las alternativas
+    public TextMeshProUGUI preguntaTexto;
+    public TextMeshProUGUI[] alternativasTextos;
 
-    private List<int> indicesDisponibles; // Lista de índices de preguntas disponibles
+    private List<int> indicesDisponibles;
     private string[] preguntas = new string[]
     {
         "¿Cuál es el caso base de la función factorial?",
@@ -79,24 +79,29 @@ public class ModifyText : MonoBehaviour, IModifyText
     {
         if (indicesDisponibles.Count == 0)
         {
+            Debug.Log("No hay más preguntas disponibles.");
             return;
         }
 
-        for (int i = 0; i < alternativasTextos.Length; i++)
+        // Restablecer color de bloques
+        foreach (var textoAlternativa in alternativasTextos)
         {
-            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
+            Brick brick = textoAlternativa.GetComponentInParent<Brick>();
             if (brick != null)
             {
-                brick.ResetColor(); // Restablece el color del bloque
+                brick.ResetColor();
             }
         }
 
+        // Seleccionar una pregunta aleatoria
         int randomIndex = Random.Range(0, indicesDisponibles.Count);
         preguntaIndex = indicesDisponibles[randomIndex];
         indicesDisponibles.RemoveAt(randomIndex);
 
+        // Mostrar la pregunta
         preguntaTexto.text = preguntas[preguntaIndex];
 
+        // Configurar alternativas
         for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
         {
             string respuestaAlternativa = alternativas[preguntaIndex][i];
@@ -105,7 +110,7 @@ public class ModifyText : MonoBehaviour, IModifyText
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                bool esCorrecto = (respuestaAlternativa == respuestasCorrectas[preguntaIndex]);
+                bool esCorrecto = respuestaAlternativa == respuestasCorrectas[preguntaIndex];
                 brick.SetAnswer(respuestaAlternativa, esCorrecto);
                 brick.ResetColor();
             }
@@ -114,23 +119,25 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
-        Debug.Log("Respuesta seleccionada: '" + respuestaSeleccionada + "'");
+        Debug.Log("Respuesta seleccionada: " + respuestaSeleccionada);
         bool esCorrecta = respuestaSeleccionada == respuestasCorrectas[preguntaIndex];
 
         if (esCorrecta)
         {
+            Debug.Log("Respuesta correcta.");
             StartCoroutine(CargarPreguntaConRetraso());
             return true;
         }
         else
         {
+            Debug.Log("Respuesta incorrecta.");
             return false;
         }
     }
 
     private IEnumerator CargarPreguntaConRetraso()
     {
-        yield return new WaitForSeconds(0.00001f); // Esperar un momento antes de cargar la nueva pregunta
+        yield return new WaitForSeconds(0.000001f); // Espera antes de cargar la nueva pregunta
         CargarPreguntaAleatoria();
     }
 }
