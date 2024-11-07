@@ -9,6 +9,7 @@ public class ModifyText : MonoBehaviour, IModifyText
     public TextMeshProUGUI[] alternativasTextos;
     private List<int> indicesDisponibles;
     private float tiempoInicioPregunta;
+
     private string[] preguntas = new string[]
     {
         "¿Cuál es el caso base de la función factorial?",
@@ -87,11 +88,11 @@ public class ModifyText : MonoBehaviour, IModifyText
 
     private void Awake()
     {
-        if (Instance != null) 
+        if (Instance != null)
         {
             DestroyImmediate(gameObject); // Evitar duplicados si ya existe una instancia
-        } 
-        else 
+        }
+        else
         {
             Instance = this;
         }
@@ -104,9 +105,8 @@ public class ModifyText : MonoBehaviour, IModifyText
         {
             indicesDisponibles.Add(i); // Agregar todos los índices de las preguntas
         }
-
         CargarPreguntaAleatoria();
-        StartCoroutine(CongelarPantallaPor3Segundos()); // Iniciar la pausa antes de la primera pregunta
+        StartCoroutine(CongelarPantallaPor3Segundos());
     }
 
     private IEnumerator CongelarPantallaPor3Segundos()
@@ -114,15 +114,6 @@ public class ModifyText : MonoBehaviour, IModifyText
         Time.timeScale = 0; // Congela el tiempo en el juego
         yield return new WaitForSecondsRealtime(3); // Espera 3 segundos en tiempo real
         Time.timeScale = 1; // Descongela el tiempo para continuar el juego
-    }
-
-    public void ReiniciarPreguntas()
-    {
-        indicesDisponibles.Clear();
-        for (int i = 0; i < preguntas.Length; i++)
-        {
-            indicesDisponibles.Add(i);
-        }
     }
 
     public void CargarPreguntaAleatoria()
@@ -133,53 +124,55 @@ public class ModifyText : MonoBehaviour, IModifyText
             return;
         }
 
-        // Restablecer color de bloques
-        foreach (var textoAlternativa in alternativasTextos)
-        {
-            Brick brick = textoAlternativa.GetComponentInParent<Brick>();
-            if (brick != null)
-            {
-                brick.ResetColor();
-            }
-        }
-
         // Seleccionar una pregunta aleatoria
         int randomIndex = Random.Range(0, indicesDisponibles.Count);
         preguntaIndex = indicesDisponibles[randomIndex];
         indicesDisponibles.RemoveAt(randomIndex);
-
-        // Mostrar la pregunta
+        
         preguntaTexto.text = preguntas[preguntaIndex];
 
-        // Configurar alternativas
-        for (int i = 0; i < alternativasTextos.Length && i < alternativas[preguntaIndex].Length; i++)
+        // Mezclar el array de alternativas para esta pregunta
+        string[] alternativasMezcladas = (string[])alternativas[preguntaIndex].Clone();
+        ShuffleArray(alternativasMezcladas);
+
+        // Asignar alternativas mezcladas a los bloques de texto
+        for (int i = 0; i < alternativasTextos.Length && i < alternativasMezcladas.Length; i++)
         {
-            string respuestaAlternativa = alternativas[preguntaIndex][i];
-            alternativasTextos[i].text = respuestaAlternativa;
+            alternativasTextos[i].text = alternativasMezcladas[i];
 
             Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
             if (brick != null)
             {
-                bool esCorrecto = respuestaAlternativa == respuestasCorrectas[preguntaIndex];
-                brick.SetAnswer(respuestaAlternativa, esCorrecto);
+                bool esCorrecto = alternativasMezcladas[i] == respuestasCorrectas[preguntaIndex];
+                brick.SetAnswer(alternativasMezcladas[i], esCorrecto);
                 brick.ResetColor();
             }
         }
+
         tiempoInicioPregunta = Time.time;
+    }
+
+    private void ShuffleArray(string[] array)
+    {
+        for (int i = 0; i < array.Length; i++)
+        {
+            int randomIndex = Random.Range(i, array.Length);
+            string temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
+        }
     }
 
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
-        Debug.Log("Respuesta seleccionada: " + respuestaSeleccionada);
         bool esCorrecta = respuestaSeleccionada == respuestasCorrectas[preguntaIndex];
 
-        // Llama a PlayerDataManager para registrar los datos de respuesta
         PlayerDataManager.Instance.RegistrarDatosJugador(
             preguntas[preguntaIndex],
             new List<string>(alternativas[preguntaIndex]),
             respuestaSeleccionada,
             esCorrecta,
-            Time.time - tiempoInicioPregunta // Calcula el tiempo de respuesta
+            Time.time - tiempoInicioPregunta
         );
 
         if (esCorrecta)
@@ -195,9 +188,19 @@ public class ModifyText : MonoBehaviour, IModifyText
         }
     }
 
+
+    public void ReiniciarPreguntas()
+    {
+        indicesDisponibles.Clear();
+        for (int i = 0; i < preguntas.Length; i++)
+        {
+            indicesDisponibles.Add(i);
+        }
+    }
+
     private IEnumerator CargarPreguntaConRetraso()
     {
-        yield return new WaitForSeconds(0.000001f); // Espera antes de cargar la nueva pregunta
+        yield return new WaitForSeconds(0.000001f);
         CargarPreguntaAleatoria();
         StartCoroutine(CongelarPantallaPor3Segundos());
     }

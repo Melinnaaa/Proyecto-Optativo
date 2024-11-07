@@ -119,7 +119,6 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 { "sumaDig(0)", 4 }
             }
         },
-        // Preguntas adicionales de nivel 3 en orden de apilamiento
         new Pregunta
         {
             TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaNaturales(5)?",
@@ -393,6 +392,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         checkmarkImage.enabled = false;
         // Cargar la siguiente pregunta
         CargarPreguntaAleatoria();
+        StartCoroutine(CongelarPantallaPor3Segundos()); // Iniciar la pausa antes de la primera pregunta
     }
 
     private IEnumerator MoverBloqueTemblor(Transform bloque, float duracion, float intensidad)
