@@ -335,6 +335,8 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
                     preguntasNivel3.RemoveAt(preguntaIndex);
+                    Level3Manager.Instance.preguntasCorrectas++;
+                    GameManager.Instance.RegistrarRespuestaCorrecta();
                     StartCoroutine(CargarPreguntaConRetraso());
                 }
             }
@@ -356,6 +358,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 {
     yield return new WaitForSeconds(1.0f);
     CargarPreguntaAleatoria(); // Cargar la nueva pregunta
+    StartCoroutine(CongelarPantallaPor3Segundos());
 }
 
 

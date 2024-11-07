@@ -355,6 +355,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                     Level2Manager.Instance.preguntasCorrectas++;
                     preguntasNivel2.RemoveAt(preguntaIndex);
                     EjecutarAnimacionDeExito();
+                    GameManager.Instance.RegistrarRespuestaCorrecta();
                 }
             }
         }

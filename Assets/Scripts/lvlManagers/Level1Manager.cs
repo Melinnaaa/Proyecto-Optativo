@@ -27,6 +27,7 @@ public class Level1Manager : MonoBehaviour, ILevelManager
         bool resultado = ModifyText.Instance.VerificarRespuesta(answer);
         if (resultado)
         {
+            GameManager.Instance.RegistrarRespuestaCorrecta();
             preguntasCorrectas++;
         }
         return resultado;

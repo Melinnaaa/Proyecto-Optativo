@@ -30,27 +30,40 @@ public class PlayerDataManager : MonoBehaviour
     {
         if (playerData == null) playerData = new PlayerData();
 
-        // Guardar los datos en formato JSON con sangría
+        // Guardar los datos en formato JSON sin formateo para evitar problemas de caracteres
         string json = JsonUtility.ToJson(playerData);
-        string formattedJson = FormatJsonPretty(json);
 
-        File.WriteAllText(filePath, formattedJson);
-        Debug.Log("Datos guardados: " + formattedJson);
+        try
+        {
+            File.WriteAllText(filePath, json);
+            Debug.Log("Datos guardados correctamente.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error al guardar los datos: " + e.Message);
+        }
     }
 
     public void LoadData()
     {
         if (File.Exists(filePath))
         {
-            string json = File.ReadAllText(filePath);
-            playerData = JsonUtility.FromJson<PlayerData>(json);
-            Debug.Log("Datos cargados: " + json);
+            try
+            {
+                string json = File.ReadAllText(filePath);
+                playerData = JsonUtility.FromJson<PlayerData>(json);
+                Debug.Log("Datos cargados correctamente.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Error al cargar los datos: " + e.Message);
+                playerData = new PlayerData(); // Crear datos nuevos en caso de error
+            }
         }
         else
         {
-            // No se crea un archivo predeterminado aquí
-            playerData = null;
-            Debug.Log("No se encontraron datos previos.");
+            playerData = new PlayerData(); // Crear datos nuevos si no hay archivo
+            Debug.Log("No se encontraron datos previos. Se inicializan datos nuevos.");
         }
     }
 
@@ -73,16 +86,5 @@ public class PlayerDataManager : MonoBehaviour
 
         playerData.respuestas.Add(registro);
         SaveData();
-    }
-
-    private string FormatJsonPretty(string json)
-    {
-        // Formateo básico de JSON para una mejor legibilidad
-        json = json.Replace("{", "{\n\t");
-        json = json.Replace("}", "\n}");
-        json = json.Replace("[", "[\n\t");
-        json = json.Replace("]", "\n]");
-        json = json.Replace(",", ",\n\t");
-        return json;
     }
 }

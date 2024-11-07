@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public TextMesh scoreText;
     public List<GameObject> corazones;
 
+    private int respuestasCorrectasContador = 0;
+    private const int maxLifes = 3;
+    private const int respuestasParaVida = 3;
+
     private void Awake()
     {
         if (Instance != null)
@@ -20,7 +24,6 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            // No llamamos a ActualizarUI() aquí porque se llamará en ResetGameManager()
         }
     }
 
@@ -89,7 +92,34 @@ public class GameManager : MonoBehaviour
 
         ScoreManager.Instance.SetFinalScore(initialScore); // Establecer el puntaje inicial
         lifes = 2; // Valor inicial de vidas
+        respuestasCorrectasContador = 0; // Reinicia el contador de respuestas correctas
         ActualizarUI(); // Actualizar la UI con los valores iniciales
+    }
+
+    public void RegistrarRespuestaCorrecta()
+    {
+        respuestasCorrectasContador++;
+        Debug.Log("Respuesta correcta registrada. Total de respuestas correctas: " + respuestasCorrectasContador);
+
+        if (respuestasCorrectasContador >= respuestasParaVida)
+        {
+            OtorgarVida();
+            respuestasCorrectasContador = 0; // Reinicia el contador después de otorgar una vida
+        }
+    }
+
+    private void OtorgarVida()
+    {
+        if (lifes < maxLifes)
+        {
+            lifes++;
+            ActualizarUI();
+            Debug.Log("Se otorgó una vida adicional. Vidas actuales: " + lifes);
+        }
+        else
+        {
+            Debug.Log("Límite de vidas alcanzado. No se otorga una vida adicional.");
+        }
     }
 
     public void RegistrarError()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Level3Manager : MonoBehaviour, ILevelManager
 {
     public int preguntasCorrectas = 0;
-    private const int totalPreguntasNivel3 = 4;
+    private const int totalPreguntasNivel3 = 5;
     public static Level3Manager Instance { get; private set; } 
 
     private void Awake()
@@ -27,26 +27,20 @@ public class Level3Manager : MonoBehaviour, ILevelManager
 
     public bool checkCorrectAnswer(string answer)
     {
-        return true;
-    }
-
-    public bool OnPreguntaCorrecta()
-    {
-        preguntasCorrectas++;
-        GameManager.Instance.AddScore(100); // Añadir puntaje por respuesta correcta
-
-        if (preguntasCorrectas >= totalPreguntasNivel3)
+        if (ModifyTextLvl3.Instance.VerificarRespuesta(answer) == true)
         {
-            return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
+            return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
     }
 
     public bool isLvlFinished()
     {
-        return true;
+        Debug.Log("Preguntas correctas: " + preguntasCorrectas);
+        if (preguntasCorrectas > totalPreguntasNivel3)
+        {
+            return true; // Cargar Nivel 2 cuando todas las preguntas sean correctas
+        }
+        return false;
     }
 }
