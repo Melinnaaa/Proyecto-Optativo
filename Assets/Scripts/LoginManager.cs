@@ -16,7 +16,7 @@ public class LoginManager : MonoBehaviour
     private void Start()
     {
         filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "FractalFrenzy_PlayerData.json");
-        loadGameButton.interactable = File.Exists(filePath);
+        RefreshUI();  // Inicializar el estado del botón de carga
         errorMessage.gameObject.SetActive(false);
     }
 
@@ -56,6 +56,7 @@ public class LoginManager : MonoBehaviour
         else
         {
             ShowErrorMessage("No se encontraron datos guardados.");
+            RefreshUI();  // Actualizar el estado del botón de carga en caso de que no haya archivo
         }
     }
 
@@ -63,5 +64,11 @@ public class LoginManager : MonoBehaviour
     {
         errorMessage.text = message;
         errorMessage.gameObject.SetActive(true);
+    }
+
+    private void RefreshUI()
+    {
+        // Actualizar la interactividad del botón de carga según la existencia del archivo de guardado
+        loadGameButton.interactable = File.Exists(filePath);
     }
 }

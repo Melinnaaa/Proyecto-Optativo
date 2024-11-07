@@ -2,6 +2,7 @@
 using System.IO;
 using System;
 using System.Collections.Generic;
+
 public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance { get; private set; }
@@ -21,15 +22,15 @@ public class PlayerDataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "FractalFrenzy_PlayerData.json");
-            LoadData();
+            LoadData(); // Cargar datos solo si existe el archivo
         }
     }
 
     public void SaveData()
     {
         if (playerData == null) playerData = new PlayerData();
-        
-        // Save the JSON data with custom formatting
+
+        // Guardar los datos en formato JSON con sangría
         string json = JsonUtility.ToJson(playerData);
         string formattedJson = FormatJsonPretty(json);
 
@@ -47,14 +48,19 @@ public class PlayerDataManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No se encontraron datos previos. Creando datos predeterminados.");
-            playerData = new PlayerData { playerName = "Jugador" };
-            SaveData();
+            // No se crea un archivo predeterminado aquí
+            playerData = null;
+            Debug.Log("No se encontraron datos previos.");
         }
     }
 
     public void RegistrarDatosJugador(string pregunta, List<string> alternativas, string respuestaJugador, bool siFueCorrectaONo, float tiempoDeRespuesta)
     {
+        if (playerData == null) 
+        {
+            playerData = new PlayerData { playerName = "Jugador" }; // Crear datos solo si es necesario
+        }
+
         RegistroPregunta registro = new RegistroPregunta
         {
             timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
@@ -71,7 +77,7 @@ public class PlayerDataManager : MonoBehaviour
 
     private string FormatJsonPretty(string json)
     {
-        // A basic way to pretty-print JSON in Unity, though not as flexible as Newtonsoft
+        // Formateo básico de JSON para una mejor legibilidad
         json = json.Replace("{", "{\n\t");
         json = json.Replace("}", "\n}");
         json = json.Replace("[", "[\n\t");
