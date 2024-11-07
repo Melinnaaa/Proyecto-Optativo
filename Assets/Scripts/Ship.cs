@@ -19,6 +19,7 @@ public class Ship : MonoBehaviour
     // Límites para restringir el movimiento
     public float leftBoundary = -20f; // Límite izquierdo por defecto
     public float rightBoundary = 16f; // Límite derecho por defecto
+    public AudioSource audioSource; // Referencia al AudioSource
 
     private void Awake()
     {
@@ -112,5 +113,15 @@ public class Ship : MonoBehaviour
     private void Shoot()
     {
         Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogError("AudioSource no está asignado.");
+        }
     }
+
 }
