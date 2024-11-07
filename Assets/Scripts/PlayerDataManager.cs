@@ -22,7 +22,7 @@ public class PlayerDataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "FractalFrenzy_PlayerData.json");
-            LoadData(); // Cargar datos solo si existe el archivo
+            // No se llama a LoadData aquí para evitar la carga automática
         }
     }
 
@@ -30,7 +30,6 @@ public class PlayerDataManager : MonoBehaviour
     {
         if (playerData == null) playerData = new PlayerData();
 
-        // Guardar los datos en formato JSON sin formateo para evitar problemas de caracteres
         string json = JsonUtility.ToJson(playerData);
 
         try

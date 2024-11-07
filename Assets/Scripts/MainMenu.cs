@@ -1,21 +1,24 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void SeleccionarNivel()
+    private void Start()
     {
-      
-            // Si no está registrado, carga la escena de registro
-        StartCoroutine(WaitAndLoadLevel("LoginScene"));
-      
     }
 
-    private IEnumerator WaitAndLoadLevel(string sceneName)
+    public void SeleccionarNivel()
     {
-        yield return new WaitForSeconds(0.1f); 
-        SceneManager.LoadScene(sceneName); // Carga la escena especificada
+        // Si PlayerDataManager.Instance ya existe, significa que hay datos de guardado
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.playerData != null)
+        {
+            SceneManager.LoadScene("LevelsMenu");
+        }
+        else
+        {
+            // Si no está registrado, carga la escena de registro
+            SceneManager.LoadScene("LoginScene");
+        }
     }
 
     public void SalirJuego()

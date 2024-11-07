@@ -70,5 +70,6 @@ public class LoginManager : MonoBehaviour
     {
         // Actualizar la interactividad del botón de carga según la existencia del archivo de guardado
         loadGameButton.interactable = File.Exists(filePath);
+        loadGameButton.gameObject.SetActive(File.Exists(filePath)); // Ocultar el botón si no hay archivo
     }
 }
