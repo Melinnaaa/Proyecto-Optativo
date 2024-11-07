@@ -109,10 +109,12 @@ public class Brick : MonoBehaviour
             {
                 MoveToStack();
             }
+            GameManager.Instance.PlayExplosionSound();
             spriteRenderer.color = Color.green; // Resaltar en verde si la respuesta es correcta
         }
         else
         {
+            GameManager.Instance.PlayFailSound();
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
 
             GameManager.Instance.RegistrarError();

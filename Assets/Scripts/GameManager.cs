@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public AudioSource audioSource; 
+    public AudioClip explosionSound; 
+    public AudioClip failSound; 
+    public AudioClip extraLifeSound;
 
     public int lifes { get; private set; } = 2;
     public TextMesh scoreText;
@@ -19,11 +23,34 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            DestroyImmediate(gameObject); // Evita instancias duplicadas de `GameManager`
+            DestroyImmediate(gameObject); 
         }
         else
         {
             Instance = this;
+        }
+    }
+
+    public void PlayExplosionSound()
+    {
+        if (audioSource != null && explosionSound != null)
+        {
+            audioSource.PlayOneShot(explosionSound); 
+        }
+    }
+
+    public void PlayFailSound()
+    {
+        if (audioSource != null && failSound != null)
+        {
+            audioSource.PlayOneShot(failSound); 
+        }
+    }
+    public void PlayExtraLifeSound()
+    {
+        if (audioSource != null && extraLifeSound != null)
+        {
+            audioSource.PlayOneShot(extraLifeSound);
         }
     }
 
@@ -103,6 +130,7 @@ public class GameManager : MonoBehaviour
 
         if (respuestasCorrectasContador >= respuestasParaVida)
         {
+            PlayExtraLifeSound();
             OtorgarVida();
             respuestasCorrectasContador = 0; // Reinicia el contador después de otorgar una vida
         }
