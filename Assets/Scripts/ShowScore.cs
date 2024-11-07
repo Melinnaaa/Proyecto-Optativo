@@ -7,13 +7,14 @@ public class ShowScore : MonoBehaviour
 
     void Start()
     {
-        if (GameData.finalScore != null)
+        if (ScoreManager.Instance != null)
         {
-            finalScoreText.text = GameData.finalScore.ToString();
+            finalScoreText.text = ScoreManager.Instance.GetFinalScore().ToString();
         }
         else
         {
             finalScoreText.text = "Puntaje no disponible";
+            Debug.LogError("ScoreManager.Instance es null. Asegúrate de que ScoreManager está en la escena.");
         }
     }
 }

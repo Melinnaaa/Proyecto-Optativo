@@ -13,16 +13,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
     private int preguntaIndex; // Índice de la pregunta actual
     private int indiceActual = 0;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
-
-
-    public List<Vector3> posicionesPredefinidas = new List<Vector3>
-    {
-        new Vector3(9.39f, 3.16f),
-        new Vector3(14.94f, 0.48f),
-        new Vector3(6.26f, 5.73f),
-        new Vector3(1.2f, 9.2f),
-        new Vector3(-6.32f, 7.21f)
-    };
+    private float tiempoInicioPregunta;
 
     private List<Pregunta> preguntasNivel3 = new List<Pregunta>
     {
@@ -297,6 +288,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         }
 
         MostrarPilaAdicional();
+        tiempoInicioPregunta = Time.time;
     }
 
     public void MostrarPilaAdicional()
@@ -323,6 +315,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
         Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
+        bool esCorrecta = false;
 
         if (preguntaActual.AlternativasConPosicion.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
         {
@@ -330,24 +323,26 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             {
                 respuestasJugador.Add(respuestaSeleccionada);
                 indiceActual++;
+                esCorrecta = true;
 
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
-                    preguntasNivel3.RemoveAt(preguntaIndex); // Eliminar la pregunta completada
+                    preguntasNivel3.RemoveAt(preguntaIndex);
                     StartCoroutine(CargarPreguntaConRetraso());
                 }
+            }
+        }
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        // Registrar los datos de respuesta en PlayerDataManager
+        PlayerDataManager.Instance.RegistrarDatosJugador(
+            preguntaActual.TextoPregunta,
+            preguntaActual.AlternativasConPosicion.Keys.ToList(),
+            respuestaSeleccionada,
+            esCorrecta,
+            Time.time - tiempoInicioPregunta // Calcula el tiempo de respuesta
+        );
+
+        return esCorrecta;
     }
 
     private System.Collections.IEnumerator CargarPreguntaConRetraso()

@@ -18,14 +18,8 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     public Image checkmarkImage;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
     private bool mostrandoPregunta = true; // Controla si se muestra la pregunta o el código
-    public List<Vector2> posicionesPredefinidas = new List<Vector2>
-    {
-        new Vector2(9.39f, 3.16f),
-        new Vector2(14.94f, 0.48f),
-        new Vector2(6.26f, 5.73f),
-        new Vector2(1.2f, 9.2f),
-        new Vector2(-6.32f, 7.21f)
-    };
+    private float tiempoInicioPregunta;
+
 
     private List<Pregunta> preguntasNivel2 = new List<Pregunta>
     {
@@ -124,8 +118,118 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 { "sumaDig(4)", 3 },
                 { "sumaDig(0)", 4 }
             }
+        },
+        // Preguntas adicionales de nivel 3 en orden de apilamiento
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaNaturales(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "sumNat(5)", 0 },
+                { "sumNat(4)", 1 },
+                { "sumNat(3)", 2 },
+                { "sumNat(2)", 3 },
+                { "sumNat(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular dobleSuma(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "dobleSum(5)", 0 },
+                { "dobleSum(4)", 1 },
+                { "dobleSum(3)", 2 },
+                { "dobleSum(2)", 3 },
+                { "dobleSum(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaCuadrado(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "sumCuad(5)", 0 },
+                { "sumCuad(4)", 1 },
+                { "sumCuad(3)", 2 },
+                { "sumCuad(2)", 3 },
+                { "sumCuad(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular potenciaTres(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "potTres(5)", 0 },
+                { "potTres(4)", 1 },
+                { "potTres(3)", 2 },
+                { "potTres(2)", 3 },
+                { "potTres(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaMultiplos(3, 5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "sumMult(5)", 0 },
+                { "sumMult(4)", 1 },
+                { "sumMult(3)", 2 },
+                { "sumMult(2)", 3 },
+                { "sumMult(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaCubos(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "sumCubos(5)", 0 },
+                { "sumCubos(4)", 1 },
+                { "sumCubos(3)", 2 },
+                { "sumCubos(2)", 3 },
+                { "sumCubos(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaMultiplosDecrecientes(5,5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "sumMultDec(5)", 0 },
+                { "sumMultDec(4)", 1 },
+                { "sumMultDec(3)", 2 },
+                { "sumMultDec(2)", 3 },
+                { "sumMultDec(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular potenciaBaseFija(2,5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "potBaseF(5)", 0 },
+                { "potBaseF(4)", 1 },
+                { "potBaseF(3)", 2 },
+                { "potBaseF(2)", 3 },
+                { "potBaseF(1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular productoAlternante(5)?",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "prodAlt(5)", 0 },
+                { "prodAlt(4)", 1 },
+                { "prodAlt(3)", 2 },
+                { "prodAlt(2)", 3 },
+                { "prodAlt(1)", 4 }
+            }
         }
     };
+
 
 
     public static ModifyTextLvl2 Instance { get; private set; }
@@ -224,11 +328,13 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 brick.gameObject.SetActive(true);
             }
         }
+        tiempoInicioPregunta = Time.time;
     }
 
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
         Pregunta preguntaActual = preguntasNivel2[preguntaIndex];
+        bool esCorrecta = false;
 
         if (preguntaActual.AlternativasConPosicion.TryGetValue(respuestaSeleccionada, out int posicionCorrecta))
         {
@@ -236,6 +342,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             {
                 respuestasJugador.Add(respuestaSeleccionada);
                 indiceActual++;
+                esCorrecta = true;
 
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
@@ -243,18 +350,19 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                     preguntasNivel2.RemoveAt(preguntaIndex);
                     EjecutarAnimacionDeExito();
                 }
+            }
+        }
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        // Registrar los datos de respuesta en PlayerDataManager
+        PlayerDataManager.Instance.RegistrarDatosJugador(
+            preguntaActual.TextoPregunta,
+            preguntaActual.AlternativasConPosicion.Keys.ToList(),
+            respuestaSeleccionada,
+            esCorrecta,
+            Time.time - tiempoInicioPregunta // Calcula el tiempo de respuesta
+        );
+
+        return esCorrecta;
     }
 
     public IEnumerator MostrarAnimacionDeExito()
