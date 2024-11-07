@@ -257,8 +257,15 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                 posicionesOriginales.Add(brick.transform.position); // Guardar la posición original
             }
         }
+        StartCoroutine(CongelarPantallaPor3Segundos()); // Iniciar la pausa antes de la primera pregunta
     }
 
+    private IEnumerator CongelarPantallaPor3Segundos()
+    {
+        Time.timeScale = 0; // Congela el tiempo en el juego
+        yield return new WaitForSecondsRealtime(3); // Espera 3 segundos en tiempo real
+        Time.timeScale = 1; // Descongela el tiempo para continuar el juego
+    }
     private void Update()
     {
         // Detectar si se presiona Enter para alternar entre la pregunta y el código

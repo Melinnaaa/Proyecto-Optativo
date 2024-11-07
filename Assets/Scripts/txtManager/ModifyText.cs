@@ -106,6 +106,14 @@ public class ModifyText : MonoBehaviour, IModifyText
         }
 
         CargarPreguntaAleatoria();
+        StartCoroutine(CongelarPantallaPor3Segundos()); // Iniciar la pausa antes de la primera pregunta
+    }
+
+    private IEnumerator CongelarPantallaPor3Segundos()
+    {
+        Time.timeScale = 0; // Congela el tiempo en el juego
+        yield return new WaitForSecondsRealtime(3); // Espera 3 segundos en tiempo real
+        Time.timeScale = 1; // Descongela el tiempo para continuar el juego
     }
 
     public void ReiniciarPreguntas()
@@ -191,5 +199,6 @@ public class ModifyText : MonoBehaviour, IModifyText
     {
         yield return new WaitForSeconds(0.000001f); // Espera antes de cargar la nueva pregunta
         CargarPreguntaAleatoria();
+        StartCoroutine(CongelarPantallaPor3Segundos());
     }
 }
