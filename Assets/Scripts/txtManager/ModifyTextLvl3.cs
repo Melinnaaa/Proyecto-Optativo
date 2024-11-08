@@ -241,12 +241,15 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         {
             if (textMesh != null)
             {
-                posicionesOriginales.Add(textMesh.transform.position);
                 
                 Brick pilaBrick = textMesh.GetComponentInParent<Brick>();
                 if (pilaBrick != null)
                 {
                     pilaBrick.isMovable = false;  // Configurar para que estos bricks nunca se muevan
+                     // Establecer la posición original en el eje X a -15.55
+                    Vector3 posicionFija = new Vector3(-15f, textMesh.transform.position.y, textMesh.transform.position.z);
+                    textMesh.transform.position = posicionFija;
+                    posicionesOriginales.Add(posicionFija); // Guardar la posición fija como la original
                 }
             }
         }
