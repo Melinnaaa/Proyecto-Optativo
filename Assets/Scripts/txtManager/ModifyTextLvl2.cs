@@ -25,211 +25,246 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
     {
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas cuando se calcula fibo(3)?",
-            CodigoTexto = "int fibo(int n) {\n" +
-                        "    if (n <= 1) return n;\n" +
-                        "    else return fibo(n - 1) + fibo(n - 2);\n" +
-                        "}",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "fibo(3)", 0 },
-                { "fibo(2)", 1 },
-                { "fibo(1)-1ra", 2 },
-                { "fibo(0)", 3 },
-                { "fibo(1)-2da", 4 }
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5}?",
-            CodigoTexto = "int prod(int arr[], int n) {\n" +
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5} usando la función prodLis?",
+            CodigoTexto = "int prodLis(int[] arr, int n) {\n" +
                         "    if (n == 0) return 1;\n" +
-                        "    else return arr[n - 1] * prod(arr, n - 1);\n" +
+                        "    return arr[n - 1] * prodLis(arr, n - 1);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "prod(arr, 4)", 0 },
-                { "prod(arr, 3)", 1 },
-                { "prod(arr, 2)", 2 },
-                { "prod(arr, 1)", 3 },
-                { "prod(arr, 0)", 4 }
+                { "prodLis(arr, 0)", 0 },
+                { "prodLis(arr, 1)", 1 },
+                { "prodLis(arr, 2)", 2 },
+                { "prodLis(arr, 3)", 3 },
+                { "prodLis(arr, 4)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular mcd(462, 1071)?",
-            CodigoTexto = "int mcd(int a, int b) {\n" +
-                        "    if (b == 0) return a;\n" +
-                        "    else return mcd(b, a % b);\n" +
-                        "}",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "mcd(462, 1071)", 0 },
-                { "mcd(1071, 462)", 1 },
-                { "mcd(462, 147)", 2 },
-                { "mcd(147, 21)", 3 },
-                { "mcd(21, 0)", 4 }
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular pot(3, 4)?",
-            CodigoTexto = "int pot(int base, int exp) {\n" +
-                        "    if (exp == 0) return 1;\n" +
-                        "    else return base * pot(base, exp - 1);\n" +
-                        "}",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "pot(3, 4)", 0 },
-                { "pot(3, 3)", 1 },
-                { "pot(3, 2)", 2 },
-                { "pot(3, 1)", 3 },
-                { "pot(3, 0)", 4 }
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para buscar el número 5 en el arreglo {1, 2, 3, 4, 5, 6, 7, 8, 9}?",
-            CodigoTexto = "int bus(int arr[], int n, int target) {\n" +
-                        "    if (arr[n] == target) return n;\n" +
-                        "    else return buscar(arr, n - 1, target);\n" +
-                        "}",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "bus(arr, 9, 5)", 0 },
-                { "bus(arr, 8, 5)", 1 },
-                { "bus(arr, 7, 5)", 2 },
-                { "bus(arr, 6, 5)", 3 },
-                { "bus(arr, 5, 5)", 4 }
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular la suma de los dígitos de 4321?",
-            CodigoTexto = "int sumaDigitos(int n) {\n" +
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular sumaNaturales(5) usando la función sumNat?",
+            CodigoTexto = "int sumNat(int n) {\n" +
                         "    if (n == 0) return 0;\n" +
-                        "    else return (n % 10) + sumaDigitos(n / 10);\n" +
+                        "    return n + sumNat(n - 1);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumaDig(4321)", 0 },
-                { "sumaDig(432)", 1 },
-                { "sumaDig(43)", 2 },
-                { "sumaDig(4)", 3 },
-                { "sumaDig(0)", 4 }
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaNaturales(5)?",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "sumNat(5)", 0 },
-                { "sumNat(4)", 1 },
+                { "sumNat(1)", 0 },
+                { "sumNat(2)", 1 },
                 { "sumNat(3)", 2 },
-                { "sumNat(2)", 3 },
-                { "sumNat(1)", 4 }
+                { "sumNat(4)", 3 },
+                { "sumNat(5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular dobleSuma(5)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular dobleSuma(5) usando la función dobleSum?",
+            CodigoTexto = "int dobleSum(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return 2 * n + dobleSum(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "dobleSum(5)", 0 },
-                { "dobleSum(4)", 1 },
+                { "dobleSum(1)", 0 },
+                { "dobleSum(2)", 1 },
                 { "dobleSum(3)", 2 },
-                { "dobleSum(2)", 3 },
-                { "dobleSum(1)", 4 }
+                { "dobleSum(4)", 3 },
+                { "dobleSum(5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaCuadrado(5)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular sumaCuadrado(5) usando la función sumCuad?",
+            CodigoTexto = "int sumCuad(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * n + sumCuad(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumCuad(5)", 0 },
-                { "sumCuad(4)", 1 },
+                { "sumCuad(1)", 0 },
+                { "sumCuad(2)", 1 },
                 { "sumCuad(3)", 2 },
-                { "sumCuad(2)", 3 },
-                { "sumCuad(1)", 4 }
+                { "sumCuad(4)", 3 },
+                { "sumCuad(5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular potenciaTres(5)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular 3^4 usando la función potencia?",
+            CodigoTexto = "int potencia(int base, int exp) {\n" +
+                        "    if (exp == 0) return 1;\n" +
+                        "    return base * potencia(base, exp - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potTres(5)", 0 },
-                { "potTres(4)", 1 },
-                { "potTres(3)", 2 },
-                { "potTres(2)", 3 },
-                { "potTres(1)", 4 }
+                { "potencia(3, 0)", 0 },
+                { "potencia(3, 1)", 1 },
+                { "potencia(3, 2)", 2 },
+                { "potencia(3, 3)", 3 },
+                { "potencia(3, 4)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaMultiplos(3, 5)?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular sumMltplo(5,3) usando la función sumMltplo?",
+            CodigoTexto = "int sumMltplo(int n, int m) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return m + sumMltplo(n - 1, m);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumMult(5)", 0 },
-                { "sumMult(4)", 1 },
-                { "sumMult(3)", 2 },
-                { "sumMult(2)", 3 },
-                { "sumMult(1)", 4 }
+                { "sumMltplo(1,3)", 0 },
+                { "sumMltplo(2,3)", 1 },
+                { "sumMltplo(3,3)", 2 },
+                { "sumMltplo(4,3)", 3 },
+                { "sumMltplo(5,3)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaCubos(5)?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumCubos(5) usando la función sumCubos?",
+            CodigoTexto = "int sumCubos(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * n * n + sumCubos(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumCubos(5)", 0 },
-                { "sumCubos(4)", 1 },
+                { "sumCubos(1)", 0 },
+                { "sumCubos(2)", 1 },
                 { "sumCubos(3)", 2 },
-                { "sumCubos(2)", 3 },
-                { "sumCubos(1)", 4 }
+                { "sumCubos(4)", 3 },
+                { "sumCubos(5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular sumaMultiplosDecrecientes(5,5)?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumMuDcr(5,5) usando la función sumMuDcr?",
+            CodigoTexto = "int sumMuDcr(int n, int m) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return m + sumMuDcr(n - 1, m);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumMultDec(5)", 0 },
-                { "sumMultDec(4)", 1 },
-                { "sumMultDec(3)", 2 },
-                { "sumMultDec(2)", 3 },
-                { "sumMultDec(1)", 4 }
+                { "sumMuDcr(1,5)", 0 },
+                { "sumMuDcr(2,5)", 1 },
+                { "sumMuDcr(3,5)", 2 },
+                { "sumMuDcr(4,5)", 3 },
+                { "sumMuDcr(5,5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular potenciaBaseFija(2,5)?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular potBaseFija(2,5) usando la función potBaseFija?",
+            CodigoTexto = "int potBaseFija(int base, int exp) {\n" +
+                        "    if (exp == 0) return 1;\n" +
+                        "    return base * potBaseFija(base, exp - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potBaseF(5)", 0 },
-                { "potBaseF(4)", 1 },
-                { "potBaseF(3)", 2 },
-                { "potBaseF(2)", 3 },
-                { "potBaseF(1)", 4 }
+                { "potBaseFija(2,1)", 0 },
+                { "potBaseFija(2,2)", 1 },
+                { "potBaseFija(2,3)", 2 },
+                { "potBaseFija(2,4)", 3 },
+                { "potBaseFija(2,5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden en que se apilan las llamadas recursivas para calcular productoAlternante(5)?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular prodAlternante(5) usando la función prodAlternante?",
+            CodigoTexto = "int prodAlternante(int n) {\n" +
+                        "    if (n == 0) return 1;\n" +
+                        "    return n * prodAlternante(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "prodAlt(5)", 0 },
-                { "prodAlt(4)", 1 },
+                { "prodAlt(1)", 0 },
+                { "prodAlt(2)", 1 },
                 { "prodAlt(3)", 2 },
-                { "prodAlt(2)", 3 },
-                { "prodAlt(1)", 4 }
+                { "prodAlt(4)", 3 },
+                { "prodAlt(5)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular el factorial(6) usando la función factorial?",
+            CodigoTexto = "int factorial(int n) {\n" +
+                        "    if (n <= 1) return 1;\n" +
+                        "    return n * factorial(n - 1);\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "factorial(6)", 0 },
+                { "factorial(5)", 1 },
+                { "factorial(4)", 2 },
+                { "factorial(3)", 3 },
+                { "factorial(2)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar cuántas veces aparece el número 2 en el arreglo {1, 2, 2, 3, 2} usando la función contarDos?",
+            CodigoTexto = "int contarDos(int[] arr, int n) {\n" +
+                        "    if (n <= 0) return 0;\n" +
+                        "    return (arr[n - 1] == 2 ? 1 : 0) + contarDos(arr, n - 1);\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "contDos(arr, 5)", 0 },
+                { "contrDos(arr, 4)", 1 },
+                { "contDos(arr, 3)", 2 },
+                { "contDos(arr, 2)", 3 },
+                { "contDos(arr, 1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para encontrar el mínimo valor en el arreglo {7, 3, 8, 1, 5} usando la función busMin?",
+            CodigoTexto = "int busMin(int[] arr, int n) {\n" +
+                        "    if (n == 1) return arr[0];\n" +
+                        "    return Mathf.Min(arr[n - 1], busMin(arr, n - 1));\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "busMin(arr, 5)", 0 },
+                { "busMin(arr, 4)", 1 },
+                { "busMin(arr, 3)", 2 },
+                { "busMin(arr, 2)", 3 },
+                { "busMin(arr, 1)", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar las vocales en la palabra 'aureo' usando la función contVocales?",
+            CodigoTexto = "int contVocales(string palabra) {\n" +
+                        "    if (palabra.Length == 0) return 0;\n" +
+                        "    int suma = \"aeiouAEIOU\".Contains(palabra[0]) ? 1 : 0;\n" +
+                        "    return suma + contVocales(palabra.Substring(1));\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "contVocales(\"aureo\")", 0 },
+                { "contVocales(\"ureo\")", 1 },
+                { "contVocales(\"reo\")", 2 },
+                { "contVocales(\"eo\")", 3 },
+                { "contVocales(\"o\")", 4 }
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para invertir la cadena 'fruta' usando la función invCad?",
+            CodigoTexto = "string invCad(string s) {\n" +
+                        "    if (s.Length == 0) return s;\n" +
+                        "    return s[s.Length - 1] + invCad(s.Substring(0, s.Length - 1));\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "invCad(\"fruta\")", 0 },
+                { "invCad(\"frut\")", 1 },
+                { "invCad(\"fru\")", 2 },
+                { "invCad(\"fr\")", 3 },
+                { "invCad(\"f\")", 4 }
             }
         }
     };
-
-
 
     public static ModifyTextLvl2 Instance { get; private set; }
 

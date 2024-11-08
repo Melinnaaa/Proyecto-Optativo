@@ -7,21 +7,25 @@ using TMPro;
 public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 {
     public TextMeshProUGUI preguntaTexto; // TextMeshPro para mostrar la pregunta
+    public TextMeshProUGUI codigoTexto;
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
     public TextMesh[] pilaAdicionalBricks; // Array de TextMesh para la pila adicional de bricks
-
+    private bool mostrandoPregunta = true; // Controla si se muestra la pregunta o el código
     private List<string> respuestasJugador = new List<string>(); // Lista para almacenar respuestas dadas por el jugador
     private int preguntaIndex; // Índice de la pregunta actual
     private int indiceActual = 0;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
     private float tiempoInicioPregunta;
 
-
     private List<Pregunta> preguntasNivel3 = new List<Pregunta>
     {
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5} usando la función productoLista?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular el producto de los elementos del arreglo {2, 3, 4, 5} usando la función prodLis?",
+            CodigoTexto = "int prodLis(int[] arr, int index) {\n" +
+                        "    if (index == arr.Length) return 1;\n" +
+                        "    return arr[index] * prodLis(arr, index + 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "1", 0 },
@@ -32,16 +36,20 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "prodLis(1)",
-                "prodLis(2)",
-                "prodLis(3)",
-                "prodLis(4)",
-                "prodLis(5)"
+                "prodLis(arr, 0)",
+                "prodLis(arr, 1)",
+                "prodLis(arr, 2)",
+                "prodLis(arr, 3)",
+                "prodLis(arr, 4)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaNaturales(5) usando la función sumaNaturales?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaNaturales(5) usando la función sumNat?",
+            CodigoTexto = "int sumNat(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n + sumNat(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "1", 0 },
@@ -61,14 +69,18 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular dobleSuma(5) usando la función dobleSuma?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular dobleSuma(5) usando la función dobleSum?",
+            CodigoTexto = "int dobleSum(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return 2 * n + dobleSum(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "2", 0 },
                 { "6", 1 },
                 { "12", 2 },
                 { "20", 3 },
-                { "30", 4 } 
+                { "30", 4 }
             },
             PilaAdicionalContenido = new List<string>
             {
@@ -81,7 +93,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaCuadrado(5) usando la función sumaCuadrado?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaCuadrado(5) usando la función sumCuad?",
+            CodigoTexto = "int sumCuad(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * n + sumCuad(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "1", 0 },
@@ -101,7 +117,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular potenciaTres(5) usando la función potenciaTres?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular 3^4 usando la función potencia?",
+            CodigoTexto = "int potencia(int base, int exp) {\n" +
+                        "    if (exp == 0) return 1;\n" +
+                        "    return base * potencia(base, exp - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "3", 0 },
@@ -112,36 +132,44 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "potTres(1)",
-                "potTres(2)",
-                "potTres(3)",
-                "potTres(4)",
-                "potTres(5)"
+                "potencia(3, 0)",
+                "potencia(3, 1)",
+                "potencia(3, 2)",
+                "potencia(3, 3)",
+                "potencia(3, 4)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaMultiplos(3, 5) usando la función sumaMultiplos?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumMltplo(5,3) usando la función sumMltplo?",
+            CodigoTexto = "int sumMltplo(int n, int m) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * m + sumMltplo(n - 1, m);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "3", 0 },
-                { "9", 1 },
-                { "18", 2 },
-                { "30", 3 },
-                { "45", 4 }
+                { "6", 1 },
+                { "9", 2 },
+                { "12", 3 },
+                { "15", 4 }
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumMult(1)",
-                "sumMult(2)",
-                "sumMult(3)",
-                "sumMult(4)",
-                "sumMult(5)"
+                "sumMltplo(1,3)",
+                "sumMltplo(2,3)",
+                "sumMltplo(3,3)",
+                "sumMltplo(4,3)",
+                "sumMltplo(5,3)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaCubos(5) usando la función sumaCubos?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumCubos(5) usando la función sumCubos?",
+            CodigoTexto = "int sumCubos(int n) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * n * n + sumCubos(n - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "1", 0 },
@@ -161,7 +189,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumaMultiplosDecrecientes(5,5) usando la función sumaMultiplosDecrecientes?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumMuDcr(5, 5) usando la función sumMuDcr?",
+            CodigoTexto = "int sumMuDcr(int n, int m) {\n" +
+                        "    if (n == 0) return 0;\n" +
+                        "    return n * m + sumMuDcr(n - 1, m);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "5", 0 },
@@ -172,43 +204,51 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumMultDec(1)",
-                "sumMultDec(2)",
-                "sumMultDec(3)",
-                "sumMultDec(4)",
-                "sumMultDec(5)"
+                "sumMuDcr(1,5)",
+                "sumMuDcr(2,5)",
+                "sumMuDcr(3,5)",
+                "sumMuDcr(4,5)",
+                "sumMuDcr(5,5)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular potenciaBaseFija(2,5) usando la función potenciaBaseFija?",
-            AlternativasConPosicion = new Dictionary<string, int>
-            {
-                { "2", 0 },
-                { "6", 1 },
-                { "14", 2 },
-                { "30", 3 },
-                { "62", 4 }
-            },
-            PilaAdicionalContenido = new List<string>
-            {
-                "potBaseF(1)",
-                "potBaseF(2)",
-                "potBaseF(3)",
-                "potBaseF(4)",
-                "potBaseF(5)"
-            }
-        },
-        new Pregunta
-        {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular productoAlternante(5) usando la función productoAlternante?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular potBaseFija(2, 5) usando la función potBaseFija?",
+            CodigoTexto = "int potBaseFija(int base, int exp) {\n" +
+                        "    if (exp == 0) return 1;\n" +
+                        "    return base * potBaseFija(base, exp - 1);\n" +
+                        "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "2", 0 },
                 { "4", 1 },
-                { "12", 2 },
-                { "24", 3 },
-                { "72", 4 }
+                { "8", 2 },
+                { "16", 3 },
+                { "32", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "potBaseFija(2,1)",
+                "potBaseFija(2,2)",
+                "potBaseFija(2,3)",
+                "potBaseFija(2,4)",
+                "potBaseFija(2,5)"
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular prodAlternante(5) usando la función prodAlternante?",
+            CodigoTexto = "int prodAlternante(int n) {\n" +
+                        "    if (n == 0) return 1;\n" +
+                        "    return (n % 2 == 0 ? -n : n) * prodAlternante(n - 1);\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "1", 0 },
+                { "-2", 1 },
+                { "6", 2 },
+                { "-24", 3 },
+                { "120", 4 }
             },
             PilaAdicionalContenido = new List<string>
             {
@@ -217,6 +257,104 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 "prodAlt(3)",
                 "prodAlt(4)",
                 "prodAlt(5)"
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular el factorial(6) usando la función factorial?",
+            CodigoTexto = "int factorial(int n) {\n" +
+                        "    if (n <= 1) return 1;\n" +
+                        "    return n * factorial(n - 1);\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "2", 0 },
+                { "6", 1 },
+                { "24", 2 },
+                { "120", 3 },
+                { "720", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "factorial(6)",
+                "factorial(5)",
+                "factorial(4)",
+                "factorial(3)",
+                "factorial(2)"
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar cuántas veces aparece el número 2 en el arreglo {1, 2, 2, 3, 2} usando la función contarDos?",
+            CodigoTexto = "int contarDos(int[] arr, int index) {\n" +
+                        "    if (index == arr.Length) return 0;\n" +
+                        "    int count = arr[index] == 2 ? 1 : 0;\n" +
+                        "    return count + contarDos(arr, index + 1);\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "0", 0 },
+                { "1-first", 1 },
+                { "1-second", 2 },
+                { "2", 3 },
+                { "3", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "contDos(arr, 5)",
+                "contDos(arr, 4)",
+                "contDos(arr, 3)",
+                "contDos(arr, 2)",
+                "contDos(arr, 1)"
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar las vocales en la palabra 'aureo' usando la función contVocales?",
+            CodigoTexto = "int contVocales(string palabra) {\n" +
+                        "    if (palabra.Length == 0) return 0;\n" +
+                        "    int suma = \"aeiouAEIOU\".Contains(palabra[0]) ? 1 : 0;\n" +
+                        "    return suma + contVocales(palabra.Substring(1));\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "1", 0 },
+                { "2-first", 1 },
+                { "2-second", 2 },
+                { "3", 3 },
+                { "4", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "contVocales(\"aureo\")",
+                "contVocales(\"ureo\")",
+                "contVocales(\"reo\")",
+                "contVocales(\"eo\")",
+                "contVocales(\"o\")"
+            }
+        },
+        new Pregunta
+        {
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para invertir la cadena 'fruta' usando la función invCad?",
+            CodigoTexto = "string invCad(string s) {\n" +
+                        "    if (s.Length == 0) return s;\n" +
+                        "    return s[s.Length - 1] + invCad(s.Substring(0, s.Length - 1));\n" +
+                        "}",
+            AlternativasConPosicion = new Dictionary<string, int>
+            {
+                { "f", 0 },
+                { "rf", 1 },
+                { "urf", 2 },
+                { "turf", 3 },
+                { "aturf", 4 }
+            },
+            PilaAdicionalContenido = new List<string>
+            {
+                "invCad(\"fruta\")",
+                "invCad(\"frut\")",
+                "invCad(\"fru\")",
+                "invCad(\"fr\")",
+                "invCad(\"f\")"
             }
         }
     };
@@ -241,18 +379,34 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         {
             if (textMesh != null)
             {
-                
                 Brick pilaBrick = textMesh.GetComponentInParent<Brick>();
                 if (pilaBrick != null)
                 {
-                    pilaBrick.isMovable = false;  // Configurar para que estos bricks nunca se muevan
-                     // Establecer la posición original en el eje X a -15.55
+                    pilaBrick.isMovable = false;
                     Vector3 posicionFija = new Vector3(-15f, textMesh.transform.position.y, textMesh.transform.position.z);
-                    textMesh.transform.position = posicionFija;
-                    posicionesOriginales.Add(posicionFija); // Guardar la posición fija como la original
+                    posicionesOriginales.Add(posicionFija);
                 }
             }
         }
+        StartCoroutine(CongelarPantallaPor3Segundos());
+    }
+
+    void Update()
+    {
+        // Detectar si se presiona Enter para alternar entre la pregunta y el código
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            CambiarVista();
+        }
+    }
+
+    private void CambiarVista()
+    {
+        mostrandoPregunta = !mostrandoPregunta;
+
+        // Alternar visibilidad entre pregunta y código
+        preguntaTexto.enabled = mostrandoPregunta;
+        codigoTexto.enabled = !mostrandoPregunta;
     }
 
     private IEnumerator CongelarPantallaPor3Segundos()
@@ -267,17 +421,19 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         if (preguntasNivel3.Count == 0)
         {
             Debug.Log("No hay más preguntas disponibles.");
-            return; // No hay más preguntas disponibles
+            return;
         }
 
         preguntaIndex = Random.Range(0, preguntasNivel3.Count);
         Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
 
         preguntaTexto.text = preguntaActual.TextoPregunta;
+        codigoTexto.text = preguntaActual.CodigoTexto;
+        codigoTexto.enabled = false;
+
         respuestasJugador.Clear();
         indiceActual = 0;
 
-        // Restaurar las posiciones originales de la pila adicional
         for (int i = 0; i < pilaAdicionalBricks.Length; i++)
         {
             if (pilaAdicionalBricks[i] != null && i < posicionesOriginales.Count)
@@ -292,7 +448,6 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             }
         }
 
-        // Configuración para cargar la nueva pregunta en alternativasTextos
         List<string> alternativasDesordenadas = preguntaActual.AlternativasConPosicion.Keys.ToList();
         alternativasDesordenadas = alternativasDesordenadas.OrderBy(a => Random.value).ToList();
 
@@ -311,6 +466,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         tiempoInicioPregunta = Time.time;
     }
 
+
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
         Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
@@ -323,25 +479,21 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 respuestasJugador.Add(respuestaSeleccionada);
                 esCorrecta = true;
 
-                // Mover el primer bloque de la pila adicional fuera de la pantalla
                 if (indiceActual < pilaAdicionalBricks.Length)
                 {
                     Brick pilaBrick = pilaAdicionalBricks[indiceActual].GetComponentInParent<Brick>();
                     if (pilaBrick != null)
                     {
                         pilaBrick.MoverFueraDePantalla();
-                        Debug.Log($"Moviendo fuera de pantalla el bloque de la pila: {pilaBrick.gameObject.name}");
                     }
                 }
 
-                // Mover el bloque de alternativas al que se disparó
                 foreach (var texto in alternativasTextos)
                 {
                     Brick brick = texto.GetComponentInParent<Brick>();
                     if (brick != null && texto.text == respuestaSeleccionada)
                     {
                         brick.MoverFueraDePantalla();
-                        Debug.Log($"Moviendo fuera de pantalla el bloque de alternativas: {brick.gameObject.name}");
                         break;
                     }
                 }
