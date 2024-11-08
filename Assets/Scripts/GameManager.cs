@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public AudioSource audioSource; 
+    public AudioSource backgroundMusicSource;
     public AudioClip explosionSound; 
     public AudioClip failSound; 
     public AudioClip extraLifeSound;
+    public AudioClip backgroundMusic;
 
     public int lifes { get; private set; } = 2;
     public TextMesh scoreText;
@@ -31,29 +33,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PlayExplosionSound()
-    {
-        if (audioSource != null && explosionSound != null)
-        {
-            audioSource.PlayOneShot(explosionSound); 
-        }
-    }
-
-    public void PlayFailSound()
-    {
-        if (audioSource != null && failSound != null)
-        {
-            audioSource.PlayOneShot(failSound); 
-        }
-    }
-    public void PlayExtraLifeSound()
-    {
-        if (audioSource != null && extraLifeSound != null)
-        {
-            audioSource.PlayOneShot(extraLifeSound);
-        }
-    }
-
     private void Start()
     {
         // Solo resetea el GameManager si estamos en un nivel de juego
@@ -61,6 +40,41 @@ public class GameManager : MonoBehaviour
         if (sceneName == "Level1" || sceneName == "Level2" || sceneName == "Level3")
         {
             ResetGameManager();
+            PlayBackgroundMusic();
+        }
+    }
+
+    public void PlayExplosionSound(float volume = 0.5f)
+    {
+        if (audioSource != null && explosionSound != null)
+        {
+            audioSource.PlayOneShot(explosionSound, volume); // Reproduce el sonido de explosión con volumen reducido
+        }
+    }
+
+    public void PlayFailSound(float volume = 0.2f)
+    {
+        if (audioSource != null && failSound != null)
+        {
+            audioSource.PlayOneShot(failSound, volume); // Reproduce el sonido de fallo con volumen reducido
+        }
+    }
+
+    public void PlayExtraLifeSound(float volume = 0.5f)
+    {
+        if (audioSource != null && extraLifeSound != null)
+        {
+            audioSource.PlayOneShot(extraLifeSound, volume); // Reproduce el sonido de extra vida con volumen reducido
+        }
+    }
+
+    public void PlayBackgroundMusic()
+    {
+        if (backgroundMusicSource != null && backgroundMusic != null && !backgroundMusicSource.isPlaying)
+        {
+            backgroundMusicSource.clip = backgroundMusic;
+            backgroundMusicSource.loop = true; // Configura el audio para que se repita
+            backgroundMusicSource.Play();
         }
     }
 
