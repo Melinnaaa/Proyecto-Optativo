@@ -8,6 +8,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 {
     public TextMeshProUGUI preguntaTexto; // TextMeshPro para mostrar la pregunta
     public TextMeshProUGUI codigoTexto;
+    public TextMeshProUGUI excelente;
     public TextMesh[] alternativasTextos; // Array de TextMesh para mostrar las alternativas
     public TextMesh[] pilaAdicionalBricks; // Array de TextMesh para la pila adicional de bricks
     private bool mostrandoPregunta = true; // Controla si se muestra la pregunta o el código
@@ -16,6 +17,8 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
     private int indiceActual = 0;
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
     private float tiempoInicioPregunta;
+
+    public ParticleSystem explosionEffect;
 
     private List<Pregunta> preguntasNivel3 = new List<Pregunta>
     {
@@ -371,6 +374,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         {
             Instance = this;
         }
+        excelente.enabled = false;
     }
 
     void Start()
@@ -505,6 +509,8 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                     preguntasNivel3.RemoveAt(preguntaIndex);
                     Level3Manager.Instance.preguntasCorrectas++;
                     GameManager.Instance.RegistrarRespuestaCorrecta();
+                    explosionEffect.Play();
+                    excelente.enabled = true;
                     StartCoroutine(CargarPreguntaConRetraso());
                 }
             }
@@ -524,6 +530,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
     private IEnumerator CargarPreguntaConRetraso()
     {
         yield return new WaitForSeconds(1.0f);
+        excelente.enabled = false;
         CargarPreguntaAleatoria();
         StartCoroutine(CongelarPantallaPor3Segundos());
     }
