@@ -63,6 +63,7 @@ public class Brick : MonoBehaviour
     {
         gameObject.SetActive(true);
         velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
+        isMovable = true; // Permitir movimiento nuevamente
 
         // Restaurar la posición original
         transform.position = posicionOriginal;  
@@ -72,7 +73,7 @@ public class Brick : MonoBehaviour
 
     public void Hit()
     {}
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Detecta si colisiona con una pared
@@ -87,7 +88,7 @@ public class Brick : MonoBehaviour
             velocidadMovimiento = Random.Range(velocidadMinima, velocidadMaxima);
         }
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -116,11 +117,9 @@ public class Brick : MonoBehaviour
         {
             GameManager.Instance.PlayFailSound();
             spriteRenderer.color = Color.red; // Resaltar en rojo si es incorrecta
-
             GameManager.Instance.RegistrarError();
         }
     }
-
 
     private void MoveToStack()
     {
@@ -128,5 +127,21 @@ public class Brick : MonoBehaviour
         boxCollider.enabled = false; // Deshabilitar el collider para evitar nuevas colisiones
         stackPosition.y += stackOffsetY;
         velocidadMovimiento = 0; // Detener el movimiento en el stack
+        isMovable = false; // Asegurarse de que el bloque no se mueva al estar en el stack
+    }
+
+    // Método para mover el bloque fuera de la pantalla y detener su movimiento
+    public void MoverFueraDePantalla()
+    {
+        transform.position = new Vector3(-24f, transform.position.y, transform.position.z); // Mueve el bloque fuera de pantalla
+        velocidadMovimiento = 0; // Detiene el movimiento
+        isMovable = false; // Desactiva el movimiento adicional
+    }
+
+    // Método para reactivar el bloque en su posición inicial y estado original
+    public void ReactivarBrick()
+    {
+        gameObject.SetActive(true);
+        ResetBrick(); // Restaura la posición y el estado del brick a su configuración inicial
     }
 }

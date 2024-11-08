@@ -16,6 +16,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
     private List<Vector3> posicionesOriginales = new List<Vector3>(); // Almacena las posiciones originales de los bloques
     private float tiempoInicioPregunta;
 
+
     private List<Pregunta> preguntasNivel3 = new List<Pregunta>
     {
         new Pregunta
@@ -236,29 +237,33 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 
     void Start()
     {
-        // Guardar las posiciones originales de los bloques en el inicio del juego
-        for (int i = 0; i < alternativasTextos.Length; i++)
+        foreach (var textMesh in pilaAdicionalBricks)
         {
-            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            if (brick != null)
+            if (textMesh != null)
             {
-                posicionesOriginales.Add(brick.transform.position); // Guardar la posición original
+                posicionesOriginales.Add(textMesh.transform.position);
+                
+                Brick pilaBrick = textMesh.GetComponentInParent<Brick>();
+                if (pilaBrick != null)
+                {
+                    pilaBrick.isMovable = false;  // Configurar para que estos bricks nunca se muevan
+                }
             }
         }
-        StartCoroutine(CongelarPantallaPor3Segundos()); // Iniciar la pausa antes de la primera pregunta
     }
 
     private IEnumerator CongelarPantallaPor3Segundos()
     {
-        Time.timeScale = 0; // Congela el tiempo en el juego
-        yield return new WaitForSecondsRealtime(3); // Espera 3 segundos en tiempo real
-        Time.timeScale = 1; // Descongela el tiempo para continuar el juego
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(3);
+        Time.timeScale = 1;
     }
 
     public void CargarPreguntaAleatoria()
     {
         if (preguntasNivel3.Count == 0)
         {
+            Debug.Log("No hay más preguntas disponibles.");
             return; // No hay más preguntas disponibles
         }
 
@@ -269,16 +274,22 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         respuestasJugador.Clear();
         indiceActual = 0;
 
-        for (int i = 0; i < alternativasTextos.Length; i++)
+        // Restaurar las posiciones originales de la pila adicional
+        for (int i = 0; i < pilaAdicionalBricks.Length; i++)
         {
-            Brick brick = alternativasTextos[i].GetComponentInParent<Brick>();
-            if (brick != null)
+            if (pilaAdicionalBricks[i] != null && i < posicionesOriginales.Count)
             {
-                brick.ResetBrick();
-                brick.transform.position = posicionesOriginales[i];
+                Brick brick = pilaAdicionalBricks[i].GetComponentInParent<Brick>();
+                if (brick != null)
+                {
+                    brick.transform.position = posicionesOriginales[i];
+                    brick.isMovable = false; // Asegurarse de que los bloques de la pila no se muevan
+                    pilaAdicionalBricks[i].text = preguntaActual.PilaAdicionalContenido[i];
+                }
             }
         }
 
+        // Configuración para cargar la nueva pregunta en alternativasTextos
         List<string> alternativasDesordenadas = preguntaActual.AlternativasConPosicion.Keys.ToList();
         alternativasDesordenadas = alternativasDesordenadas.OrderBy(a => Random.value).ToList();
 
@@ -290,34 +301,12 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
                 string respuesta = alternativasDesordenadas[i];
                 alternativasTextos[i].text = respuesta;
                 brick.SetAnswer(respuesta, true);
-                brick.gameObject.SetActive(true);
+                brick.ResetBrick();
             }
         }
 
-        MostrarPilaAdicional();
         tiempoInicioPregunta = Time.time;
     }
-
-    public void MostrarPilaAdicional()
-    {
-        Pregunta preguntaActual = preguntasNivel3[preguntaIndex];
-
-        // Asignar el contenido de PilaAdicionalContenido a los bricks en pilaAdicionalBricks
-        for (int i = 0; i < pilaAdicionalBricks.Length; i++)
-        {
-            if (i < preguntaActual.PilaAdicionalContenido.Count)
-            {
-                // Asigna el texto correspondiente a cada brick en pilaAdicionalBricks
-                pilaAdicionalBricks[i].text = preguntaActual.PilaAdicionalContenido[i];
-            }
-            else
-            {
-                // Si hay menos contenido que bricks, limpia los textos sobrantes
-                pilaAdicionalBricks[i].text = ""; 
-            }
-        }
-    }
-   
 
     public bool VerificarRespuesta(string respuestaSeleccionada)
     {
@@ -329,8 +318,32 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             if (indiceActual == posicionCorrecta)
             {
                 respuestasJugador.Add(respuestaSeleccionada);
-                indiceActual++;
                 esCorrecta = true;
+
+                // Mover el primer bloque de la pila adicional fuera de la pantalla
+                if (indiceActual < pilaAdicionalBricks.Length)
+                {
+                    Brick pilaBrick = pilaAdicionalBricks[indiceActual].GetComponentInParent<Brick>();
+                    if (pilaBrick != null)
+                    {
+                        pilaBrick.MoverFueraDePantalla();
+                        Debug.Log($"Moviendo fuera de pantalla el bloque de la pila: {pilaBrick.gameObject.name}");
+                    }
+                }
+
+                // Mover el bloque de alternativas al que se disparó
+                foreach (var texto in alternativasTextos)
+                {
+                    Brick brick = texto.GetComponentInParent<Brick>();
+                    if (brick != null && texto.text == respuestaSeleccionada)
+                    {
+                        brick.MoverFueraDePantalla();
+                        Debug.Log($"Moviendo fuera de pantalla el bloque de alternativas: {brick.gameObject.name}");
+                        break;
+                    }
+                }
+
+                indiceActual++;
 
                 if (indiceActual >= preguntaActual.AlternativasConPosicion.Count)
                 {
@@ -342,29 +355,26 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             }
         }
 
-        // Registrar los datos de respuesta en PlayerDataManager
         PlayerDataManager.Instance.RegistrarDatosJugador(
             preguntaActual.TextoPregunta,
             preguntaActual.AlternativasConPosicion.Keys.ToList(),
             respuestaSeleccionada,
             esCorrecta,
-            Time.time - tiempoInicioPregunta // Calcula el tiempo de respuesta
+            Time.time - tiempoInicioPregunta
         );
 
         return esCorrecta;
     }
 
-    private System.Collections.IEnumerator CargarPreguntaConRetraso()
-{
-    yield return new WaitForSeconds(1.0f);
-    CargarPreguntaAleatoria(); // Cargar la nueva pregunta
-    StartCoroutine(CongelarPantallaPor3Segundos());
-}
-
+    private IEnumerator CargarPreguntaConRetraso()
+    {
+        yield return new WaitForSeconds(1.0f);
+        CargarPreguntaAleatoria();
+        StartCoroutine(CongelarPantallaPor3Segundos());
+    }
 
     public void ReiniciarPreguntas()
     {
         // Método para reiniciar el banco de preguntas (si es necesario)
     }
-    
 }
