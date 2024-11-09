@@ -7,63 +7,161 @@ public class LoadTips : MonoBehaviour
 {
     private string[] tipsNivel1 = new string[]
     {
-        "En el factorial, el caso base es un valor que, al multiplicarse, no cambia el resultado.",
-        "Piensa en el valor que define el inicio de la función factorial. Es el número que detiene el cálculo de productos.",
-        "El factorial se detiene en un valor específico para evitar un ciclo infinito de multiplicaciones.",
-        "¿Qué valor del exponente hace que cualquier número elevado a él no requiera multiplicaciones adicionales?",
-        "Reflexiona sobre qué valor en \"exp\" permite que la función potencia se detenga sin más cálculos.",
-        "Para la potencia, el caso base define el exponente mínimo que no requiere más operación.",
-        "Imagina el valor de \"n\" que permitiría que la suma de los números naturales se detenga inmediatamente.",
-        "Piensa en el número más pequeño que hace que la suma no necesite sumar más valores.",
-        "La función de sumaNaturales tiene un caso base que marca el fin de la suma; ¿cuál podría ser este valor?",
-        "La recursión se basa en una estructura que guarda cada llamada hasta que todas se completan.",
-        "Recuerda que en recursión, las llamadas se resuelven en orden inverso. ¿Qué estructura permite este orden?",
-        "Piensa en una estructura que sigue el principio de \"último en entrar, primero en salir\" (LIFO).",
-        "Este proceso implica \"sacar\" los elementos en el orden inverso al que entraron.",
-        "La recursión resuelve sus llamadas \"sacando\" cada paso en el orden opuesto al de la entrada.",
-        "En recursión, hay un proceso que libera las llamadas desde la última realizada hasta la primera. ¿Cómo se llama?",
-        "Cada función recursiva necesita una condición para no seguir llamándose infinitamente.",
-        "Este punto es esencial para que la función recursiva se detenga de forma controlada. ¿Cómo se llama?",
-        "Sin esta parte, una función recursiva caería en un bucle infinito. ¿Cuál es su nombre?"
+        // Pregunta 1
+        "En el factorial, el caso base es el valor de 'n' que detiene las multiplicaciones sucesivas.",
+        
+        // Pregunta 2
+        "En la función potencia, considera el exponente que hace que cualquier base elevada a él sea 1.",
+        
+        // Pregunta 3
+        "En sumaNaturales, piensa en el valor de 'n' que hace que la suma pueda detenerse sin agregar más números.",
+        
+        // Pregunta 4
+        "La recursión utiliza una estructura que sigue el principio de 'último en entrar, primero en salir' (LIFO).",
+        
+        // Pregunta 5
+        "El proceso de resolver las llamadas recursivas desde la última hasta la primera se llama desapilamiento.",
+        
+        // Pregunta 6
+        "La condición que detiene las llamadas recursivas en una función se llama caso base.",
+        
+        // Pregunta 7
+        "Si una función recursiva no tiene un caso base, las llamadas continuarán indefinidamente, causando un bucle infinito.",
+        
+        // Pregunta 8
+        "Una ventaja de la recursión es que puede simplificar el código, haciéndolo más legible y fácil de mantener.",
+        
+        // Pregunta 9
+        "Problemas como la secuencia de Fibonacci son adecuados para resolver con recursión debido a su naturaleza recurrente.",
+        
+        // Pregunta 10
+        "Cuando una función se llama a sí misma varias veces en cada nivel, esto se denomina recursión múltiple.",
+        
+        // Pregunta 11
+        "El riesgo principal de usar recursión con muchas llamadas es provocar un 'stack overflow' o desbordamiento de pila.",
+        
+        // Pregunta 12
+        "En la función Fibonacci, un caso base inapropiado sería un valor de 'n' que no detiene la recursión adecuadamente.",
+        
+        // Pregunta 13
+        "El caso base es fundamental para evitar recursiones infinitas en una función recursiva.",
+        
+        // Pregunta 14
+        "Durante el desapilamiento, las llamadas recursivas comienzan a resolver sus operaciones pendientes en orden inverso.",
+        
+        // Pregunta 15
+        "El caso base al invertir una cadena ocurre cuando la cadena está vacía; es entonces cuando la recursión se detiene.",
+        
+        // Pregunta 16
+        "Cuando una función se llama a sí misma directamente, se produce una recursión directa.",
+        
+        // Pregunta 17
+        "La estructura de control similar a la recursión es el bucle 'while', ya que repite acciones mientras una condición es verdadera."
     };
 
     private string[] tipsNivel2 = new string[]
     {
-        "Recuerda que en la recursión, cada llamada se apila en el stack hasta que se llega a un caso base.",
-        "Piensa en el orden en el que las llamadas se apilan en el stack: es como resolver el problema paso a paso.",
-        "Para el cálculo de fibonacci(4), cada llamada a fibonacci(n) se descompone en llamadas a fibonacci(n-1) y fibonacci(n-2).",
-        "En el cálculo de productoLista({2, 3, 4, 5}), cada llamada a productoLista(n) se apila hasta que se llega a productoLista(0).",
-        "Recuerda que el máximo común divisor (mcd) se calcula usando recursión y que cada llamada reduce el problema.",
-        "Cuando calculas potencia(3, 4), cada llamada reduce el exponente hasta llegar a potencia(3, 0), el caso base.",
-        "En la función buscar, cada llamada recursiva reduce el tamaño del arreglo hasta encontrar el elemento o llegar al caso base.",
-        "Para sumaDigitos(4321), cada llamada quita un dígito hasta que solo queda un dígito o se llega a cero.",
-        "Piensa en cada llamada recursiva como una nueva capa en el stack que debe completarse antes de regresar a la anterior.",
-        "El stack de llamadas permite recordar el estado de cada cálculo parcial, volviendo paso a paso cuando llega al caso base."
+        // Pregunta 1
+        "Al calcular el producto de una lista recursivamente, cada llamada procesa un elemento y avanza al siguiente.",
+        
+        // Pregunta 2
+        "En sumaNaturales, cada llamada suma 'n' y llama recursivamente con 'n - 1' hasta llegar al caso base.",
+        
+        // Pregunta 3
+        "En dobleSuma, se suma el doble de 'n' en cada llamada, disminuyendo 'n' hasta alcanzar el caso base.",
+        
+        // Pregunta 4
+        "SumaCuadrado suma el cuadrado de 'n' en cada llamada recursiva hasta que 'n' es cero.",
+        
+        // Pregunta 5
+        "Al calcular potencias recursivamente, el exponente disminuye en cada llamada hasta llegar a cero.",
+        
+        // Pregunta 6
+        "SumMltplo suma 'm' repetidamente 'n' veces usando llamadas recursivas que disminuyen 'n'.",
+        
+        // Pregunta 7
+        "Durante el desapilamiento de sumCubos, se suman los cubos de 'n' para obtener el resultado total.",
+        
+        // Pregunta 8
+        "En sumMuDcr, las llamadas recursivas suman 'm' mientras 'n' decrece hasta el caso base.",
+        
+        // Pregunta 9
+        "En potBaseFija, los resultados parciales se multiplican por la base durante el desapilamiento.",
+        
+        // Pregunta 10
+        "ProdAlternante multiplica 'n' en cada llamada; presta atención si hay cambios de signo.",
+        
+        // Pregunta 11
+        "En factorial, las llamadas recursivas se apilan disminuyendo 'n' hasta que 'n <= 1'.",
+        
+        // Pregunta 12
+        "ContarDos recorre el arreglo recursivamente, incrementando el conteo cuando encuentra un '2'.",
+        
+        // Pregunta 13
+        "BusMin compara el elemento actual con el mínimo encontrado en las llamadas recursivas anteriores.",
+        
+        // Pregunta 14
+        "ContVocales analiza cada carácter de la cadena recursivamente para contar las vocales.",
+        
+        // Pregunta 15
+        "Al invertir una cadena, cada llamada recursiva procesa el último carácter y continúa con el resto."
     };
-
 
     private string[] tipsNivel3 = new string[]
     {
-        "Recuerda que el desapilamiento en la recursión ocurre cuando se alcanzan los valores base y se resuelven las llamadas pendientes.",
-        "Para fibonacci(4), el desapilamiento sigue un orden específico al devolver los resultados acumulados.",
-        "En productoLista, cada llamada a productoLista(n) devuelve el valor del producto parcial hasta el índice 0.",
-        "El cálculo del máximo común divisor (mcd) también se resuelve durante el desapilamiento, devolviendo el valor final.",
-        "En potencia(3, 4), cada resultado parcial se multiplica con la base durante el desapilamiento hasta obtener el exponente deseado.",
-        "Para buscar un número en un arreglo, si se encuentra el elemento, las llamadas posteriores no se ejecutan.",
-        "En sumaDigitos(4321), cada llamada suma un dígito parcial hasta que el número se reduce al valor total.",
-        "Durante el desapilamiento, los valores se 'devuelven' a medida que se completan las llamadas recursivas de abajo hacia arriba.",
-        "Cada paso del desapilamiento utiliza el resultado de la llamada recursiva más profunda para resolver la anterior.",
-        "Recuerda que el desapilamiento permite resolver el problema en sentido inverso, acumulando el resultado de cada llamada."
+        // Pregunta 1
+        "En el desapilamiento de prodLis, los resultados parciales se multiplican para obtener el producto total.",
+        
+        // Pregunta 2
+        "Durante el desapilamiento de sumNat, se suman los resultados parciales para obtener la suma total.",
+        
+        // Pregunta 3
+        "En dobleSum, cada llamada devuelve '2 * n' sumado al resultado de las llamadas recursivas anteriores.",
+        
+        // Pregunta 4
+        "En sumCuad, los cuadrados de 'n' se suman durante el desapilamiento para acumular el resultado final.",
+        
+        // Pregunta 5
+        "Al desapilar en potencia, los resultados parciales se multiplican por la base para calcular la potencia total.",
+        
+        // Pregunta 6
+        "En sumMltplo, se suman múltiplos de 'm' durante el desapilamiento para obtener el resultado final.",
+        
+        // Pregunta 7
+        "En sumCubos, los cubos de 'n' se suman progresivamente durante el desapilamiento.",
+        
+        // Pregunta 8
+        "Durante el desapilamiento de sumMuDcr, se acumulan las sumas de 'm' con 'n' decreciente.",
+        
+        // Pregunta 9
+        "En potBaseFija, los resultados se multiplican por la base fija durante el desapilamiento para calcular la potencia.",
+        
+        // Pregunta 10
+        "En prodAlternante, los productos y signos se combinan durante el desapilamiento para obtener el resultado final.",
+        
+        // Pregunta 11
+        "En factorial, los resultados parciales se multiplican al desapilar para obtener el factorial completo.",
+        
+        // Pregunta 12
+        "ContarDos suma las ocurrencias de '2' durante el desapilamiento en cada llamada recursiva.",
+        
+        // Pregunta 13
+        "ContVocales acumula el conteo de vocales durante el desapilamiento para obtener el total.",
+        
+        // Pregunta 14
+        "Al invertir una cadena recursivamente, los caracteres se concatenan en orden inverso durante el desapilamiento."
     };
 
     public TextMeshProUGUI tipTexto; 
 
     private string[] currentTips;
+    private PlayerDataManager dataManager;
 
     void Start()
     {
+        dataManager = PlayerDataManager.Instance;
         CargarTips();
-        MostrarTipAleatorio();
+        MostrarTipEspecifico();
     }
 
     private void CargarTips()
@@ -86,15 +184,42 @@ public class LoadTips : MonoBehaviour
         {
             Debug.LogWarning("Nombre de escena no reconocido para cargar tips.");
             currentTips = new string[] { "No hay tips disponibles para este nivel." };
+            return;
         }
     }
 
-    public void MostrarTipAleatorio()
+    public void MostrarTipEspecifico()
     {
+        if (dataManager == null || dataManager.playerData == null)
+        {
+            Debug.LogWarning("No hay datos del jugador disponibles.");
+            tipTexto.text = "No hay tips disponibles.";
+            return;
+        }
+
+        int indicePregunta = dataManager.playerData.lastIncorrectQuestionIndex;
+
+        if (indicePregunta == -1)
+        {
+            tipTexto.text = "¡Felicidades! No has cometido errores.";
+            return;
+        }
+
         if (currentTips != null && currentTips.Length > 0)
         {
-            int randomIndex = Random.Range(0, currentTips.Length);
-            tipTexto.text = currentTips[randomIndex];
+            if (indicePregunta >= 0 && indicePregunta < currentTips.Length)
+            {
+                tipTexto.text = currentTips[indicePregunta];
+            }
+            else
+            {
+                Debug.LogWarning("Índice de pregunta fuera de rango o no válido.");
+                tipTexto.text = "No hay tips disponibles para esta pregunta.";
+            }
+        }
+        else
+        {
+            tipTexto.text = "No hay tips disponibles.";
         }
     }
 }

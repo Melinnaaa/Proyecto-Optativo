@@ -160,11 +160,14 @@ public class ModifyText : MonoBehaviour, IModifyText
 
         PlayerDataManager.Instance.RegistrarDatosJugador(
             preguntas[preguntaIndex],
+            preguntaIndex,
             new List<string>(alternativas[preguntaIndex]),
             respuestaSeleccionada,
             esCorrecta,
             Time.time - tiempoInicioPregunta
         );
+
+
 
         if (esCorrecta)
         {

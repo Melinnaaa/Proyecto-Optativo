@@ -395,9 +395,9 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
             }
         }
 
-        // Registrar los datos de respuesta en PlayerDataManager
         PlayerDataManager.Instance.RegistrarDatosJugador(
             preguntaActual.TextoPregunta,
+            preguntaIndex, // Pasamos el índice de la pregunta
             preguntaActual.AlternativasConPosicion.Keys.ToList(),
             respuestaSeleccionada,
             esCorrecta,

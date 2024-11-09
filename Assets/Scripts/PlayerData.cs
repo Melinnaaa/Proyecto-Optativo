@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlayerData
 {
     public string playerName;
+    public int lastIncorrectQuestionIndex;
 
     // Lista para almacenar todas las respuestas del jugador
     public List<RegistroPregunta> respuestas = new List<RegistroPregunta>();

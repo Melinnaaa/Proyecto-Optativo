@@ -66,11 +66,11 @@ public class PlayerDataManager : MonoBehaviour
         }
     }
 
-    public void RegistrarDatosJugador(string pregunta, List<string> alternativas, string respuestaJugador, bool siFueCorrectaONo, float tiempoDeRespuesta)
+    public void RegistrarDatosJugador(string pregunta, int indicePregunta, List<string> alternativas, string respuestaJugador, bool siFueCorrectaONo, float tiempoDeRespuesta)
     {
         if (playerData == null) 
         {
-            playerData = new PlayerData { playerName = "Jugador" }; // Crear datos solo si es necesario
+            playerData = new PlayerData { playerName = "Jugador" };
         }
 
         RegistroPregunta registro = new RegistroPregunta
@@ -84,6 +84,12 @@ public class PlayerDataManager : MonoBehaviour
         };
 
         playerData.respuestas.Add(registro);
+
+        if (!siFueCorrectaONo)
+        {
+            playerData.lastIncorrectQuestionIndex = indicePregunta;
+        }
+
         SaveData();
     }
 }

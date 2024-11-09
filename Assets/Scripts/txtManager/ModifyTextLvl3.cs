@@ -518,10 +518,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 
         PlayerDataManager.Instance.RegistrarDatosJugador(
             preguntaActual.TextoPregunta,
+            preguntaIndex, // Pasamos el índice de la pregunta
             preguntaActual.AlternativasConPosicion.Keys.ToList(),
             respuestaSeleccionada,
             esCorrecta,
-            Time.time - tiempoInicioPregunta
+            Time.time - tiempoInicioPregunta // Calcula el tiempo de respuesta
         );
 
         return esCorrecta;
