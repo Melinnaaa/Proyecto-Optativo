@@ -64,11 +64,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "dobleSum(1)", 0 },
-                { "dobleSum(2)", 1 },
-                { "dobleSum(3)", 2 },
-                { "dobleSum(4)", 3 },
-                { "dobleSum(5)", 4 }
+                { "dobSum(1)", 0 },
+                { "dobSum(2)", 1 },
+                { "dobSum(3)", 2 },
+                { "dobSum(4)", 3 },
+                { "dobSum(5)", 4 }
             }
         },
         new Pregunta
@@ -96,11 +96,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potencia(3, 0)", 0 },
-                { "potencia(3, 1)", 1 },
-                { "potencia(3, 2)", 2 },
-                { "potencia(3, 3)", 3 },
-                { "potencia(3, 4)", 4 }
+                { "pot(3, 0)", 0 },
+                { "pot(3, 1)", 1 },
+                { "pot(3, 2)", 2 },
+                { "pot(3, 3)", 3 },
+                { "pot(3, 4)", 4 }
             }
         },
         new Pregunta
@@ -112,11 +112,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumMltplo(1,3)", 0 },
-                { "sumMltplo(2,3)", 1 },
-                { "sumMltplo(3,3)", 2 },
-                { "sumMltplo(4,3)", 3 },
-                { "sumMltplo(5,3)", 4 }
+                { "sumMlt(1,3)", 0 },
+                { "sumMlt(2,3)", 1 },
+                { "sumMlt(3,3)", 2 },
+                { "sumMlt(4,3)", 3 },
+                { "sumMlt(5,3)", 4 }
             }
         },
         new Pregunta
@@ -128,11 +128,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumCubos(1)", 0 },
-                { "sumCubos(2)", 1 },
-                { "sumCubos(3)", 2 },
-                { "sumCubos(4)", 3 },
-                { "sumCubos(5)", 4 }
+                { "sumCub(1)", 0 },
+                { "sumCub(2)", 1 },
+                { "sumCub(3)", 2 },
+                { "sumCub(4)", 3 },
+                { "sumCub(5)", 4 }
             }
         },
         new Pregunta
@@ -160,11 +160,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potBaseFija(2,1)", 0 },
-                { "potBaseFija(2,2)", 1 },
-                { "potBaseFija(2,3)", 2 },
-                { "potBaseFija(2,4)", 3 },
-                { "potBaseFija(2,5)", 4 }
+                { "potBF(2,1)", 0 },
+                { "potBF(2,2)", 1 },
+                { "potBF(2,3)", 2 },
+                { "potBF(2,4)", 3 },
+                { "potBF(2,5)", 4 }
             }
         },
         new Pregunta
@@ -192,11 +192,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "factorial(6)", 0 },
-                { "factorial(5)", 1 },
-                { "factorial(4)", 2 },
-                { "factorial(3)", 3 },
-                { "factorial(2)", 4 }
+                { "fact(6)", 0 },
+                { "fact(5)", 1 },
+                { "fact(4)", 2 },
+                { "fact(3)", 3 },
+                { "fact(2)", 4 }
             }
         },
         new Pregunta
@@ -208,11 +208,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "contDos(arr, 5)", 0 },
-                { "contrDos(arr, 4)", 1 },
-                { "contDos(arr, 3)", 2 },
-                { "contDos(arr, 2)", 3 },
-                { "contDos(arr, 1)", 4 }
+                { "cont(arr, 5)", 0 },
+                { "cont(arr, 4)", 1 },
+                { "cont(arr, 3)", 2 },
+                { "cont(arr, 2)", 3 },
+                { "con(arr, 1)", 4 }
             }
         },
         new Pregunta
@@ -241,11 +241,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "contVocales(\"aureo\")", 0 },
-                { "contVocales(\"ureo\")", 1 },
-                { "contVocales(\"reo\")", 2 },
-                { "contVocales(\"eo\")", 3 },
-                { "contVocales(\"o\")", 4 }
+                { "conVoc(\"aureo\")", 0 },
+                { "conVoc(\"ureo\")", 1 },
+                { "conVoc(\"reo\")", 2 },
+                { "contVoc(\"eo\")", 3 },
+                { "contVoc(\"o\")", 4 }
             }
         },
         new Pregunta

@@ -135,11 +135,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "potencia(3, 0)",
-                "potencia(3, 1)",
-                "potencia(3, 2)",
-                "potencia(3, 3)",
-                "potencia(3, 4)"
+                "pot(3, 0)",
+                "pot(3, 1)",
+                "pot(3, 2)",
+                "pot(3, 3)",
+                "pot(3, 4)"
             }
         },
         new Pregunta
@@ -159,11 +159,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumMltplo(1,3)",
-                "sumMltplo(2,3)",
-                "sumMltplo(3,3)",
-                "sumMltplo(4,3)",
-                "sumMltplo(5,3)"
+                "sumMlt(1,3)",
+                "sumMlt(2,3)",
+                "sumMlt(3,3)",
+                "sumMlt(4,3)",
+                "sumMlt(5,3)"
             }
         },
         new Pregunta
@@ -183,11 +183,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "sumCubos(1)",
-                "sumCubos(2)",
-                "sumCubos(3)",
-                "sumCubos(4)",
-                "sumCubos(5)"
+                "sumCub(1)",
+                "sumCub(2)",
+                "sumCub(3)",
+                "sumCub(4)",
+                "sumCub(5)"
             }
         },
         new Pregunta
@@ -231,11 +231,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "potBaseFija(2,1)",
-                "potBaseFija(2,2)",
-                "potBaseFija(2,3)",
-                "potBaseFija(2,4)",
-                "potBaseFija(2,5)"
+                "potBF(2,1)",
+                "potBF(2,2)",
+                "potBF(2,3)",
+                "potBF(2,4)",
+                "potBF(2,5)"
             }
         },
         new Pregunta
@@ -279,11 +279,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "factorial(6)",
-                "factorial(5)",
-                "factorial(4)",
-                "factorial(3)",
-                "factorial(2)"
+                "fact(6)",
+                "fact(5)",
+                "fact(4)",
+                "fact(3)",
+                "fact(2)"
             }
         },
         new Pregunta
@@ -304,11 +304,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "contDos(arr, 5)",
-                "contDos(arr, 4)",
-                "contDos(arr, 3)",
-                "contDos(arr, 2)",
-                "contDos(arr, 1)"
+                "cont(arr, 5)",
+                "cont(arr, 4)",
+                "cont(arr, 3)",
+                "cont(arr, 2)",
+                "cont(arr, 1)"
             }
         },
         new Pregunta
@@ -329,11 +329,11 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "contVocales(\"aureo\")",
-                "contVocales(\"ureo\")",
-                "contVocales(\"reo\")",
-                "contVocales(\"eo\")",
-                "contVocales(\"o\")"
+                "conVoc(\"aureo\")",
+                "conVoc(\"ureo\")",
+                "conVoc(\"reo\")",
+                "conVoc(\"eo\")",
+                "conVoc(\"o\")"
             }
         },
         new Pregunta

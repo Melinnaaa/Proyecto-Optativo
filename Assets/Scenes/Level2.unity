@@ -10400,7 +10400,7 @@ TextMesh:
   m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 0
-  m_FontSize: 40
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 489c27fdabc7c1a4980f4acf24811b30, type: 3}
@@ -10546,7 +10546,7 @@ TextMesh:
   m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 0
-  m_FontSize: 40
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 489c27fdabc7c1a4980f4acf24811b30, type: 3}
@@ -21044,7 +21044,7 @@ TextMesh:
   m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 0
-  m_FontSize: 40
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 489c27fdabc7c1a4980f4acf24811b30, type: 3}
@@ -25973,7 +25973,7 @@ TextMesh:
   m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 0
-  m_FontSize: 40
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 489c27fdabc7c1a4980f4acf24811b30, type: 3}
@@ -26831,7 +26831,7 @@ TextMesh:
   m_Anchor: 1
   m_Alignment: 1
   m_TabSize: 0
-  m_FontSize: 40
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 489c27fdabc7c1a4980f4acf24811b30, type: 3}
