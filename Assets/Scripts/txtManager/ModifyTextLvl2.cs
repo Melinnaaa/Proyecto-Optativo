@@ -32,11 +32,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "prodLis(arr, 0)", 0 },
-                { "prodLis(arr, 1)", 1 },
+                { "prodLis(arr, 4)", 0 },
+                { "prodLis(arr, 3)", 1 },
                 { "prodLis(arr, 2)", 2 },
-                { "prodLis(arr, 3)", 3 },
-                { "prodLis(arr, 4)", 4 }
+                { "prodLis(arr, 1)", 3 },
+                { "prodLis(arr, 0)", 4 }
             }
         },
         new Pregunta
@@ -48,11 +48,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumNat(1)", 0 },
-                { "sumNat(2)", 1 },
+                { "sumNat(5)", 0 },
+                { "sumNat(4)", 1 },
                 { "sumNat(3)", 2 },
-                { "sumNat(4)", 3 },
-                { "sumNat(5)", 4 }
+                { "sumNat(2)", 3 },
+                { "sumNat(1)", 4 }
             }
         },
         new Pregunta
@@ -64,11 +64,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "dobSum(1)", 0 },
-                { "dobSum(2)", 1 },
+                { "dobSum(5)", 0 },
+                { "dobSum(4)", 1 },
                 { "dobSum(3)", 2 },
-                { "dobSum(4)", 3 },
-                { "dobSum(5)", 4 }
+                { "dobSum(2)", 3 },
+                { "dobSum(1)", 4 }
             }
         },
         new Pregunta
@@ -80,11 +80,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumCuad(1)", 0 },
-                { "sumCuad(2)", 1 },
+                { "sumCuad(5)", 0 },
+                { "sumCuad(4)", 1 },
                 { "sumCuad(3)", 2 },
-                { "sumCuad(4)", 3 },
-                { "sumCuad(5)", 4 }
+                { "sumCuad(2)", 3 },
+                { "sumCuad(1)", 4 }
             }
         },
         new Pregunta
@@ -96,11 +96,11 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "pot(3, 0)", 0 },
-                { "pot(3, 1)", 1 },
+                { "pot(3, 4)", 0 },
+                { "pot(3, 3)", 1 },
                 { "pot(3, 2)", 2 },
-                { "pot(3, 3)", 3 },
-                { "pot(3, 4)", 4 }
+                { "pot(3, 1)", 3 },
+                { "pot(3, 0)", 4 }
             }
         },
         new Pregunta
@@ -112,75 +112,75 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumMlt(1,3)", 0 },
-                { "sumMlt(2,3)", 1 },
+                { "sumMlt(5,3)", 0 },
+                { "sumMlt(4,3)", 1 },
                 { "sumMlt(3,3)", 2 },
-                { "sumMlt(4,3)", 3 },
-                { "sumMlt(5,3)", 4 }
+                { "sumMlt(2,3)", 3 },
+                { "sumMlt(1,3)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumCubos(5) usando la función sumCubos?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular sumCubos(5) usando la función sumCubos?",
             CodigoTexto = "int sumCubos(int n) {\n" +
                         "    if (n == 0) return 0;\n" +
                         "    return n * n * n + sumCubos(n - 1);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumCub(1)", 0 },
-                { "sumCub(2)", 1 },
+                { "sumCub(5)", 0 },
+                { "sumCub(4)", 1 },
                 { "sumCub(3)", 2 },
-                { "sumCub(4)", 3 },
-                { "sumCub(5)", 4 }
+                { "sumCub(2)", 3 },
+                { "sumCub(1)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular sumMuDcr(5,5) usando la función sumMuDcr?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular sumMuDcr(5,5) usando la función sumMuDcr?",
             CodigoTexto = "int sumMuDcr(int n, int m) {\n" +
                         "    if (n == 0) return 0;\n" +
                         "    return m + sumMuDcr(n - 1, m);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "sumMuDcr(1,5)", 0 },
-                { "sumMuDcr(2,5)", 1 },
+                { "sumMuDcr(5,5)", 0 },
+                { "sumMuDcr(4,5)", 1 },
                 { "sumMuDcr(3,5)", 2 },
-                { "sumMuDcr(4,5)", 3 },
-                { "sumMuDcr(5,5)", 4 }
+                { "sumMuDcr(2,5)", 3 },
+                { "sumMuDcr(1,5)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular potBaseFija(2,5) usando la función potBaseFija?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular potBaseFija(2,5) usando la función potBaseFija?",
             CodigoTexto = "int potBaseFija(int base, int exp) {\n" +
                         "    if (exp == 0) return 1;\n" +
                         "    return base * potBaseFija(base, exp - 1);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "potBF(2,1)", 0 },
-                { "potBF(2,2)", 1 },
+                { "potBF(2,5)", 0 },
+                { "potBF(2,4)", 1 },
                 { "potBF(2,3)", 2 },
-                { "potBF(2,4)", 3 },
-                { "potBF(2,5)", 4 }
+                { "potBF(2,2)", 3 },
+                { "potBF(2,1)", 4 }
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular prodAlternante(5) usando la función prodAlternante?",
+            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular prodAlternante(5) usando la función prodAlternante?",
             CodigoTexto = "int prodAlternante(int n) {\n" +
                         "    if (n == 0) return 1;\n" +
                         "    return n * prodAlternante(n - 1);\n" +
                         "}",
             AlternativasConPosicion = new Dictionary<string, int>
             {
-                { "prodAlt(1)", 0 },
-                { "prodAlt(2)", 1 },
+                { "prodAlt(5)", 0 },
+                { "prodAlt(4)", 1 },
                 { "prodAlt(3)", 2 },
-                { "prodAlt(4)", 3 },
-                { "prodAlt(5)", 4 }
+                { "prodAlt(2)", 3 },
+                { "prodAlt(1)", 4 }
             }
         },
         new Pregunta
@@ -266,6 +266,7 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
         }
     };
 
+
     public static ModifyTextLvl2 Instance { get; private set; }
 
     private void Awake()
@@ -319,6 +320,9 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 
     public void CargarPreguntaAleatoria()
     {
+        preguntaTexto.enabled = true;
+        codigoTexto.enabled = false;
+        
         if (preguntasNivel2.Count == 0)
         {
             return; // No hay más preguntas disponibles
@@ -329,9 +333,6 @@ public class ModifyTextLvl2 : MonoBehaviour, IModifyText
 
         preguntaTexto.text = preguntaActual.TextoPregunta;
         codigoTexto.text = preguntaActual.CodigoTexto;
-
-        preguntaTexto.enabled = true;
-        codigoTexto.enabled = false;
 
         respuestasJugador.Clear();
         indiceActual = 0;

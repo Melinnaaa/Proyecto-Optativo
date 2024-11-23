@@ -56,7 +56,7 @@ public class ModifyText : MonoBehaviour, IModifyText
     {
         "n = 1",
         "exp = 0",
-        "n = 0",
+        "n = 1",
         "Pila (Stack)",
         "Desapilamiento",
         "Caso base",

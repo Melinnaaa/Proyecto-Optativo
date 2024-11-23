@@ -248,9 +248,9 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             AlternativasConPosicion = new Dictionary<string, int>
             {
                 { "1", 0 },
-                { "-2", 1 },
+                { "2", 1 },
                 { "6", 2 },
-                { "-24", 3 },
+                { "24", 3 },
                 { "120", 4 }
             },
             PilaAdicionalContenido = new List<string>
@@ -264,7 +264,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para calcular el factorial(6) usando la función factorial?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para calcular el factorial(6) usando la función factorial?",
             CodigoTexto = "int factorial(int n) {\n" +
                         "    if (n <= 1) return 1;\n" +
                         "    return n * factorial(n - 1);\n" +
@@ -279,16 +279,16 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "fact(6)",
-                "fact(5)",
-                "fact(4)",
+                "fact(2)",
                 "fact(3)",
-                "fact(2)"
+                "fact(4)",
+                "fact(5)",
+                "fact(6)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar cuántas veces aparece el número 2 en el arreglo {1, 2, 2, 3, 2} usando la función contarDos?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para contar cuántas veces aparece el número 2 en el arreglo {1, 2, 2, 3, 2} usando la función contarDos?",
             CodigoTexto = "int contarDos(int[] arr, int index) {\n" +
                         "    if (index == arr.Length) return 0;\n" +
                         "    int count = arr[index] == 2 ? 1 : 0;\n" +
@@ -304,16 +304,16 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
             },
             PilaAdicionalContenido = new List<string>
             {
-                "cont(arr, 5)",
-                "cont(arr, 4)",
-                "cont(arr, 3)",
+                "cont(arr, 1)",
                 "cont(arr, 2)",
-                "cont(arr, 1)"
+                "cont(arr, 3)",
+                "cont(arr, 4)",
+                "cont(arr, 5)"
             }
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para contar las vocales en la palabra 'aureo' usando la función contVocales?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para contar las vocales en la palabra 'aureo' usando la función contVocales?",
             CodigoTexto = "int contVocales(string palabra) {\n" +
                         "    if (palabra.Length == 0) return 0;\n" +
                         "    int suma = \"aeiouAEIOU\".Contains(palabra[0]) ? 1 : 0;\n" +
@@ -338,7 +338,7 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
         },
         new Pregunta
         {
-            TextoPregunta = "¿Cuál es el orden de apilamiento de las llamadas recursivas para invertir la cadena 'fruta' usando la función invCad?",
+            TextoPregunta = "¿Cuál es el orden de desapilamiento de las llamadas recursivas para invertir la cadena 'fruta' usando la función invCad?",
             CodigoTexto = "string invCad(string s) {\n" +
                         "    if (s.Length == 0) return s;\n" +
                         "    return s[s.Length - 1] + invCad(s.Substring(0, s.Length - 1));\n" +
@@ -422,6 +422,8 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 
     public void CargarPreguntaAleatoria()
     {
+        preguntaTexto.enabled = true;
+        codigoTexto.enabled = false;
         if (preguntasNivel3.Count == 0)
         {
             Debug.Log("No hay más preguntas disponibles.");
@@ -433,7 +435,6 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 
         preguntaTexto.text = preguntaActual.TextoPregunta;
         codigoTexto.text = preguntaActual.CodigoTexto;
-        codigoTexto.enabled = false;
 
         respuestasJugador.Clear();
         indiceActual = 0;
@@ -538,6 +539,5 @@ public class ModifyTextLvl3 : MonoBehaviour, IModifyText
 
     public void ReiniciarPreguntas()
     {
-        // Método para reiniciar el banco de preguntas (si es necesario)
     }
 }
